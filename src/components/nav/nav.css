@@ -1,0 +1,66 @@
+nav{
+    display: flex;
+    gap: 40px   ;
+}
+.nav-emblems{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #18181b;
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+    font-family: Comentario2;
+}
+
+nav > div >  ul{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px   ;
+    padding: 0;
+}
+
+li{
+    list-style: none; 
+    
+}
+
+nav > div >  ul > li> img{
+    height: 18px;
+    width: 18px;
+    cursor: pointer;
+}
+
+.button-select-color{
+    height: 18px;
+    width: 18px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.inputs-message{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #18181b;
+    padding: 10px;
+    border-radius: 20px;
+    font-family: Comentario2;
+    color: white;
+}
+
+.save-comment{
+    background-color: #a970ff;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    font-family: Comentario2;
+    padding: 8px;
+    cursor: pointer;
+}
+
+textarea, input{
+    font-family: Comentario1;
+}

@@ -1,0 +1,68 @@
+@font-face {
+    font-family: 'TwitchFont'; 
+    src: url("./fonts/Twitchy.TV.ttf") format('truetype'); 
+}
+
+@font-face {
+    font-family: 'Comentario1'; 
+    src: url("./fonts/fuenteComentario1.woff2") format('truetype'); 
+}
+
+@font-face {
+    font-family: 'Comentario2'; 
+    src: url("./fonts/fuenteComentario2.woff2") format('truetype'); 
+}
+
+header{
+    font-family: TwitchFont;
+    background-color: #a970ff;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10vh;
+}
+
+.container-main{
+    background-color: #303031;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 100px;
+    flex-direction: column;
+}
+
+.message{
+    background-color: #18181b;
+    height: 50px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding: 0px 10px;
+    font-weight: bold;
+    gap: 10px   ;
+    
+}
+
+.username{
+    font-family: Comentario2;
+    font-weight: bold;
+    color: #7c37e2;
+}
+
+.message-text{
+    font-family: Comentario1;
+}
+
+.message > .embleds-div{
+    justify-content: left;
+    display: flex;
+    gap: 3px;
+}
+
+.message > div > img{
+    height: 18px;
+    width: 18px;
+}
