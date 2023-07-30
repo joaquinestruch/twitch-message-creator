@@ -3,7 +3,7 @@ import { emblestList } from "../../utils/embleds";
 import "./nav.css";
 import { colorsName } from "../../utils/colorsName";
 import html2canvas from "html2canvas";
-import Message from "../message/Message";
+import Modal from "../ModalAddEmote";
 
 function Nav({
   setUsername,
@@ -14,9 +14,10 @@ function Nav({
   username,
   messageText,
   colorUsername,
+  setIsModalOpen,
+  isModalOpen
 }) {
   const [selectedImages, setSelectedImages] = useState({});
-
   const handleSaveCommentClick = () => {
     const elementToCapture = document.getElementsByClassName("message")[0];
 
@@ -31,10 +32,12 @@ function Nav({
 
       const link = document.createElement("a");
       link.href = dataUrl;
-      link.download = "comment_screenshot.png";
+      link.download = `message_${username}_${messageText.replace(" ", "_").replace(".", "_")}`;
       link.click();
     });
   };
+
+
 
   const handleClickImageEmbleds = (e) => {
     setEmbledsArray((oldEmbedArray) => {
@@ -52,6 +55,7 @@ function Nav({
   };
   return (
     <>
+    <Modal isOpen={isModalOpen} onClose={setIsModalOpen}/>
       <nav>
         <div className="nav-emblems">
           <p>Emblems</p>
@@ -71,7 +75,9 @@ function Nav({
                 </li>
               );
             })}
+            
           </ul>
+          <button className="save-comment" onClick={() => {setIsModalOpen(true)}}>Add custom emblem</button>
         </div>
 
         <div className="nav-emblems">

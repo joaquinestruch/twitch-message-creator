@@ -1,6 +1,6 @@
 import MessageText from "./MessageText"
 import UsernameMessage from "./UsernameMessage"
-function Message({username, messageText,colorUsername, embledsArray}) {
+function Message({username, messageText,colorUsername, embledsArray, isModalOpen, setIsModalOpen}) {
   return (
     <div className="message">
         <div className="embleds-div">

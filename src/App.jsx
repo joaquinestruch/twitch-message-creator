@@ -8,11 +8,12 @@ function App() {
   const [messageText, setMessageText] = useState("");
   const [colorUsername, setColorUsername] = useState("");
   const [embledsArray, setEmbledsArray] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
       <Header/>
-      <Main embledsArray={embledsArray} setEmbledsArray={setEmbledsArray} setUsername={setUsername} username={username} setMessageText={setMessageText} messageText={messageText} setColorUsername={setColorUsername} colorUsername={colorUsername}/>
+      <Main isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} embledsArray={embledsArray} setEmbledsArray={setEmbledsArray} setUsername={setUsername} username={username} setMessageText={setMessageText} messageText={messageText} setColorUsername={setColorUsername} colorUsername={colorUsername}/>
     </>
   )
 }

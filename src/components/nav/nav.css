@@ -22,7 +22,7 @@ nav{
 
 nav > div >  ul{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 10px   ;
     padding: 0;
 }
@@ -95,10 +95,6 @@ textarea, input{
         font-size: 1rem;
     }  
 
-
-    
-
-
     nav{
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -113,6 +109,7 @@ textarea, input{
 
         width: 80%;
         margin: auto;
+        gap: 10px;
     }   
 
     
