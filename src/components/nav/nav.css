@@ -69,6 +69,22 @@ nav > div >  ul > li> img{
     cursor: pointer;
 }
 
+ul > li{
+    position: relative;
+    width: 18px; 
+    height: 18px;
+}
+
+.image-selected {
+    opacity: 0.4;
+    border: 0.5px solid red;
+    border-radius: 5px;
+}
+
+img{
+    border: 0.5px solid transparent;
+}
+
 textarea, input{
     font-family: Comentario1;
 }
