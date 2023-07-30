@@ -6,7 +6,6 @@ function Main({username, setUsername, messageText, setMessageText, colorUsername
     <main className="container-main">
         <Nav username={username} messageText={messageText} colorUsername={colorUsername} embledsArray={embledsArray} setUsername={setUsername} setMessageText={setMessageText} setColorUsername={setColorUsername} setEmbledsArray={setEmbledsArray}/>
         <Message username={username} messageText={messageText} colorUsername={colorUsername} embledsArray={embledsArray}/>
-
     </main>
   )
 }
