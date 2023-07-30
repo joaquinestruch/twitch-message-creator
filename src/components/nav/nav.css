@@ -79,18 +79,25 @@ textarea, input{
         font-size: 1rem;
     }  
 
+
+    
+
+
     nav{
         display: grid;
         grid-template-columns: 1fr 1fr;
+        
+        margin: auto;
         
     }
     
 
 
     nav > .nav-emblems, .inputs-message{
-        width: 50%;
+
+        width: 80%;
         margin: auto;
-    }
+    }   
 
     
 

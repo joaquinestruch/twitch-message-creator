@@ -68,24 +68,19 @@ header{
 }
 
 @media (max-width: 512px) and (max-height: 900px) {
-    
-    h1{
-        font-size: 1rem;
-    }  
 
-    nav{
-        display: flex;
-        flex-direction: column;
-        
-    }
-    
-    .message{
+    header{
+        z-index: 1;
         position: relative;
     }
 
-    nav > .nav-emblems, .inputs-message{
-        width: 50%;
-        margin: auto;
+    .container-main{
+        min-height: 150%;
+        width: 100%;
+        padding-top: 20px;
+        padding-bottom: 40px;
+        z-index: 0;
+        
     }
 
     
