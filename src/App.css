@@ -66,3 +66,28 @@ header{
     height: 18px;
     width: 18px;
 }
+
+@media (max-width: 512px) and (max-height: 900px) {
+    
+    h1{
+        font-size: 1rem;
+    }  
+
+    nav{
+        display: flex;
+        flex-direction: column;
+        
+    }
+    
+    .message{
+        position: relative;
+    }
+
+    nav > .nav-emblems, .inputs-message{
+        width: 50%;
+        margin: auto;
+    }
+
+    
+
+}

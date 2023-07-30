@@ -3,15 +3,17 @@ import { emblestList } from '../../utils/embleds'
 import "./nav.css"
 import { colorsName } from '../../utils/colorsName'
 import html2canvas from 'html2canvas';
+import Message from '../message/Message';
 
-function Nav({setUsername, setMessageText,setColorUsername, setEmbledsArray,embledsArray}) {
+
+function Nav({setUsername, setMessageText,setColorUsername, setEmbledsArray,embledsArray, username, messageText, colorUsername}) {
 
 
 
     const handleSaveCommentClick = () => {
         const elementToCapture = document.getElementsByClassName('message')[0];
       
-        // Opciones para html2canvas
+        
         const options = {
           allowTaint: true,
           useCORS: true,
@@ -20,10 +22,8 @@ function Nav({setUsername, setMessageText,setColorUsername, setEmbledsArray,embl
       
         html2canvas(elementToCapture, options)
           .then((canvas) => {
-            // Convertir el canvas a imagen PNG
             const dataUrl = canvas.toDataURL('image/png');
       
-            // Crear un enlace temporal y descargar la imagen
             const link = document.createElement('a');
             link.href = dataUrl;
             link.download = 'comment_screenshot.png';
@@ -31,8 +31,21 @@ function Nav({setUsername, setMessageText,setColorUsername, setEmbledsArray,embl
           });
       };
 
+    const handleClickImageEmbleds = (e, event) => {
+
+        setEmbledsArray((oldEmbedArray) => {                                
+            if (oldEmbedArray.includes(e)) {
+            return oldEmbedArray.filter(item => item !== e);
+            } else {
+            return [...oldEmbedArray, e];
+            }
+        });
+
+    };
   return (
-    <nav>
+    <>
+
+<nav>
         <div className='nav-emblems'>
             <p>
             Emblems
@@ -41,16 +54,8 @@ function Nav({setUsername, setMessageText,setColorUsername, setEmbledsArray,embl
             {
                 emblestList.map((e) => {
                     return <li key={crypto.randomUUID()}>
-                        <img src={e} alt="" onClick={(event) => {
-
-                            setEmbledsArray((oldEmbedArray) => {
-                                if (oldEmbedArray.includes(e)) {
-                                return oldEmbedArray.filter(item => item !== e);
-                                } else {
-                                return [...oldEmbedArray, e];
-                                }
-                            });
-
+                        <img className='image-embled' src={e} alt="" onClick={(event) => {
+                            handleClickImageEmbleds(e, event)
                         }} />
                     </li>
                 })
@@ -95,8 +100,12 @@ function Nav({setUsername, setMessageText,setColorUsername, setEmbledsArray,embl
             <button className='save-comment' onClick={handleSaveCommentClick}>Save comment</button>
 
         </div>
+        
 
     </nav>
+
+    </>
+   
   )
 }
 

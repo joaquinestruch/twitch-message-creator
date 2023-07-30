@@ -5,7 +5,7 @@ function Message({username, messageText,colorUsername, embledsArray}) {
     <div className="message">
         <div className="embleds-div">
           {
-            embledsArray.length > 0 ? embledsArray.map((e) => {
+            embledsArray?.length > 0 ? embledsArray.map((e) => {
               return <img src={e} alt={e} key={crypto.randomUUID()} />
             }) : ""
           }

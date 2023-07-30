@@ -1,7 +1,11 @@
 nav{
     display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 40px   ;
 }
+
+
 .nav-emblems{
     display: flex;
     align-items: center;
@@ -12,6 +16,8 @@ nav{
     padding: 10px;
     border-radius: 20px;
     font-family: Comentario2;
+    height: 100%;
+    width: 200px;
 }
 
 nav > div >  ul{
@@ -49,6 +55,8 @@ nav > div >  ul > li> img{
     border-radius: 20px;
     font-family: Comentario2;
     color: white;
+    height: 100%;
+    width: 200px;
 }
 
 .save-comment{
@@ -63,4 +71,27 @@ nav > div >  ul > li> img{
 
 textarea, input{
     font-family: Comentario1;
+}
+
+@media (max-width: 512px) and (max-height: 900px) {
+    
+    h1{
+        font-size: 1rem;
+    }  
+
+    nav{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        
+    }
+    
+
+
+    nav > .nav-emblems, .inputs-message{
+        width: 50%;
+        margin: auto;
+    }
+
+    
+
 }
