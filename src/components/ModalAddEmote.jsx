@@ -36,12 +36,16 @@ const Modal = ({ isOpen, onClose }) => {
           }}>
           <input className="modal-input" type="text" placeholder="Image link" style={{border: "1px solid #a970ff"}} />
 
-            {
+
+          <div style={{display: "flex", "gap": "20px"}}>
+
+          <button>Add</button>
+          {
               isCorrect === false ? <div className="alert-invalid-link-modal">Invalid Link</div> : ""
             }
 
+          </div>
           
-          <button>Add</button>
           </form>
 
         </div>
