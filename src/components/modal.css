@@ -1,0 +1,9 @@
+.modal-input{
+    max-width: 250px;
+    margin-right: 30px;
+    border: 1px solid #a970ff;
+    border-radius: 10px;
+    background-color: #303031;
+    color: white;
+    padding: 5px;
+}

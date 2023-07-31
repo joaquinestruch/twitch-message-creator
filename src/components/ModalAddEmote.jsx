@@ -1,4 +1,5 @@
 import { emblestList } from "../utils/embleds";
+import "./modal.css"
 
 const Modal = ({ isOpen, onClose }) => {
     return (
@@ -22,7 +23,7 @@ const Modal = ({ isOpen, onClose }) => {
             }
         
           }}>
-          <input type="text" placeholder="Image link" />
+          <input className="modal-input" type="text" placeholder="Image link" />
           <button>Add</button>
           </form>
 

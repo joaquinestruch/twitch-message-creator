@@ -106,6 +106,7 @@ function Nav({
           >
             <span>Username</span>
             <input
+             
               type="text"
               onChange={(e) => {
                 setUsername(e.target.value);
