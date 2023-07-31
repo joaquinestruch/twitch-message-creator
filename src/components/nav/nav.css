@@ -25,6 +25,7 @@ nav > div >  ul{
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 10px   ;
     padding: 0;
+    height: 150px;
 }
 
 li{
@@ -44,7 +45,11 @@ nav > div >  ul > li> img{
     border: none;
     border-radius: 50%;
     cursor: pointer;
+    border: 2px solid transparent;
 }
+
+
+
 
 .inputs-message{
     display: flex;
