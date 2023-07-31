@@ -1,18 +1,20 @@
 function MessageText({ messageText }) {
-  const formatText = (text) => {
-    const words = text.split(' ');
-    const groupedWords = [];
-    while (words.length > 0) {
-      groupedWords.push(words.splice(0, 5).join(' '));
-    }
-    return groupedWords.join('<br>');
-  };
 
-  const formattedText = messageText.length < 1 ? "message" : formatText(messageText);
+  // const formatText = (text, groupLength) => {
+  //   let formattedText = '';
+  //   for (let i = 0; i < text.length; i += groupLength) {
+  //     formattedText += text.substr(i, groupLength);
+  //     if (i + groupLength < text.length) {
+  //       formattedText += '<br>';
+  //     }
+  //   }
+  //   return formattedText;
+  // };
+  // const formattedText = messageText.length < 1 ? "message" : formatText(messageText);
 
   return (
     <p style={{ color: "white" }} className="message-text">
-      <span dangerouslySetInnerHTML={{ __html: formattedText }} />
+      {messageText.length < 1 ? "message" : messageText}
     </p>
   );
 }

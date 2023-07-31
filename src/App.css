@@ -35,7 +35,6 @@ header{
 
 .message{
     background-color: #18181b;
-    
     border-radius: 20px;
     display: flex;
     align-items: center;
@@ -43,7 +42,8 @@ header{
     padding: 0px 10px;
     font-weight: bold;
     gap: 10px   ;
-    
+
+    overflow: hidden;
     
 }
 
@@ -51,17 +51,26 @@ header{
     font-family: Comentario2;
     font-weight: bold;
     color: #7c37e2;
+    white-space: nowrap;
+    display: flex; 
+    align-items: center;
+    gap: 10px;
 }
 
 .message-text{
     font-family: Comentario1;
-
+    max-width: 28ch;
 }
+
+.message-text::not(:first-line) {
+    background-color: red;
+  }
 
 .message > .embleds-div{
     justify-content: left;
     display: flex;
     gap: 3px;
+
 }
 
 .message > div > img{

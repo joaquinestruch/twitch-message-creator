@@ -10,7 +10,7 @@ function Message({username, messageText,colorUsername, embledsArray, isModalOpen
             }) : ""
           }
         </div>
-        <UsernameMessage username={username} colorUsername={colorUsername}/>
+        <UsernameMessage messageText={messageText} username={username} colorUsername={colorUsername}/>
         <MessageText messageText={messageText}/>
     </div>
   )
