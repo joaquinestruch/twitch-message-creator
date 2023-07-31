@@ -9,7 +9,7 @@ const Modal = ({ isOpen, onClose }) => {
          
           <h2 style={{display:"flex", "alignItems": "center", "gap":"20px"}}>Add custom embled <button onClick={(e) => {
             onClose(false)
-          }}>x</button></h2>
+          }}>x  </button></h2>
          
           <form action="submit" onSubmit={(e) => {
             e.preventDefault()

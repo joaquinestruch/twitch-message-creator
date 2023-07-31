@@ -14,13 +14,20 @@
 }
 
 header{
-    font-family: TwitchFont;
+    font-family: Comentario2;
     background-color: #a970ff;
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 10vh;
+    gap: 20px;
+}
+
+header > img{
+  height: 60px;
+  object-fit: contain;
+  width: 60px;
 }
 
 .container-main{
