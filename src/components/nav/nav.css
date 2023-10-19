@@ -104,20 +104,24 @@ textarea, input{
     nav{
         display: grid;
         grid-template-columns: 1fr 1fr;
-        
-        margin: auto;
+        align-items: center; 
+
+    
         
     }
     
-
+    .inputs-message{
+        width: 120%;
+        margin: auto;
+        gap: 10px;
+        
+    }
 
     nav > .nav-emblems, .inputs-message{
-
         width: 80%;
         margin: auto;
         gap: 10px;
     }   
 
-    
 
 }
