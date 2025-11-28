@@ -166,3 +166,18 @@ textarea{
   .modal button:hover {
     background-color: #a970ff;
   }
+.kick-button {
+    background-color: #53FC18;
+    color: #000000;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-family: Comentario2;
+    transition: transform 0.2s ease-in-out, background-color 0.2s;
+}
+
+.kick-button:hover {
+    transform: scale(1.05);
+    background-color: #42c913;
+}
