@@ -36,6 +36,11 @@ function PrivacyPolicy() {
                 <h2>Contact Us</h2>
                 <p>If you have any questions about this Privacy Policy, you can contact us by visiting the main page of our website.</p>
 
+                <h2>Ezoic Privacy Policy</h2>
+                <p>This site uses Ezoic to manage advertising and analytics. For more information about how Ezoic collects and uses data, please see their privacy policy below:</p>
+
+                {/* Ezoic Privacy Policy Embed */}
+                <span id="ezoic-privacy-policy-embed"></span>
 
                 <footer className="privacy-footer">
                     &copy; 2025 Twitch Message Creator. All rights reserved.
