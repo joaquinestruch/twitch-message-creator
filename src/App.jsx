@@ -14,9 +14,9 @@ function App() {
   const [showPrivacy, setShowPrivacy] = useState(false);
 
   useEffect(() => {
-    // Check if URL contains privacy-policy
+    // Check if URL contains privacy-policy or policy-privacy
     const path = window.location.pathname;
-    if (path.includes('privacy-policy')) {
+    if (path.includes('privacy-policy') || path.includes('policy-privacy')) {
       setShowPrivacy(true);
     }
   }, []);
