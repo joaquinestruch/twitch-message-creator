@@ -55,13 +55,13 @@ function Nav({
   };
   return (
     <>
-    <Modal isOpen={isModalOpen} onClose={setIsModalOpen}/>
+      <Modal isOpen={isModalOpen} onClose={setIsModalOpen} />
       <nav>
         <div className="nav-emblems">
           <p>Emblems</p>
           <ul>
             {emblestList.map((e) => {
-            const isSelected = selectedImages[e];
+              const isSelected = selectedImages[e];
               return (
                 <li key={crypto.randomUUID()}>
                   <img
@@ -75,9 +75,9 @@ function Nav({
                 </li>
               );
             })}
-            
+
           </ul>
-          <button className="save-comment" onClick={() => {setIsModalOpen(true)}}>Add custom emblem</button>
+          <button className="save-comment" onClick={() => { setIsModalOpen(true) }}>Add custom emblem</button>
         </div>
 
         <div className="nav-emblems">
@@ -106,7 +106,7 @@ function Nav({
           >
             <span>Username</span>
             <input
-             
+
               type="text"
               onChange={(e) => {
                 setUsername(e.target.value);
@@ -130,6 +130,11 @@ function Nav({
           <button className="save-comment" onClick={handleSaveCommentClick}>
             Save comment
           </button>
+
+          <a href='https://ko-fi.com/N4N41PTRX2' target='_blank' rel='noopener noreferrer' className='support-button'>
+            <img height='36' style={{ border: '0px', height: '25px', verticalAlign: "middle", marginRight: "5px" }} src='https://storage.ko-fi.com/cdn/cup-border.png' border='0' alt='Buy Me a Coffee at ko-fi.com' />
+            Support me on Ko-fi
+          </a>
         </div>
       </nav>
     </>
