@@ -13,7 +13,7 @@ function Message({
       <div className="embleds-div" >
         {embledsArray?.length > 0
           ? embledsArray.map((e) => {
-              return <img src={e} alt={e} key={crypto.randomUUID()} />;
+              return <img src={e} alt={e} key={e} />;
             })
           : ""}
 

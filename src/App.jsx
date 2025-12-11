@@ -1,36 +1,20 @@
-import { useState, useEffect } from 'react'
-import './App.css'
-import Header from './components/Header'
-import Main from './components/Main'
-import PrivacyPolicy from './components/PrivacyPolicy'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import './App.css';
+import HomeCreator from './pages/HomeCreator';
+import AiChatGenerator from './pages/AiChatGenerator';
+import PrivacyPolicy from './components/PrivacyPolicy';
 
 function App() {
-
-  const [username, setUsername] = useState("");
-  const [messageText, setMessageText] = useState("");
-  const [colorUsername, setColorUsername] = useState("");
-  const [embledsArray, setEmbledsArray] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showPrivacy, setShowPrivacy] = useState(false);
-
-  useEffect(() => {
-    // Check if URL contains privacy-policy or policy-privacy
-    const path = window.location.pathname;
-    if (path.includes('privacy-policy') || path.includes('policy-privacy')) {
-      setShowPrivacy(true);
-    }
-  }, []);
-
-  if (showPrivacy) {
-    return <PrivacyPolicy />;
-  }
-
   return (
-    <>
-      <Header />
-      <Main isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} embledsArray={embledsArray} setEmbledsArray={setEmbledsArray} setUsername={setUsername} username={username} setMessageText={setMessageText} messageText={messageText} setColorUsername={setColorUsername} colorUsername={colorUsername} />
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomeCreator />} />
+        <Route path="/ai-chat" element={<AiChatGenerator />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/policy-privacy" element={<PrivacyPolicy />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

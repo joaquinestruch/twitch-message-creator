@@ -63,7 +63,7 @@ function Nav({
             {emblestList.map((e) => {
               const isSelected = selectedImages[e];
               return (
-                <li key={crypto.randomUUID()}>
+                <li key={e}>
                   <img
                     src={e}
                     alt=""
@@ -85,7 +85,7 @@ function Nav({
           <ul>
             {colorsName.map((e) => {
               return (
-                <li key={crypto.randomUUID()}>
+                <li key={e}>
                   <button
                     style={{ backgroundColor: e }}
                     onClick={() => {
