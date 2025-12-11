@@ -29,7 +29,51 @@ function AiChatGenerator() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   
-  // ... SEO ...
+  // SEO: Optimized for "Twitch Chat Simulator" & "Fake Chat Generator" & "Message Creator"
+  useEffect(() => {
+    const updateSeoMetadata = () => {
+        // 1. Precise Title - Targeting "Message Creator" (#1 keyword)
+        document.title = "Twitch Message Creator | Fake Chat Generator & Maker";
+        
+        // 2. Meta Description
+        const descContent = "The best free Twitch Message Creator and Chat Generator. Create realistic fake chat logs, memes, and stream overlays instantly. Customizable badges, emotes, and usernames.";
+        let metaDesc = document.querySelector('meta[name="description"]');
+        if (!metaDesc) {
+            metaDesc = document.createElement('meta');
+            metaDesc.name = "description";
+            document.head.appendChild(metaDesc);
+        }
+        metaDesc.content = descContent;
+
+        // 3. Keywords
+        const keywordsContent = "twitch message creator, twitch chat generator, twitch message generator, twitch chat maker, fake twitch chat, stream overlay, chat simulator";
+        let metaKeywords = document.querySelector('meta[name="keywords"]');
+        if (!metaKeywords) {
+            metaKeywords = document.createElement('meta');
+            metaKeywords.name = "keywords";
+            document.head.appendChild(metaKeywords);
+        }
+        metaKeywords.content = keywordsContent;
+
+        // 4. Open Graph (Social Sharing)
+        const setOgTag = (property, content) => {
+            let tag = document.querySelector(`meta[property="${property}"]`);
+            if (!tag) {
+                tag = document.createElement('meta');
+                tag.setAttribute('property', property);
+                document.head.appendChild(tag);
+            }
+            tag.content = content;
+        };
+
+        setOgTag('og:title', "Twitch Message Creator - Make Fake Chat Logs Instantly");
+        setOgTag('og:description', "Create realistic Twitch chat messages and stream overlays. The ultimate Twitch Chat Maker for content creators.");
+        setOgTag('og:type', "website");
+        setOgTag('og:url', window.location.href);
+    };
+
+    updateSeoMetadata();
+  }, []);
 
   // Animation & Data State
   const [messagePool, setMessagePool] = useState([]);
@@ -41,6 +85,43 @@ function AiChatGenerator() {
   const [language, setLanguage] = useState(searchParams.get("lang") || "en"); 
 
   const [messageCount, setMessageCount] = useState(30);
+
+  // Manual Mode State
+  const [mode, setMode] = useState("ai"); // 'ai' or 'manual'
+  const [manualUsername, setManualUsername] = useState("Streamer");
+  const [manualMessage, setManualMessage] = useState("");
+  const [manualColor, setManualColor] = useState("#FF0000");
+  const [manualBadges, setManualBadges] = useState({
+      broadcaster: false, moderator: false, verified: false, vip: false, subscriber: true, prime: false
+  });
+
+  const handleAddManualMessage = () => {
+      if (!manualMessage.trim()) return;
+      
+      const badges = [];
+      if (manualBadges.broadcaster) badges.push(BADGE_ASSETS.BROADCASTER);
+      if (manualBadges.moderator) badges.push(BADGE_ASSETS.MODERATOR);
+      if (manualBadges.verified) badges.push(BADGE_ASSETS.VERIFIED);
+      if (manualBadges.vip) badges.push(BADGE_ASSETS.VIP);
+      if (manualBadges.subscriber) badges.push(BADGE_ASSETS.SUBSCRIBER);
+      if (manualBadges.prime) badges.push(BADGE_ASSETS.PRIME_REAL);
+
+      const newMessage = {
+          uniqueId: crypto.randomUUID(),
+          timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+          username: manualUsername || "User",
+          messageText: manualMessage,
+          badges: badges,
+          colorUsername: manualColor
+      };
+
+      setVisibleMessages(prev => [...prev, newMessage]);
+      setManualMessage(""); 
+      
+      if (chatContainerRef.current) {
+         requestAnimationFrame(() => chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight);
+      }
+  };
 
   // Sync State to URL Params
   useEffect(() => {
@@ -272,7 +353,9 @@ function AiChatGenerator() {
         const url = EMOTES[emote];
         // Replace whole word matches only
         const regex = new RegExp(`\\b${emote}\\b`, 'g'); 
-        newText = newText.replace(regex, `<img src="${url}" class="chat-emote" style="height:24px; vertical-align:middle; margin:0 2px;" alt="${emote}" />`);
+        // Add onerror handler to revert to text if image fails
+        const imgTag = `<img src="${url}" class="chat-emote" style="height:24px; vertical-align:middle; margin:0 2px;" alt="${emote}" onerror="this.style.display='none';this.after(document.createTextNode(this.alt));" />`;
+        newText = newText.replace(regex, imgTag);
     });
     return newText;
   };
@@ -326,7 +409,30 @@ function AiChatGenerator() {
             {/* Controls Dashboard */}
             {!isObsMode && (
             <div className="controls-dashboard">
+                {/* Mode Toggle Tabs */}
+                <div className="mode-tabs">
+                    <button 
+                        className={`mode-tab-btn ${mode === 'ai' ? 'active' : ''}`}
+                        onClick={() => setMode('ai')}
+                    >
+                        🤖 AI Generator
+                    </button>
+                    <button 
+                        className={`mode-tab-btn ${mode === 'manual' ? 'active' : ''}`}
+                        onClick={() => setMode('manual')}
+                    >
+                        ✍️ Manual Creator
+                    </button>
+                </div>
+
+                {/* AI MODE CONTROLS */}
+                {mode === 'ai' && (
                 <div className="controls-grid">
+                    {/* ... (AI Controls - keeping previous logical structure if needed, but simplified here for brevity if replace handles partials well. 
+                         However, this Replace call targets the WHOLE dashboard container to ensure clean switch) 
+                         Wait, the instruction says "Replace the inline-styled Manual Mode section". 
+                         I will be careful to preserve the AI controls content.
+                    */}
                     <div className="control-group">
                         <label className="control-label">Channel Name</label>
                         <input 
@@ -350,12 +456,7 @@ function AiChatGenerator() {
 
                     <div className="control-group">
                         <label className="control-label">Language</label>
-                        <select 
-                            className="custom-input"
-                            value={language}
-                            onChange={(e) => setLanguage(e.target.value)}
-                            style={{cursor:'pointer'}}
-                        >
+                        <select className="custom-input" value={language} onChange={(e) => setLanguage(e.target.value)}>
                             <option value="es">Español (ES/LATAM)</option>
                             <option value="en">English (US/Global)</option>
                         </select>
@@ -363,12 +464,7 @@ function AiChatGenerator() {
 
                     <div className="control-group">
                         <label className="control-label">Complexity</label>
-                        <select 
-                            className="custom-input"
-                            value={complexity}
-                            onChange={(e) => setComplexity(e.target.value)}
-                            style={{cursor:'pointer'}}
-                        >
+                        <select className="custom-input" value={complexity} onChange={(e) => setComplexity(e.target.value)}>
                             <option value="simple">Short / Spammy</option>
                             <option value="mixed">Mixed</option>
                             <option value="complex">Long / Chatty</option>
@@ -376,15 +472,14 @@ function AiChatGenerator() {
                     </div>
 
                     <div className="control-group" style={{gridColumn: '1 / -1'}}>
-                        <label className="control-label">Allowed Badges</label>
-                        <div style={{display: 'flex', flexWrap: 'wrap', gap: '15px', marginTop: '5px'}}>
+                        <label className="control-label">Allowed Badges (AI)</label>
+                        <div className="badge-selector-group">
                             {BADGES.map(badge => (
-                                <label key={badge.id} style={{display: 'flex', alignItems: 'center', gap: '5px', color: '#efeff1', fontSize: '0.9rem', cursor: 'pointer'}}>
+                                <label key={badge.id} className={`badge-toggle-btn ${enabledBadges[badge.id] ? 'active' : ''}`}>
                                     <input 
                                         type="checkbox" 
                                         checked={enabledBadges[badge.id]} 
                                         onChange={() => toggleBadge(badge.id)}
-                                        style={{accentColor: '#a970ff'}}
                                     />
                                     {badge.label}
                                 </label>
@@ -403,20 +498,87 @@ function AiChatGenerator() {
                         />
                     </div>
                 </div>
+                )}
 
-                <div style={{marginTop: '30px', display: 'flex', gap: '20px', justifyContent:'center'}}>
-                    <button onClick={handleGenerate} disabled={isLoading} className="btn-primary" style={{maxWidth: '200px'}}>
-                        {isLoading ? "Generating..." : "Generate New Chat"}
-                    </button>
+                {/* MANUAL MODE CONTROLS */}
+                {mode === 'manual' && (
+                <div className="controls-grid">
+                    <div className="manual-grid-row" style={{gridColumn: '1 / -1'}}>
+                        <div className="control-group" style={{flex: 1}}>
+                             <label className="control-label">Username</label>
+                             <input 
+                                type="text" 
+                                className="custom-input"
+                                value={manualUsername}
+                                onChange={(e) => setManualUsername(e.target.value)}
+                             />
+                        </div>
+                        <div className="control-group">
+                             <label className="control-label">Color</label>
+                             <input 
+                                type="color" 
+                                className="manual-color-picker"
+                                value={manualColor}
+                                onChange={(e) => setManualColor(e.target.value)}
+                             />
+                        </div>
+                    </div>
                     
-                    {messagePool.length > 0 && (
-                        <button onClick={toggleStream} className="btn-secondary" style={{maxWidth: '200px', background: isStreaming ? '#ff4f4d' : '#2f2f35'}}>
-                            {isStreaming ? "⏹ Stop Stream" : "▶ Start Stream"}
+                    <div className="control-group" style={{gridColumn: '1 / -1'}}>
+                        <label className="control-label">Message</label>
+                        <textarea 
+                            className="custom-input" 
+                            rows="2"
+                            value={manualMessage}
+                            onChange={(e) => setManualMessage(e.target.value)}
+                            placeholder="Type a message (Kappa supported)..."
+                            style={{resize: 'none', height: '60px'}}
+                        ></textarea>
+                    </div>
+
+                    <div className="control-group" style={{gridColumn: '1 / -1'}}>
+                        <label className="control-label">Badges</label>
+                        <div className="badge-selector-group">
+                             {['subscriber', 'moderator', 'verified', 'vip', 'broadcaster', 'prime'].map(bid => (
+                                 <label key={bid} className={`badge-toggle-btn ${manualBadges[bid] ? 'active' : ''}`}>
+                                    <input 
+                                        type="checkbox" 
+                                        checked={manualBadges[bid]} 
+                                        onChange={() => setManualBadges(p => ({...p, [bid]: !p[bid]}))}
+                                    />
+                                    {bid.charAt(0).toUpperCase() + bid.slice(1)}
+                                 </label>
+                             ))}
+                        </div>
+                    </div>
+                </div>
+                )}
+
+                <div className="manual-actions">
+                    {mode === 'ai' ? (
+                        <>
+                        <button onClick={handleGenerate} disabled={isLoading} className="btn-primary">
+                            {isLoading ? "Generating..." : "Generate New Chat"}
                         </button>
+                        {messagePool.length > 0 && (
+                            <button onClick={toggleStream} className="btn-secondary" style={{background: isStreaming ? '#ff4f4d' : '#2f2f35'}}>
+                                {isStreaming ? "⏹ Stop Stream" : "▶ Start Stream"}
+                            </button>
+                        )}
+                        </>
+                    ) : ( 
+                        <>
+                        <button onClick={handleAddManualMessage} className="btn-primary" style={{background: '#00db84', color: '#000'}}>
+                            + Add Message
+                        </button>
+                        <button onClick={() => setVisibleMessages([])} className="btn-secondary">
+                            Clear Chat
+                        </button>
+                        </>
                     )}
 
-                     <button onClick={toggleObsMode} className="toggle-obs-btn">
-                        Pop-out Chat (OBS Mode) ↗
+                     <button onClick={toggleObsMode} className="toggle-obs-btn" style={{width:'auto'}}>
+                        Pop-out ↗
                      </button>
                 </div>
             </div>

@@ -48,17 +48,149 @@ body {
 /* Controls Section (Below Video) */
 .controls-dashboard {
     background-color: #0e0e10;
-    padding: 20px 40px;
+    padding: 15px 25px; /* Reduced padding */
     border-top: 1px solid #2f2f35;
-    flex-shrink: 0; /* Don't shrink below content */
+    flex-shrink: 0; 
 }
 
 .controls-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Smaller min-width */
+    gap: 12px; /* Tighter gap */
     max-width: 1200px;
     margin: 0 auto;
+}
+
+/* ... (Keep Chat Sidebar styles same until Manual Mode styles) ... */
+
+/* Control Components */
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Reduced gap */
+}
+
+.control-label {
+    color: #adadb8;
+    font-size: 0.75rem; /* Smaller font */
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.custom-input {
+    background: #18181b;
+    border: 2px solid #2f2f35;
+    color: #fff;
+    padding: 8px; /* Reduced padding */
+    border-radius: 4px;
+    font-size: 0.85rem; /* Smaller font */
+    font-weight: 600;
+}
+.custom-input:focus { border-color: #a970ff; outline: none; }
+
+/* ... (Skip to Manual Mode Styles) ... */
+
+/* --- Manual Creation Mode Styles --- */
+.mode-tabs {
+    display: flex;
+    border-bottom: 2px solid #2f2f35;
+    margin-bottom: 15px; /* Reduced margin */
+}
+
+.mode-tab-btn {
+    flex: 1;
+    padding: 8px; /* Reduced padding */
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #adadb8;
+    font-weight: 700;
+    font-size: 0.9rem; /* Smaller font */
+    transition: all 0.2s ease;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px; 
+}
+
+.mode-tab-btn:hover { color: #efeff1; }
+
+.mode-tab-btn.active {
+    color: #a970ff;
+    border-bottom-color: #a970ff;
+}
+
+.manual-grid-row {
+    display: flex;
+    gap: 10px; /* Reduced gap */
+}
+
+.manual-color-picker {
+    width: 50px; /* Smaller */
+    height: 35px; /* Smaller */
+    padding: 0;
+    border: 2px solid #2f2f35;
+    background: #0e0e10;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.badge-selector-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px; /* Tighter badges */
+    margin-top: 4px;
+}
+
+.badge-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.75rem; /* Smaller badge font */
+    padding: 4px 10px; /* Reduced padding */
+    background: #18181b;
+    border: 1px solid #2f2f35;
+    border-radius: 16px;
+    color: #adadb8;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.badge-toggle-btn.active {
+    background: rgba(169, 112, 255, 0.15);
+    border-color: #a970ff;
+    color: #a970ff;
+}
+
+.badge-toggle-btn input { display: none; }
+
+.manual-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px; /* Reduced margin */
+}
+
+.btn-primary {
+    background: #9146FF;
+    color: white;
+    padding: 10px 20px; /* Reduced padding */
+    border: none;
+    border-radius: 4px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.9rem; /* Smaller font */
+    flex: 1;
+}
+
+.btn-secondary {
+    background: #2f2f35;
+    color: white;
+    padding: 10px; /* Reduced padding */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    flex: 1;
 }
 
 /* Chat Sidebar (Fixed Right) */
@@ -188,21 +320,28 @@ body {
     background-color: transparent !important;
 }
 
-/* Chat Sidebar (Twitch Style) */
+/* Chat Sidebar (Twitch Style) - Flex Item now, NOT fixed to avoid overlap */
 .ai-chat-wrapper {
     background-color: #18181b; 
-    width: 340px; /* Standard Twitch Sidebar Width */
-    height: 100%; /* Full Height */
+    width: 340px; 
+    height: 100%; 
     font-family: 'Inter', sans-serif;
     color: #efeff1;
     display: flex;
     flex-direction: column;
     border-left: 1px solid #2f2f35;
-    /* Fixed position on desktop for that 'Sidebar' feel */
-    position: fixed; 
+    flex-shrink: 0; /* Prevent shrinking */
+    z-index: 50;
+    position: relative;
+}
+
+.ai-chat-wrapper.obs-active {
+    position: absolute; /* Only absolute in OBS mode */
     right: 0;
     top: 0;
     bottom: 0;
+    width: 100%;
+    border: none;
     z-index: 100;
 }
 
@@ -289,6 +428,84 @@ body {
 }
 .toggle-obs-btn:hover { border-color: #9146FF; color: #9146FF; }
 
+/* --- Manual Creation Mode Styles --- */
+.mode-tabs {
+    display: flex;
+    border-bottom: 2px solid #2f2f35;
+    margin-bottom: 24px;
+}
+
+.mode-tab-btn {
+    flex: 1;
+    padding: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #adadb8;
+    font-weight: 700;
+    transition: all 0.2s ease;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px; /* overlap border */
+}
+
+.mode-tab-btn:hover { color: #efeff1; }
+
+.mode-tab-btn.active {
+    color: #a970ff;
+    border-bottom-color: #a970ff;
+}
+
+.manual-grid-row {
+    display: flex;
+    gap: 15px;
+}
+
+.manual-color-picker {
+    width: 60px;
+    height: 42px;
+    padding: 0;
+    border: 2px solid #2f2f35;
+    background: #0e0e10;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.badge-selector-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.badge-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    background: #18181b;
+    border: 1px solid #2f2f35;
+    border-radius: 20px;
+    color: #adadb8;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.badge-toggle-btn.active {
+    background: rgba(169, 112, 255, 0.15);
+    border-color: #a970ff;
+    color: #a970ff;
+}
+
+.badge-toggle-btn input { display: none; }
+
+.manual-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
 /* Chat Internals */
 .chat-header-gift {
     background-color: #18181b; /* Seamless header */
@@ -366,7 +583,39 @@ body {
     margin-right: 5px;
 }
 
+/* ... existing styles ... */
+
 .chat-text {
     color: #efeff1;
     word-break: break-word;
+}
+
+/* --- Responsive Media Queries --- */
+@media (max-width: 900px) {
+    .container-main {
+        flex-direction: column;
+        height: auto; /* Allow growth */
+        overflow-y: auto; /* Scroll whole page */
+    }
+
+    .stream-layout-left {
+        flex: none;
+        height: auto;
+        min-height: 400px; /* Ensure space for video+controls */
+    }
+
+    .video-placeholder {
+        min-height: 250px; /* Smaller video on mobile */
+    }
+
+    .ai-chat-wrapper {
+        width: 100%; /* Full width chat at bottom */
+        height: 400px; /* Fixed height for chat area */
+        border-left: none;
+        border-top: 1px solid #2f2f35;
+    }
+    
+    body {
+        overflow: auto; /* Enable page scroll */
+    }
 }
