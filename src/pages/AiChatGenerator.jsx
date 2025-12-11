@@ -318,6 +318,41 @@ function AiChatGenerator() {
     setIsStreaming(!isStreaming);
   };
   
+  // Event Logic
+  const handleTriggerEvent = (type) => {
+      let msgData = {};
+      const base = {
+          uniqueId: crypto.randomUUID(),
+          timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+          isEvent: true,
+          eventType: type
+      };
+
+      switch(type) {
+          case 'sub':
+              msgData = { ...base, messageText: "Just subscribed with Prime! ", systemText: "subscribed with Prime." };
+              break;
+          case 'gift':
+              msgData = { ...base, messageText: "gifted 5 Subs to the community! ", systemText: "gifted 5 Subs!" };
+              break;
+          case 'cheer':
+              msgData = { ...base, messageText: "cheered 100 bits! ", systemText: "cheered 100 bits!" };
+              break;
+          case 'donation':
+              msgData = { ...base, messageText: "donated $10.00! ", systemText: "donated $10.00!" };
+              break;
+          default: return;
+      }
+      
+      // Use manual username or default
+      msgData.username = manualUsername || "Anonymous";
+      
+      setVisibleMessages(prev => [...prev, msgData]);
+      if (chatContainerRef.current) {
+          requestAnimationFrame(() => chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight);
+      }
+  };
+
   const handleDownload = () => {
     const element = document.getElementById("ai-capture-zone");
     if (!element) return;
@@ -571,6 +606,16 @@ function AiChatGenerator() {
                     </div>
 
                     <div className="control-group" style={{gridColumn: '1 / -1'}}>
+                        <label className="control-label">Stream Events (Fake)</label>
+                        <div style={{display:'flex', gap:'5px', flexWrap:'wrap'}}>
+                            <button onClick={() => handleTriggerEvent('sub')} className="btn-secondary" style={{fontSize:'0.75rem', padding:'5px', flex:'1'}}>⭐ New Sub</button>
+                            <button onClick={() => handleTriggerEvent('gift')} className="btn-secondary" style={{fontSize:'0.75rem', padding:'5px', flex:'1'}}>🎁 Gift 5</button>
+                            <button onClick={() => handleTriggerEvent('cheer')} className="btn-secondary" style={{fontSize:'0.75rem', padding:'5px', flex:'1'}}>💎 100 Bits</button>
+                            <button onClick={() => handleTriggerEvent('donation')} className="btn-secondary" style={{fontSize:'0.75rem', padding:'5px', flex:'1'}}>💸 Donate $10</button>
+                        </div>
+                    </div>
+
+                    <div className="control-group" style={{gridColumn: '1 / -1'}}>
                         <label className="control-label">Badges</label>
                         <div className="badge-selector-group">
                              {['subscriber', 'moderator', 'verified', 'vip', 'broadcaster', 'prime'].map(bid => (
@@ -640,25 +685,45 @@ function AiChatGenerator() {
                         </div>
                     )}
                     
-                    {visibleMessages.map((msg) => (
-                        <div className="live-message" key={msg.uniqueId}>
-                            <span className="timestamp">{msg.timestamp}</span>
-                            
-                            <span className="badge-container">
-                                {msg.badges.map((b, i) => (
-                                    <img key={i} src={b} className="chat-badge" alt="" />
-                                ))}
-                            </span>
+                    {visibleMessages.map((msg, idx) => {
+                        if (msg.isEvent) {
+                             return (
+                                <div key={msg.uniqueId || idx} className="chat-message-row event-notice" style={{
+                                    background: '#1f1f23',
+                                    borderLeft: '4px solid #a970ff',
+                                    padding: '8px 10px',
+                                    margin: '4px 0',
+                                    fontSize: '0.85rem',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '5px'
+                                }}>
+                                    <span style={{fontWeight:'bold', color: '#fff'}}>{msg.username}</span> 
+                                    <span style={{color: '#a970ff'}}> {msg.systemText}</span>
+                                </div>
+                             );
+                        }
+                        return (
+                        <div className="live-message" key={msg.uniqueId || idx}>
+                             <span className="timestamp">{msg.timestamp}</span>
+                             
+                             <span className="badge-container">
+                                 {msg.badges?.map((b, i) => (
+                                     <img key={i} src={b} className="chat-badge" alt="" />
+                                 ))}
+                             </span>
 
-                            <span className="chat-username" style={{color: msg.colorUsername}}>
-                                {msg.username}
-                            </span>
-                            
-                            <span className="colon-separator">:</span>
-                            
-                            <span className="chat-text" dangerouslySetInnerHTML={{__html: parseWithEmotes(msg.messageText)}}></span>
+                             <span className="chat-username" style={{ color: msg.colorUsername }}>
+                                 {msg.username}
+                             </span>
+                             <span className="colon-separator">:</span>
+
+                             <span 
+                                 className="chat-text"
+                                 dangerouslySetInnerHTML={{ __html: parseWithEmotes(msg.messageText) }}
+                             />
                         </div>
-                    ))}
+                    )})}
                 </div>
             </div>
             
