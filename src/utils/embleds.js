@@ -71,3 +71,12 @@ export const EMOTES = {
     "EZ": "https://cdn.7tv.app/emote/63071b80942ff969e0f6c5f9/1x.webp",
     "Clap": "https://cdn.7tv.app/emote/62fc4c843c080721c5b8b935/1x.webp",
 };
+
+// Animated Bits (GIFs)
+export const BIT_ASSETS = {
+    "1": "https://d3aqoihi2n8ty8.cloudfront.net/actions/cheer/dark/animated/1/1.gif",
+    "100": "https://d3aqoihi2n8ty8.cloudfront.net/actions/cheer/dark/animated/100/1.gif",
+    "1000": "https://d3aqoihi2n8ty8.cloudfront.net/actions/cheer/dark/animated/1000/1.gif",
+    "5000": "https://d3aqoihi2n8ty8.cloudfront.net/actions/cheer/dark/animated/5000/1.gif",
+    "10000": "https://d3aqoihi2n8ty8.cloudfront.net/actions/cheer/dark/animated/10000/1.gif"
+};

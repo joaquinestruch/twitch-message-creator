@@ -32,6 +32,15 @@ function Header() {
                     fontWeight: 600,
                     fontSize: '0.9rem'
                 }}>AI Chat Simulator</Link>
+
+                <span style={{color: '#2f2f35'}}>|</span>
+
+                <Link to="/animations" style={{
+                    color: location.pathname === '/animations' ? '#a970ff' : '#efeff1', 
+                    textDecoration: 'none', 
+                    fontWeight: 600,
+                    fontSize: '0.9rem'
+                }}>Alert Animator</Link>
             </nav>
         </div>
 

@@ -4,7 +4,7 @@ import Header from '../components/Header'
 import '../App.css'
 import './AiChat.css'
 import { OpenAI } from "openai"
-import { BADGE_ASSETS, emblestList, EMOTES } from '../utils/embleds'
+import { BADGE_ASSETS, emblestList, EMOTES, BIT_ASSETS } from '../utils/embleds'
 import { colorsName } from '../utils/colorsName'
 import html2canvas from 'html2canvas'
 
@@ -33,7 +33,7 @@ function AiChatGenerator() {
   useEffect(() => {
     const updateSeoMetadata = () => {
         // 1. Precise Title - Targeting "Message Creator" (#1 keyword)
-        document.title = "Twitch Message Creator | Fake Chat Generator & Maker";
+        document.title = "Twitch Chat Simulator | AI Fake Stream Generator";
         
         // 2. Meta Description
         const descContent = "The best free Twitch Message Creator and Chat Generator. Create realistic fake chat logs, memes, and stream overlays instantly. Customizable badges, emotes, and usernames.";
@@ -336,10 +336,19 @@ function AiChatGenerator() {
               msgData = { ...base, messageText: "gifted 5 Subs to the community! ", systemText: "gifted 5 Subs!" };
               break;
           case 'cheer':
-              msgData = { ...base, messageText: "cheered 100 bits! ", systemText: "cheered 100 bits!" };
+              // Animated Bit Logic
+              const bitUrl = BIT_ASSETS['10000']; // Use Red Gem for impact
+              // We inject the HTML directly for the bit gem
+              const bitHtml = `<img src="${bitUrl}" style="width:28px; vertical-align:middle; margin-right:4px;" alt="cheer10000"/> <span style="color:#ff383b; fontWeight:bold">cheer10000</span>`;
+              
+              msgData = { 
+                  ...base, 
+                  messageText: `cheered! ${bitHtml} WOW!`, 
+                  systemText: "cheered 10000 bits!" 
+              };
               break;
           case 'donation':
-              msgData = { ...base, messageText: "donated $10.00! ", systemText: "donated $10.00!" };
+              msgData = { ...base, messageText: "donated $50.00! ", systemText: "donated $50.00!" };
               break;
           default: return;
       }
