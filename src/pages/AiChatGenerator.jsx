@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom';
 import Header from '../components/Header'
 import '../App.css'
 import './AiChat.css'
 import { OpenAI } from "openai"
-import { BADGE_ASSETS, emblestList } from '../utils/embleds'
+import { BADGE_ASSETS, emblestList, EMOTES } from '../utils/embleds'
 import { colorsName } from '../utils/colorsName'
 import html2canvas from 'html2canvas'
 
@@ -21,7 +22,10 @@ const BADGES = [
 ];
 
 function AiChatGenerator() {
-  const [channelName, setChannelName] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  
+  // Initialize state from URL params OR defaults
+  const [channelName, setChannelName] = useState(searchParams.get("channel") || "");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   
@@ -31,11 +35,23 @@ function AiChatGenerator() {
   const [messagePool, setMessagePool] = useState([]);
   const [visibleMessages, setVisibleMessages] = useState([]); 
   const [isStreaming, setIsStreaming] = useState(false);
-  const [chatSpeed, setChatSpeed] = useState(500); 
-  const [complexity, setComplexity] = useState("simple"); 
-  const [language, setLanguage] = useState("en");
+  
+  const [chatSpeed, setChatSpeed] = useState(Number(searchParams.get("speed")) || 500); 
+  const [complexity, setComplexity] = useState(searchParams.get("complexity") || "simple"); 
+  const [language, setLanguage] = useState(searchParams.get("lang") || "en"); 
 
   const [messageCount, setMessageCount] = useState(30);
+
+  // Sync State to URL Params
+  useEffect(() => {
+    const params = {};
+    if (channelName) params.channel = channelName;
+    if (chatSpeed !== 500) params.speed = chatSpeed;
+    if (complexity !== "simple") params.complexity = complexity;
+    if (language !== "en") params.lang = language;
+    
+    setSearchParams(params, { replace: true });
+  }, [channelName, chatSpeed, complexity, language, setSearchParams]);
 
   // Badge Selection State (Default: Sub + VIP)
   const [enabledBadges, setEnabledBadges] = useState({
@@ -121,13 +137,16 @@ function AiChatGenerator() {
             dangerouslyAllowBrowser: true 
         });
 
+        // Construct list of available emotes for the AI
+        const availableEmotes = Object.keys(EMOTES).join(", ");
+
         let complexityPrompt = "";
         if (complexity === "simple") {
-            complexityPrompt = `Keep messages VERY short. Mostly 1-3 words. Slang like "LOL", "W", "L", "POG", "CRAZY", "NO WAY".`;
+            complexityPrompt = `Keep messages VERY short. mostly 1-3 words. Use emotes like ${availableEmotes}.`;
         } else if (complexity === "mixed") {
-            complexityPrompt = `Mix short slang (50%) with short sentences (50%). e.g. "That was actually insane", "Did he really just do that?", "LOL no way".`;
+            complexityPrompt = `Mix short slang (50%) with short sentences. Use emotes frequently: ${availableEmotes}.`;
         } else if (complexity === "complex") {
-            complexityPrompt = `Generate longer, more thoughtful messages. Questions, reactions to gameplay, full sentences. e.g. "I can't believe he pulled that off with 1hp", "Why didn't he use the ult there?", "This stream is so good today".`;
+            complexityPrompt = `Generate longer messages but still use emotes: ${availableEmotes}.`;
         }
 
         const langPrompt = language === 'es' ? 'Spanish (Argentina/Spain/Latin America mix)' : 'English (Internet/Twitch Slang)';
@@ -137,6 +156,8 @@ function AiChatGenerator() {
         Vibe: Hype, fast, spammy, reactions.
         Language: ${langPrompt}.
         Complexity Level: ${complexity}. ${complexityPrompt}
+        
+        IMPORTANT: Use specific emotes from this list freely: ${availableEmotes}.
         
         Return ONLY a raw JSON array of objects:
         - username: string (realistic nicks)
@@ -241,6 +262,19 @@ function AiChatGenerator() {
         const url = URL.createObjectURL(file);
         setBgImage(url);
     }
+  };
+
+  // Helper to replace text with emote images
+  const parseWithEmotes = (text) => {
+    if (!text) return "";
+    let newText = text;
+    Object.keys(EMOTES).forEach(emote => {
+        const url = EMOTES[emote];
+        // Replace whole word matches only
+        const regex = new RegExp(`\\b${emote}\\b`, 'g'); 
+        newText = newText.replace(regex, `<img src="${url}" class="chat-emote" style="height:24px; vertical-align:middle; margin:0 2px;" alt="${emote}" />`);
+    });
+    return newText;
   };
 
   return (
@@ -423,7 +457,7 @@ function AiChatGenerator() {
                             
                             <span className="colon-separator">:</span>
                             
-                            <span className="chat-text" dangerouslySetInnerHTML={{__html: msg.messageText}}></span>
+                            <span className="chat-text" dangerouslySetInnerHTML={{__html: parseWithEmotes(msg.messageText)}}></span>
                         </div>
                     ))}
                 </div>
@@ -451,6 +485,31 @@ function AiChatGenerator() {
         )}
 
       </main>
+
+
+      {/* SEO Content Section */}
+      <section style={{
+          maxWidth: '1200px', margin: '40px auto', padding: '20px', color: '#adadb8', fontSize: '0.9rem', lineHeight: '1.6'
+      }}>
+          <h2 style={{color: '#a970ff', fontSize: '1.5rem', marginBottom:'10px'}}>About Twitch Chat Simulator</h2>
+          <p>
+              Welcome to the most realistic <strong>Twitch Chat Simulator</strong> and <strong>Fake Chat Generator</strong>. 
+              Whether you are a streamer looking for a fake chat overlay for OBS, a video editor needing authentic chat logs for content, 
+              or just want to prank your friends, our AI-powered tool generates high-quality, realistic Twitch messages instantly.
+          </p>
+          
+          <h3 style={{color: '#efeff1', fontSize: '1.2rem', marginTop:'20px'}}>Features</h3>
+          <ul style={{listStyleType: 'disc', paddingLeft: '20px', marginTop: '10px'}}>
+              <li><strong>AI-Powered Realism:</strong> Uses advanced AI to generate slang, reactions, and hype just like a real stream.</li>
+              <li><strong>OBS Mode:</strong> Pop out the chat into a transparent window perfect for OBS overlays or Green Screen effects.</li>
+              <li><strong>Customizable Badges:</strong> Toggle Verified, VIP, Moderator, Prime, and Subscriber badges.</li>
+              <li><strong>Multi-Language Support:</strong> Generate chat in English or Spanish with region-specific slang.</li>
+          </ul>
+
+          <p style={{marginTop: '20px', fontSize: '0.8rem', opacity: 0.7}}>
+              This tool is not affiliated with Twitch. It is a simulation tool for creative and entertainment purposes only.
+          </p>
+      </section>
     </>
   )
 }

@@ -54,3 +54,20 @@ export const emblestList = [
     BADGE_ASSETS.PRIME_REAL,  // 8 (Extra)
     BADGE_ASSETS.SUBSCRIBER   // 9 (Extra)
 ];
+
+// Common Twitch Emotes CDN
+export const EMOTES = {
+    "Kappa": "https://static-cdn.jtvnw.net/emoticons/v2/25/default/dark/1.0",
+    "PogChamp": "https://static-cdn.jtvnw.net/emoticons/v2/305954156/default/dark/1.0", // New Pog
+    "LUL": "https://static-cdn.jtvnw.net/emoticons/v2/425618/default/dark/1.0",
+    "Kreygasm": "https://static-cdn.jtvnw.net/emoticons/v2/41/default/dark/1.0",
+    "SeemsGood": "https://static-cdn.jtvnw.net/emoticons/v2/64138/default/dark/1.0",
+    "BibleThump": "https://static-cdn.jtvnw.net/emoticons/v2/86/default/dark/1.0",
+    "POGGERS": "https://cdn.7tv.app/emote/60ae3587259ac5a73e56c426/1x.webp", // 7TV
+    "OMEGALUL": "https://cdn.7tv.app/emote/60ae8d9ff39a7552b658b60d/1x.webp",
+    "KEKW": "https://cdn.7tv.app/emote/60b00d1f0d3a78a196f803e3/1x.webp",
+    "monkaS": "https://cdn.7tv.app/emote/60ae3e51259ac5a73e56c54a/1x.webp",
+    "Pepega": "https://cdn.7tv.app/emote/60ae480a259ac5a73e56c66d/1x.webp",
+    "EZ": "https://cdn.7tv.app/emote/63071b80942ff969e0f6c5f9/1x.webp",
+    "Clap": "https://cdn.7tv.app/emote/62fc4c843c080721c5b8b935/1x.webp",
+};
