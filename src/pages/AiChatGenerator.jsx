@@ -95,6 +95,8 @@ function AiChatGenerator() {
       broadcaster: false, moderator: false, verified: false, vip: false, subscriber: true, prime: false
   });
 
+
+
   const handleAddManualMessage = () => {
       if (!manualMessage.trim()) return;
       
@@ -199,7 +201,8 @@ function AiChatGenerator() {
     }
   }, [visibleMessages]);
 
-  const handleGenerate = async () => {
+  // unified generation logic
+  const generateChat = async (scenarioType = null) => {
     const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
     if (!apiKey) {
         setError("Error: API Key not found. Check .env.local");
@@ -220,32 +223,54 @@ function AiChatGenerator() {
 
         // Construct list of available emotes for the AI
         const availableEmotes = Object.keys(EMOTES).join(", ");
+        let prompt = "";
 
-        let complexityPrompt = "";
-        if (complexity === "simple") {
-            complexityPrompt = `Keep messages VERY short. mostly 1-3 words. Use emotes like ${availableEmotes}.`;
-        } else if (complexity === "mixed") {
-            complexityPrompt = `Mix short slang (50%) with short sentences. Use emotes frequently: ${availableEmotes}.`;
-        } else if (complexity === "complex") {
-            complexityPrompt = `Generate longer messages but still use emotes: ${availableEmotes}.`;
+        if (scenarioType) {
+            // SCENARIO MODE PROMPTS
+            const scenarios = {
+                jumpscare: `Generate 40 VERY PANICKED Twitch chat messages reacting to a JUMPSCARE.
+                            Use caps lock, "WutFace", "monkaS", "monkaW", "WTF", "SCREAMER". 
+                            Messages should be short, screaming, and chaotic.`,
+                hype: `Generate 40 EXTREMELY HYPE Twitch chat messages.
+                       Use "PogChamp", "LETS GO", "EZ", "Clap", "Winner", "GG". 
+                       The streamer just did something amazing. High energy.`,
+                toxic: `Generate 40 TOXIC/ROAST Twitch chat messages. 
+                        Use "L", "Ratio", "Noob", "So bad", "???", "Cringe". 
+                        The streamer failed or missed a shot. Mean but funny.`
+            };
+            prompt = `You are a Twitch Chat Simulator.
+            ${scenarios[scenarioType]}
+            Language: Keep it mostly English/Internet Slang but mix if needed.
+            Use these emotes: ${availableEmotes}.
+            Return ONLY a raw JSON array of objects: { "username": string, "messageText": string, "isVip": boolean, "isSub": boolean }`;
+        } else {
+            // STANDARD MODE PROMPT
+            let complexityPrompt = "";
+            if (complexity === "simple") {
+                complexityPrompt = `Keep messages VERY short. mostly 1-3 words. Use emotes like ${availableEmotes}.`;
+            } else if (complexity === "mixed") {
+                complexityPrompt = `Mix short slang (50%) with short sentences. Use emotes frequently: ${availableEmotes}.`;
+            } else if (complexity === "complex") {
+                complexityPrompt = `Generate longer messages but still use emotes: ${availableEmotes}.`;
+            }
+    
+            const langPrompt = language === 'es' ? 'Spanish (Argentina/Spain/Latin America mix)' : 'English (Internet/Twitch Slang)';
+    
+            prompt = `You are a Twitch Chat Simulator. 
+            Generate ${messageCount} realistic twitch chat messages for channel: "${channelName}".
+            Vibe: Hype, fast, spammy, reactions.
+            Language: ${langPrompt}.
+            Complexity Level: ${complexity}. ${complexityPrompt}
+            
+            IMPORTANT: Use specific emotes from this list freely: ${availableEmotes}.
+            
+            Return ONLY a raw JSON array of objects:
+            - username: string (realistic nicks)
+            - messageText: string
+            - isVip: boolean (rare, < 5% chance)
+            - isSub: boolean (common, ~20% chance)
+            `;
         }
-
-        const langPrompt = language === 'es' ? 'Spanish (Argentina/Spain/Latin America mix)' : 'English (Internet/Twitch Slang)';
-
-        const prompt = `You are a Twitch Chat Simulator. 
-        Generate ${messageCount} realistic twitch chat messages for channel: "${channelName}".
-        Vibe: Hype, fast, spammy, reactions.
-        Language: ${langPrompt}.
-        Complexity Level: ${complexity}. ${complexityPrompt}
-        
-        IMPORTANT: Use specific emotes from this list freely: ${availableEmotes}.
-        
-        Return ONLY a raw JSON array of objects:
-        - username: string (realistic nicks)
-        - messageText: string
-        - isVip: boolean (rare, < 5% chance)
-        - isSub: boolean (common, ~20% chance)
-        `;
 
         const completion = await openai.chat.completions.create({
             messages: [{ role: "system", content: prompt }],
@@ -253,60 +278,41 @@ function AiChatGenerator() {
         });
 
         const content = completion.choices[0].message.content;
-        // Sanitize
         const jsonStr = content.replace(/```json/g, '').replace(/```/g, '').trim();
         const data = JSON.parse(jsonStr);
 
-        // Pre-process badges and colors using OFFICIAL assets
         const processed = data.map(msg => {
             const badges = [];
-            
-            // Logic: Check if badge is ENABLED in state, then check if AI assigned it (or random chance override)
-            
-            // Logic: Check if badge is ENABLED in state
-            
-            if (enabledBadges.broadcaster && msg.username.toLowerCase() === channelName.toLowerCase()) {
-                 badges.push(BADGE_ASSETS.BROADCASTER);
-            }
-            
-            if (enabledBadges.moderator && msg.isMod) badges.push(BADGE_ASSETS.MODERATOR);
-            
-            // Partner/Verified (Purple Check)
-            if (enabledBadges.verified) {
-                // If AI marked as verified, or small random chance if enabled
-                 if (msg.isVerified || Math.random() < 0.05) badges.push(BADGE_ASSETS.VERIFIED);
-            }
+            // Random Badges for AI
+            if (enabledBadges.subscriber && (msg.isSub || Math.random() > 0.7)) badges.push(BADGE_ASSETS.SUBSCRIBER);
+            if (enabledBadges.vip && (msg.isVip || Math.random() > 0.95)) badges.push(BADGE_ASSETS.VIP);
+            if (enabledBadges.moderator && Math.random() > 0.98) badges.push(BADGE_ASSETS.MODERATOR);
+            if (enabledBadges.verified && Math.random() > 0.99) badges.push(BADGE_ASSETS.VERIFIED);
+            if (enabledBadges.prime && Math.random() > 0.9) badges.push(BADGE_ASSETS.PRIME_REAL);
+            if (enabledBadges.broadcaster && Math.random() > 0.995) badges.push(BADGE_ASSETS.BROADCASTER);
 
-            if (enabledBadges.vip && msg.isVip) badges.push(BADGE_ASSETS.VIP);
-            
-            if (enabledBadges.artist && Math.random() < 0.02) badges.push(BADGE_ASSETS.ARTIST);
-            if (enabledBadges.dj && Math.random() < 0.01) badges.push(BADGE_ASSETS.DJ);
-
-            // Subs / Prime / Turbo
-            if (enabledBadges.subscriber && msg.isSub) badges.push(BADGE_ASSETS.SUBSCRIBER);
-            if (enabledBadges.prime && msg.isPrime) badges.push(BADGE_ASSETS.PRIME_REAL); 
-            if (enabledBadges.turbo && msg.isTurbo) badges.push(BADGE_ASSETS.TURBO); 
-
-            // Randomly assign a color from the official palette
-            const randomColor = colorsName[Math.floor(Math.random() * colorsName.length)];
-
-            return { 
-                ...msg, 
-                badges,
-                colorUsername: randomColor 
+            return {
+                uniqueId: crypto.randomUUID(),
+                username: msg.username,
+                messageText: msg.messageText,
+                badges: badges,
+                colorUsername: colorsName[Math.floor(Math.random() * colorsName.length)]
             };
         });
 
         setMessagePool(processed);
-        setIsStreaming(true); // Auto-start
+        setIsStreaming(true);
 
     } catch (err) {
         console.error(err);
-        setError("Failed to generate. Try lowering message count.");
+        setError("AI Generation failed. Check API Key or try again.");
     } finally {
         setIsLoading(false);
     }
   };
+
+  const handleGenerate = () => generateChat(null);
+  const handleApplyPreset = (type) => generateChat(type);
 
   const toggleStream = () => {
     setIsStreaming(!isStreaming);
@@ -471,6 +477,34 @@ function AiChatGenerator() {
                         </select>
                     </div>
 
+                    {/* Scenario Presets Row */}
+                    <div className="control-group" style={{gridColumn: '1 / -1'}}>
+                        <label className="control-label" style={{color: '#00db84'}}>⚡ Quick Scenarios (Viral)</label>
+                        <div style={{display: 'flex', gap: '10px', marginTop: '5px'}}>
+                            <button 
+                                onClick={() => handleApplyPreset('jumpscare')}
+                                className="btn-secondary"
+                                style={{fontSize:'0.8rem', padding:'6px 10px', background: '#3a3a3d'}}
+                            >
+                                😱 Jumpscare
+                            </button>
+                            <button 
+                                onClick={() => handleApplyPreset('hype')}
+                                className="btn-secondary"
+                                style={{fontSize:'0.8rem', padding:'6px 10px', background: '#3a3a3d'}}
+                            >
+                                🎉 Hype Train
+                            </button>
+                            <button 
+                                onClick={() => handleApplyPreset('toxic')}
+                                className="btn-secondary"
+                                style={{fontSize:'0.8rem', padding:'6px 10px', background: '#3a3a3d'}}
+                            >
+                                💀 Toxic/Roast
+                            </button>
+                        </div>
+                    </div>
+
                     <div className="control-group" style={{gridColumn: '1 / -1'}}>
                         <label className="control-label">Allowed Badges (AI)</label>
                         <div className="badge-selector-group">
@@ -577,6 +611,9 @@ function AiChatGenerator() {
                         </>
                     )}
 
+                     <button onClick={handleDownload} className="btn-secondary" style={{width:'auto', background: '#2f2f35', border: '1px solid #4f4f56'}} title="Save Image">
+                        📸 Save
+                     </button>
                      <button onClick={toggleObsMode} className="toggle-obs-btn" style={{width:'auto'}}>
                         Pop-out ↗
                      </button>
