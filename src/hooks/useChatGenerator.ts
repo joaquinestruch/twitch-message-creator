@@ -2,18 +2,22 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { generateChatStream } from "../services/api";
 import { BADGE_ASSETS, EMOTES } from "../utils/embleds";
 import { colorsName } from "../utils/colorsName";
+import { ChatSettings, BadgeMap, ChatMessage } from "../types";
 
-export const useChatGenerator = (settings, enabledBadges) => {
-  const [messagePool, setMessagePool] = useState([]);
-  const [visibleMessages, setVisibleMessages] = useState([]);
-  const [isStreaming, setIsStreaming] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+export const useChatGenerator = (
+  settings: ChatSettings,
+  enabledBadges: BadgeMap,
+) => {
+  const [messagePool, setMessagePool] = useState<ChatMessage[]>([]);
+  const [visibleMessages, setVisibleMessages] = useState<ChatMessage[]>([]);
+  const [isStreaming, setIsStreaming] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const intervalRef = useRef(null);
-  const poolIndexRef = useRef(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const poolIndexRef = useRef<number>(0);
 
-  const generateChat = async (scenarioType = null) => {
+  const generateChat = async (scenarioType: string | null = null) => {
     setIsLoading(true);
     setIsStreaming(false);
     setError(null);
@@ -29,8 +33,8 @@ export const useChatGenerator = (settings, enabledBadges) => {
         availableEmotes,
       });
 
-      const processed = rawMessages.map((msg) => {
-        const badges = [];
+      const processed: ChatMessage[] = rawMessages.map((msg) => {
+        const badges: string[] = [];
         // Random Badges Logic
         if (enabledBadges.subscriber && (msg.isSub || Math.random() > 0.7))
           badges.push(BADGE_ASSETS.SUBSCRIBER);
@@ -86,16 +90,18 @@ export const useChatGenerator = (settings, enabledBadges) => {
         poolIndexRef.current = (poolIndexRef.current + 1) % messagePool.length;
       }, settings.chatSpeed);
     } else {
-      clearInterval(intervalRef.current);
+      if (intervalRef.current) clearInterval(intervalRef.current);
     }
-    return () => clearInterval(intervalRef.current);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
   }, [isStreaming, messagePool, settings.chatSpeed]);
 
   const stopStream = useCallback(() => setIsStreaming(false), []);
   const startStream = useCallback(() => setIsStreaming(true), []);
   const clearMessages = useCallback(() => setVisibleMessages([]), []);
   const addMessage = useCallback(
-    (msg) => setVisibleMessages((prev) => [...prev, msg]),
+    (msg: ChatMessage) => setVisibleMessages((prev) => [...prev, msg]),
     [],
   );
 

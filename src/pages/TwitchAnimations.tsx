@@ -1,22 +1,22 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Header from "../components/Header";
-import { BIT_ASSETS } from "../utils/embleds";
-import html2canvas from "html2canvas";
 import { useSearchParams } from "react-router-dom";
 
 // Animation/Alert Generator Page
-function TwitchAnimations() {
+function TwitchAnimations(): JSX.Element {
   const [searchParams] = useSearchParams();
 
   // Init state from URL if present, else defaults
-  const [amount, setAmount] = useState(searchParams.get("amount") || "100");
-  const [username, setUsername] = useState(
+  const [amount, setAmount] = useState<string>(
+    searchParams.get("amount") || "100",
+  );
+  const [username, setUsername] = useState<string>(
     searchParams.get("username") || "StreamerName",
   );
-  const [message, setMessage] = useState(
+  const [message, setMessage] = useState<string>(
     searchParams.get("message") || "This is an awesome alert!",
   );
-  const [bgColor, setBgColor] = useState(
+  const [bgColor, setBgColor] = useState<string>(
     searchParams.get("bgColor") || "#00ff00",
   );
 
@@ -26,10 +26,8 @@ function TwitchAnimations() {
     document.title = "Twitch Bit Alert Generator - Animated OBS Overlay";
   }, []);
 
-  const captureRef = useRef(null);
-
   // High Quality GIFs (Scale 4)
-  const getBitGif = (amt) => {
+  const getBitGif = (amt: string): string => {
     const val = parseInt(amt);
     if (val >= 10000)
       return "https://d3aqoihi2n8ty8.cloudfront.net/actions/cheer/dark/animated/10000/4.gif";
@@ -42,7 +40,7 @@ function TwitchAnimations() {
     return "https://d3aqoihi2n8ty8.cloudfront.net/actions/cheer/dark/animated/1/4.gif";
   };
 
-  const getBitColor = (amt) => {
+  const getBitColor = (amt: string): string => {
     const val = parseInt(amt);
     if (val >= 10000) return "#e005b9"; // Red
     if (val >= 5000) return "#0099fe"; // Blue

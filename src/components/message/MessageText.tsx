@@ -1,4 +1,8 @@
-function MessageText({ messageText }) {
+interface MessageTextProps {
+  messageText: string;
+}
+
+function MessageText({ messageText }: MessageTextProps) {
   // const formatText = (text, groupLength) => {
   //   let formattedText = '';
   //   for (let i = 0; i < text.length; i += groupLength) {

@@ -2,15 +2,13 @@ import { useState, useEffect } from "react";
 import "../App.css";
 import Header from "../components/Header";
 import Main from "../components/Main";
-import PrivacyPolicy from "../components/PrivacyPolicy";
 
-function HomeCreator() {
-  const [username, setUsername] = useState("");
-  const [messageText, setMessageText] = useState("");
-  const [colorUsername, setColorUsername] = useState("");
-  const [embledsArray, setEmbledsArray] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showPrivacy, setShowPrivacy] = useState(false);
+function HomeCreator(): JSX.Element {
+  const [username, setUsername] = useState<string>("");
+  const [messageText, setMessageText] = useState<string>("");
+  const [colorUsername, setColorUsername] = useState<string>("");
+  const [embledsArray, setEmbledsArray] = useState<string[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     document.title = "Fake Twitch Chat Generator - Free Message Editor";

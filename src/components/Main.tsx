@@ -1,6 +1,19 @@
 import Message from "./message/Message";
 import Nav from "./nav/Nav";
 
+interface MainProps {
+  isModalOpen: boolean;
+  setIsModalOpen: (v: boolean) => void;
+  username: string;
+  setUsername: (v: string) => void;
+  messageText: string;
+  setMessageText: (v: string) => void;
+  colorUsername: string;
+  setColorUsername: (v: string) => void;
+  embledsArray: string[];
+  setEmbledsArray: React.Dispatch<React.SetStateAction<string[]>>;
+}
+
 function Main({
   isModalOpen,
   setIsModalOpen,
@@ -12,7 +25,7 @@ function Main({
   setColorUsername,
   embledsArray,
   setEmbledsArray,
-}) {
+}: MainProps) {
   return (
     <>
       <main className="container-main">
@@ -29,8 +42,6 @@ function Main({
           setEmbledsArray={setEmbledsArray}
         />
         <Message
-          isModalOpen={isModalOpen}
-          setIsModalOpen={setIsModalOpen}
           username={username}
           messageText={messageText}
           colorUsername={colorUsername}

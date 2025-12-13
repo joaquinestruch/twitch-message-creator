@@ -1,7 +1,15 @@
 import React from "react";
+import { ChatMessage } from "../types";
 import { parseWithEmotes } from "../utils/chatUtils";
 
-const ChatDisplay = ({
+interface ChatDisplayProps {
+  visibleMessages: ChatMessage[];
+  chatContainerRef: React.RefObject<HTMLDivElement>;
+  isObsMode: boolean;
+  isStreaming: boolean;
+}
+
+const ChatDisplay: React.FC<ChatDisplayProps> = ({
   visibleMessages,
   chatContainerRef,
   isObsMode,

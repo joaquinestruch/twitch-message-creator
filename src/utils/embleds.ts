@@ -1,7 +1,7 @@
 // Comprehensive Badge List
 // Mixing official verified URLs and legacy URLs found in the project.
 
-export const BADGE_ASSETS = {
+export const BADGE_ASSETS: Record<string, string> = {
   // 0. Staff / Admin (Wrench-like icon in original list index 0)
   STAFF:
     "https://static-cdn.jtvnw.net/badges/v1/d97c37bd-a6f5-4c38-8f57-4e4bef88af34/1",
@@ -51,7 +51,7 @@ export const BADGE_ASSETS = {
 };
 
 // Restore the EXACT original array order for legacy compatibility (indices 0-7)
-export const emblestList = [
+export const emblestList: string[] = [
   BADGE_ASSETS.STAFF, // 0
   BADGE_ASSETS.TURBO, // 1
   BADGE_ASSETS.BROADCASTER, // 2
@@ -65,7 +65,7 @@ export const emblestList = [
 ];
 
 // Common Twitch Emotes CDN
-export const EMOTES = {
+export const EMOTES: Record<string, string> = {
   Kappa: "https://static-cdn.jtvnw.net/emoticons/v2/25/default/dark/1.0",
   PogChamp:
     "https://static-cdn.jtvnw.net/emoticons/v2/305954156/default/dark/1.0", // New Pog
@@ -83,7 +83,7 @@ export const EMOTES = {
 };
 
 // Animated Bits (GIFs)
-export const BIT_ASSETS = {
+export const BIT_ASSETS: Record<number, string> = {
   1: "https://d3aqoihi2n8ty8.cloudfront.net/actions/cheer/dark/animated/1/1.gif",
   100: "https://d3aqoihi2n8ty8.cloudfront.net/actions/cheer/dark/animated/100/1.gif",
   1000: "https://d3aqoihi2n8ty8.cloudfront.net/actions/cheer/dark/animated/1000/1.gif",

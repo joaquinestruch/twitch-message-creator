@@ -25,8 +25,8 @@ function AiChatGenerator() {
   const manual = useManualMode(chatGen.addMessage);
   const events = useStreamEvents(chatGen.addMessage, manual.manualUsername);
 
-  const [mode, setMode] = useState("ai");
-  const chatContainerRef = useRef(null);
+  const [mode, setMode] = useState<string>("ai");
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   // SEO & Metadata
   useEffect(() => {
@@ -80,7 +80,7 @@ function AiChatGenerator() {
               manual={manual}
               handlers={{
                 handleGenerate: () => chatGen.generateChat(null),
-                handleApplyPreset: (type) => chatGen.generateChat(type),
+                handleApplyPreset: (type: string) => chatGen.generateChat(type),
                 handleTriggerEvent: events.triggerEvent,
                 toggleStream: chatGen.toggleStream,
                 handleDownload,
@@ -120,8 +120,12 @@ function AiChatGenerator() {
               borderRadius: "5px",
               cursor: "pointer",
             }}
-            onMouseEnter={(e) => (e.target.style.opacity = 1)}
-            onMouseLeave={(e) => (e.target.style.opacity = 0.1)}
+            onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) =>
+              (e.currentTarget.style.opacity = "1")
+            }
+            onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) =>
+              (e.currentTarget.style.opacity = "0.1")
+            }
           >
             EXIT OBS MODE
           </button>

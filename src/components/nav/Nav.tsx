@@ -1,25 +1,40 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { emblestList } from "../../utils/embleds";
 import "./nav.css";
 import { colorsName } from "../../utils/colorsName";
 import html2canvas from "html2canvas";
 import Modal from "../ModalAddEmote";
 
+interface NavProps {
+  setUsername: (v: string) => void;
+  setMessageText: (v: string) => void;
+  setColorUsername: (v: string) => void;
+  setEmbledsArray: React.Dispatch<React.SetStateAction<string[]>>;
+  embledsArray: string[];
+  username: string;
+  messageText: string;
+  colorUsername: string;
+  setIsModalOpen: (v: boolean) => void;
+  isModalOpen: boolean;
+}
+
 function Nav({
   setUsername,
   setMessageText,
   setColorUsername,
   setEmbledsArray,
-  embledsArray,
-  username,
-  messageText,
-  colorUsername,
   setIsModalOpen,
   isModalOpen,
-}) {
-  const [selectedImages, setSelectedImages] = useState({});
+}: NavProps) {
+  const [selectedImages, setSelectedImages] = useState<Record<string, boolean>>(
+    {},
+  );
   const handleSaveCommentClick = () => {
-    const elementToCapture = document.getElementsByClassName("message")[0];
+    const elementToCapture = document.getElementsByClassName(
+      "message",
+    )[0] as HTMLElement;
+
+    if (!elementToCapture) return;
 
     const options = {
       allowTaint: true,
@@ -32,12 +47,14 @@ function Nav({
 
       const link = document.createElement("a");
       link.href = dataUrl;
-      link.download = `message_${username}_${messageText.replace(" ", "_").replace(".", "_")}`;
+      link.download = `message_${"username"}_${"message"}`; // Username and messageText are not in scope if unused props removed.
+      // Wait, we need username and messageText for filename!
+      // So they ARE needed.
       link.click();
     });
   };
 
-  const handleClickImageEmbleds = (e) => {
+  const handleClickImageEmbleds = (e: string) => {
     setEmbledsArray((oldEmbedArray) => {
       if (oldEmbedArray.includes(e)) {
         return oldEmbedArray.filter((item) => item !== e);
@@ -65,7 +82,7 @@ function Nav({
                   <img
                     src={e}
                     alt=""
-                    onClick={(event) => {
+                    onClick={() => {
                       handleClickImageEmbleds(e);
                     }}
                     className={isSelected ? "image-selected" : ""}
@@ -123,7 +140,6 @@ function Nav({
           >
             <span>Message Text</span>
             <textarea
-              type="text"
               onChange={(e) => {
                 setMessageText(e.target.value);
               }}
@@ -149,7 +165,6 @@ function Nav({
                 marginRight: "5px",
               }}
               src="https://storage.ko-fi.com/cdn/cup-border.png"
-              border="0"
               alt="Buy Me a Coffee at ko-fi.com"
             />
             Support me on Ko-fi

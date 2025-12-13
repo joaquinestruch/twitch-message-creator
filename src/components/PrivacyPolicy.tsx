@@ -1,6 +1,6 @@
 import "./PrivacyPolicy.css";
 
-function PrivacyPolicy() {
+function PrivacyPolicy(): JSX.Element {
   return (
     <div className="privacy-container">
       <div className="privacy-content">

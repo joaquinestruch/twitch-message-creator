@@ -4,7 +4,7 @@ export const config = {
   runtime: "edge", // Using Edge Runtime for speed, optional but recommended
 };
 
-export default async function handler(req) {
+export default async function handler(req: Request) {
   if (req.method !== "POST") {
     return new Response("Method Not Allowed", { status: 405 });
   }
@@ -28,7 +28,14 @@ export default async function handler(req) {
       messageCount,
       scenarioType,
       availableEmotes,
-    } = await req.json();
+    } = (await req.json()) as {
+      channelName: string;
+      complexity: string;
+      language: string;
+      messageCount: number;
+      scenarioType?: string;
+      availableEmotes: string;
+    };
 
     const openai = new OpenAI({
       apiKey: apiKey,
@@ -38,7 +45,7 @@ export default async function handler(req) {
 
     if (scenarioType) {
       // SCENARIO MODE PROMPTS
-      const scenarios = {
+      const scenarios: Record<string, string> = {
         jumpscare: `Generate 40 VERY PANICKED Twitch chat messages reacting to a JUMPSCARE.
                         Use caps lock, "WutFace", "monkaS", "monkaW", "WTF", "SCREAMER". 
                         Messages should be short, screaming, and chaotic.`,
@@ -49,11 +56,13 @@ export default async function handler(req) {
                     Use "L", "Ratio", "Noob", "So bad", "???", "Cringe". 
                     The streamer failed or missed a shot. Mean but funny.`,
       };
-      prompt = `You are a Twitch Chat Simulator.
+      if (scenarioType && scenarios[scenarioType]) {
+        prompt = `You are a Twitch Chat Simulator.
         ${scenarios[scenarioType]}
         Language: Keep it mostly English/Internet Slang but mix if needed.
         Use these emotes: ${availableEmotes}.
         Return ONLY a raw JSON array of objects: { "username": string, "messageText": string, "isVip": boolean, "isSub": boolean }`;
+      }
     } else {
       // STANDARD MODE PROMPT
       let complexityPrompt = "";
@@ -115,12 +124,12 @@ export default async function handler(req) {
       status: 200,
       headers: { "Content-Type": "text/plain; charset=utf-8" },
     });
-  } catch (err) {
+  } catch (err: any) {
     console.error(err);
     return new Response(
       JSON.stringify({
         error: "Failed to generate chat",
-        details: err.message,
+        details: err.message || String(err),
       }),
       {
         status: 500,

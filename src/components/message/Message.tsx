@@ -1,13 +1,18 @@
 import MessageText from "./MessageText";
 import UsernameMessage from "./UsernameMessage";
+interface MessageProps {
+  username: string;
+  messageText: string;
+  colorUsername: string;
+  embledsArray: string[];
+}
+
 function Message({
   username,
   messageText,
   colorUsername,
   embledsArray,
-  isModalOpen,
-  setIsModalOpen,
-}) {
+}: MessageProps) {
   return (
     <div className="message">
       <div className="embleds-div">

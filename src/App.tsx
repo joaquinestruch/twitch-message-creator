@@ -5,7 +5,7 @@ import AiChatGenerator from "./pages/AiChatGenerator";
 import TwitchAnimations from "./pages/TwitchAnimations";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 
-function App() {
+function App(): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>

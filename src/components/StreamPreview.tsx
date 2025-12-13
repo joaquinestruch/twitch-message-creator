@@ -1,8 +1,16 @@
 import React from "react";
 
-const StreamPreview = ({ bgImage, setBgImage }) => {
-  const handleBgUpload = (e) => {
-    const file = e.target.files[0];
+interface StreamPreviewProps {
+  bgImage: string | null;
+  setBgImage: (url: string | null) => void;
+}
+
+const StreamPreview: React.FC<StreamPreviewProps> = ({
+  bgImage,
+  setBgImage,
+}) => {
+  const handleBgUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
     if (file) {
       const url = URL.createObjectURL(file);
       setBgImage(url);

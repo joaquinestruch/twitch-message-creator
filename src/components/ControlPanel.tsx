@@ -12,7 +12,56 @@ const BADGES = [
   { id: "turbo", label: "Turbo" },
 ];
 
-const ControlPanel = ({
+import { ChatMessage, BadgeMap } from "../types";
+
+// We can define subtypes for Props based on hooks return values structure
+interface ControlPanelProps {
+  mode: string;
+  setMode: (mode: string) => void;
+  settings: {
+    channelName: string;
+    setChannelName: (v: string) => void;
+    messageCount: number;
+    setMessageCount: (v: number) => void;
+    language: string;
+    setLanguage: (v: string) => void;
+    complexity: string;
+    setComplexity: (v: string) => void;
+    chatSpeed: number;
+    setChatSpeed: (v: number) => void;
+    enabledBadges: BadgeMap;
+    toggleBadge: (id: string) => void;
+  };
+  manual: {
+    manualUsername: string;
+    setManualUsername: (v: string) => void;
+    manualMessage: string;
+    setManualMessage: (v: string) => void;
+    manualColor: string;
+    setManualColor: (v: string) => void;
+    manualBadges: Record<string, boolean>;
+    setManualBadges: React.Dispatch<
+      React.SetStateAction<Record<string, boolean>>
+    >;
+    handleAddManualMessage: () => void;
+  };
+  handlers: {
+    handleGenerate: () => void;
+    handleApplyPreset: (type: string) => void;
+    handleTriggerEvent: (type: "sub" | "gift" | "cheer" | "donation") => void;
+    toggleStream: () => void;
+    handleDownload: () => void;
+    toggleObsMode: () => void;
+    clearMessages: () => void;
+  };
+  status: {
+    isLoading: boolean;
+    isStreaming: boolean;
+    messagePool: ChatMessage[];
+  };
+}
+
+const ControlPanel: React.FC<ControlPanelProps> = ({
   mode,
   setMode,
   settings,
@@ -237,7 +286,7 @@ const ControlPanel = ({
             <label className="control-label">Message</label>
             <textarea
               className="custom-input"
-              rows="2"
+              rows={2}
               value={manualMessage}
               onChange={(e) => setManualMessage(e.target.value)}
               placeholder="Type a message (Kappa supported)..."

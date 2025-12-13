@@ -1,6 +1,6 @@
 import { EMOTES } from "./embleds";
 
-export const parseWithEmotes = (text) => {
+export const parseWithEmotes = (text: string): string => {
   if (!text) return "";
   let newText = text;
   Object.keys(EMOTES).forEach((emote) => {

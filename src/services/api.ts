@@ -1,4 +1,8 @@
-export const generateChatStream = async (params) => {
+import { ChatGenerationParams, OpenAIResponse } from "../types";
+
+export const generateChatStream = async (
+  params: ChatGenerationParams
+): Promise<OpenAIResponse[]> => {
   const {
     channelName,
     complexity,
@@ -34,6 +38,7 @@ export const generateChatStream = async (params) => {
     throw new Error(errorMsg);
   }
 
+  if (!response.body) throw new Error("No response body");
   const reader = response.body.getReader();
   const decoder = new TextDecoder();
   let content = "";

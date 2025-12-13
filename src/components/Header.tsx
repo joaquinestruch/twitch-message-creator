@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 
-function Header() {
+function Header(): JSX.Element {
   const location = useLocation();
 
   return (

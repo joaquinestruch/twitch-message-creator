@@ -1,8 +1,13 @@
 import { BIT_ASSETS } from "../utils/embleds";
 
-export const useStreamEvents = (addMessage, manualUsername) => {
-  const triggerEvent = (type) => {
-    let msgData = {};
+import { ChatMessage } from "../types";
+
+export const useStreamEvents = (
+  addMessage: (msg: ChatMessage) => void,
+  manualUsername: string,
+) => {
+  const triggerEvent = (type: "sub" | "gift" | "cheer" | "donation") => {
+    let msgData: Partial<ChatMessage> = {};
     const base = {
       uniqueId: crypto.randomUUID(),
       timestamp: new Date().toLocaleTimeString([], {
@@ -51,7 +56,13 @@ export const useStreamEvents = (addMessage, manualUsername) => {
     }
 
     msgData.username = manualUsername || "Anonymous";
-    addMessage(msgData);
+    // Badges for events? Usually subs get sub badge, but logic here seems simple.
+    // We need to ensure 'badges' is present for ChatMessage type compliance if strict.
+    // The current logic doesn't set badges for events explicitly in the switch, 
+    // but the component might handle it or we should add empty array.
+    msgData.badges = []; 
+    
+    addMessage(msgData as ChatMessage);
   };
 
   return { triggerEvent };
