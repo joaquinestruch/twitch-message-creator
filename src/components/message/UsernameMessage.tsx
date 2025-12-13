@@ -7,8 +7,8 @@ interface UsernameMessageProps {
 function UsernameMessage({ username, colorUsername }: UsernameMessageProps) {
   return (
     <p className="username" style={{ color: colorUsername }}>
-      {username.length < 1 ? "username" : username}
-      <span style={{ color: "white" }}>:</span>
+      {username.length < 1 ? 'username' : username}
+      <span style={{ color: 'white' }}>:</span>
     </p>
   );
 }

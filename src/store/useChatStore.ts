@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface ChatState {
   username: string;
@@ -6,7 +6,7 @@ interface ChatState {
   colorUsername: string;
   embledsArray: string[];
   isModalOpen: boolean;
-  
+
   setUsername: (username: string) => void;
   setMessageText: (messageText: string) => void;
   setColorUsername: (colorUsername: string) => void;
@@ -15,9 +15,9 @@ interface ChatState {
 }
 
 export const useChatStore = create<ChatState>((set) => ({
-  username: "",
-  messageText: "",
-  colorUsername: "", // Default color logic might need to be handled here or in component if it was dynamic
+  username: '',
+  messageText: '',
+  colorUsername: '', // Default color logic might need to be handled here or in component if it was dynamic
   embledsArray: [],
   isModalOpen: false,
 
@@ -26,7 +26,7 @@ export const useChatStore = create<ChatState>((set) => ({
   setColorUsername: (colorUsername) => set({ colorUsername }),
   setEmbledsArray: (updater) =>
     set((state) => {
-      if (typeof updater === "function") {
+      if (typeof updater === 'function') {
         return { embledsArray: updater(state.embledsArray) };
       }
       return { embledsArray: updater };

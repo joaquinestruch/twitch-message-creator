@@ -1,13 +1,10 @@
-import { useState, useRef, useEffect, useCallback } from "react";
-import { generateChatStream } from "@/services/api";
-import { BADGE_ASSETS, EMOTES } from "@/utils/embleds";
-import { colorsName } from "@/utils/colorsName";
-import { ChatSettings, BadgeMap, ChatMessage } from "@/types";
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { generateChatStream } from '@/services/api';
+import { BADGE_ASSETS, EMOTES } from '@/utils/embleds';
+import { colorsName } from '@/utils/colorsName';
+import { ChatSettings, BadgeMap, ChatMessage } from '@/types';
 
-export const useChatGenerator = (
-  settings: ChatSettings,
-  enabledBadges: BadgeMap,
-) => {
+export const useChatGenerator = (settings: ChatSettings, enabledBadges: BadgeMap) => {
   const [messagePool, setMessagePool] = useState<ChatMessage[]>([]);
   const [visibleMessages, setVisibleMessages] = useState<ChatMessage[]>([]);
   const [isStreaming, setIsStreaming] = useState<boolean>(false);
@@ -25,7 +22,7 @@ export const useChatGenerator = (
     poolIndexRef.current = 0;
 
     try {
-      const availableEmotes = Object.keys(EMOTES).join(", ");
+      const availableEmotes = Object.keys(EMOTES).join(', ');
 
       const rawMessages = await generateChatStream({
         ...settings,
@@ -38,14 +35,10 @@ export const useChatGenerator = (
         // Random Badges Logic
         if (enabledBadges.subscriber && (msg.isSub || Math.random() > 0.7))
           badges.push(BADGE_ASSETS.SUBSCRIBER);
-        if (enabledBadges.vip && (msg.isVip || Math.random() > 0.95))
-          badges.push(BADGE_ASSETS.VIP);
-        if (enabledBadges.moderator && Math.random() > 0.98)
-          badges.push(BADGE_ASSETS.MODERATOR);
-        if (enabledBadges.verified && Math.random() > 0.99)
-          badges.push(BADGE_ASSETS.VERIFIED);
-        if (enabledBadges.prime && Math.random() > 0.9)
-          badges.push(BADGE_ASSETS.PRIME_REAL);
+        if (enabledBadges.vip && (msg.isVip || Math.random() > 0.95)) badges.push(BADGE_ASSETS.VIP);
+        if (enabledBadges.moderator && Math.random() > 0.98) badges.push(BADGE_ASSETS.MODERATOR);
+        if (enabledBadges.verified && Math.random() > 0.99) badges.push(BADGE_ASSETS.VERIFIED);
+        if (enabledBadges.prime && Math.random() > 0.9) badges.push(BADGE_ASSETS.PRIME_REAL);
         if (enabledBadges.broadcaster && Math.random() > 0.995)
           badges.push(BADGE_ASSETS.BROADCASTER);
 
@@ -54,8 +47,7 @@ export const useChatGenerator = (
           username: msg.username,
           messageText: msg.messageText,
           badges: badges,
-          colorUsername:
-            colorsName[Math.floor(Math.random() * colorsName.length)],
+          colorUsername: colorsName[Math.floor(Math.random() * colorsName.length)],
         };
       });
 
@@ -63,7 +55,7 @@ export const useChatGenerator = (
       setIsStreaming(true);
     } catch (err) {
       console.error(err);
-      setError("AI Generation failed. Check API Key or try again.");
+      setError('AI Generation failed. Check API Key or try again.');
     } finally {
       setIsLoading(false);
     }
@@ -76,7 +68,7 @@ export const useChatGenerator = (
         const nextMsg = messagePool[poolIndexRef.current];
 
         const now = new Date();
-        const timeStr = `${now.getHours().toString().padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}`;
+        const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
         const uniqueId = crypto.randomUUID();
 
         const msgWithTime = { ...nextMsg, timestamp: timeStr, uniqueId };
@@ -102,7 +94,7 @@ export const useChatGenerator = (
   const clearMessages = useCallback(() => setVisibleMessages([]), []);
   const addMessage = useCallback(
     (msg: ChatMessage) => setVisibleMessages((prev) => [...prev, msg]),
-    [],
+    []
   );
 
   return {

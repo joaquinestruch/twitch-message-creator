@@ -1,5 +1,5 @@
-import Message from "./message/Message";
-import Nav from "./nav/Nav";
+import Message from './message/Message';
+import Nav from './nav/Nav';
 
 function Main() {
   return (

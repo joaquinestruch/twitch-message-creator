@@ -1,18 +1,18 @@
-import React from "react";
+import React from 'react';
 
 const BADGES = [
-  { id: "broadcaster", label: "Broadcaster" },
-  { id: "moderator", label: "Moderator" },
-  { id: "verified", label: "Verified" },
-  { id: "vip", label: "VIP" },
-  { id: "artist", label: "Artist" },
-  { id: "dj", label: "DJ" },
-  { id: "subscriber", label: "Subscriber" },
-  { id: "prime", label: "Prime" },
-  { id: "turbo", label: "Turbo" },
+  { id: 'broadcaster', label: 'Broadcaster' },
+  { id: 'moderator', label: 'Moderator' },
+  { id: 'verified', label: 'Verified' },
+  { id: 'vip', label: 'VIP' },
+  { id: 'artist', label: 'Artist' },
+  { id: 'dj', label: 'DJ' },
+  { id: 'subscriber', label: 'Subscriber' },
+  { id: 'prime', label: 'Prime' },
+  { id: 'turbo', label: 'Turbo' },
 ];
 
-import { ChatMessage, BadgeMap } from "@/types";
+import { ChatMessage, BadgeMap } from '@/types';
 
 // We can define subtypes for Props based on hooks return values structure
 interface ControlPanelProps {
@@ -40,15 +40,13 @@ interface ControlPanelProps {
     manualColor: string;
     setManualColor: (v: string) => void;
     manualBadges: Record<string, boolean>;
-    setManualBadges: React.Dispatch<
-      React.SetStateAction<Record<string, boolean>>
-    >;
+    setManualBadges: React.Dispatch<React.SetStateAction<Record<string, boolean>>>;
     handleAddManualMessage: () => void;
   };
   handlers: {
     handleGenerate: () => void;
     handleApplyPreset: (type: string) => void;
-    handleTriggerEvent: (type: "sub" | "gift" | "cheer" | "donation") => void;
+    handleTriggerEvent: (type: 'sub' | 'gift' | 'cheer' | 'donation') => void;
     toggleStream: () => void;
     handleDownload: () => void;
     toggleObsMode: () => void;
@@ -114,21 +112,21 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
       {/* Mode Toggle Tabs */}
       <div className="mode-tabs">
         <button
-          className={`mode-tab-btn ${mode === "ai" ? "active" : ""}`}
-          onClick={() => setMode("ai")}
+          className={`mode-tab-btn ${mode === 'ai' ? 'active' : ''}`}
+          onClick={() => setMode('ai')}
         >
           🤖 AI Generator
         </button>
         <button
-          className={`mode-tab-btn ${mode === "manual" ? "active" : ""}`}
-          onClick={() => setMode("manual")}
+          className={`mode-tab-btn ${mode === 'manual' ? 'active' : ''}`}
+          onClick={() => setMode('manual')}
         >
           ✍️ Manual Creator
         </button>
       </div>
 
       {/* AI MODE CONTROLS */}
-      {mode === "ai" && (
+      {mode === 'ai' && (
         <div className="controls-grid">
           <div className="control-group">
             <label className="control-label">
@@ -139,7 +137,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                 placeholder="e.g. xQc"
                 value={channelName}
                 onChange={(e) => setChannelName(e.target.value)}
-                style={{ marginTop: "5px" }}
+                style={{ marginTop: '5px' }}
               />
             </label>
           </div>
@@ -155,7 +153,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                 className="custom-slider"
                 value={messageCount}
                 onChange={(e) => setMessageCount(Number(e.target.value))}
-                style={{ marginTop: "5px" }}
+                style={{ marginTop: '5px' }}
               />
             </label>
           </div>
@@ -167,7 +165,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                 className="custom-input"
                 value={language}
                 onChange={(e) => setLanguage(e.target.value)}
-                style={{ marginTop: "5px" }}
+                style={{ marginTop: '5px' }}
               >
                 <option value="es">Español (ES/LATAM)</option>
                 <option value="en">English (US/Global)</option>
@@ -182,7 +180,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                 className="custom-input"
                 value={complexity}
                 onChange={(e) => setComplexity(e.target.value)}
-                style={{ marginTop: "5px" }}
+                style={{ marginTop: '5px' }}
               >
                 <option value="simple">Short / Spammy</option>
                 <option value="mixed">Mixed</option>
@@ -192,40 +190,40 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
           </div>
 
           {/* Scenario Presets Row */}
-          <div className="control-group" style={{ gridColumn: "1 / -1" }}>
-            <span className="control-label" style={{ color: "#00db84" }}>
+          <div className="control-group" style={{ gridColumn: '1 / -1' }}>
+            <span className="control-label" style={{ color: '#00db84' }}>
               ⚡ Quick Scenarios (Viral)
             </span>
-            <div style={{ display: "flex", gap: "10px", marginTop: "5px" }}>
+            <div style={{ display: 'flex', gap: '10px', marginTop: '5px' }}>
               <button
-                onClick={() => handleApplyPreset("jumpscare")}
+                onClick={() => handleApplyPreset('jumpscare')}
                 className="btn-secondary"
                 style={{
-                  fontSize: "0.8rem",
-                  padding: "6px 10px",
-                  background: "#3a3a3d",
+                  fontSize: '0.8rem',
+                  padding: '6px 10px',
+                  background: '#3a3a3d',
                 }}
               >
                 😱 Jumpscare
               </button>
               <button
-                onClick={() => handleApplyPreset("hype")}
+                onClick={() => handleApplyPreset('hype')}
                 className="btn-secondary"
                 style={{
-                  fontSize: "0.8rem",
-                  padding: "6px 10px",
-                  background: "#3a3a3d",
+                  fontSize: '0.8rem',
+                  padding: '6px 10px',
+                  background: '#3a3a3d',
                 }}
               >
                 🎉 Hype Train
               </button>
               <button
-                onClick={() => handleApplyPreset("toxic")}
+                onClick={() => handleApplyPreset('toxic')}
                 className="btn-secondary"
                 style={{
-                  fontSize: "0.8rem",
-                  padding: "6px 10px",
-                  background: "#3a3a3d",
+                  fontSize: '0.8rem',
+                  padding: '6px 10px',
+                  background: '#3a3a3d',
                 }}
               >
                 💀 Toxic/Roast
@@ -233,13 +231,13 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
             </div>
           </div>
 
-          <div className="control-group" style={{ gridColumn: "1 / -1" }}>
+          <div className="control-group" style={{ gridColumn: '1 / -1' }}>
             <span className="control-label">Allowed Badges (AI)</span>
             <div className="badge-selector-group">
               {BADGES.map((badge) => (
                 <label
                   key={badge.id}
-                  className={`badge-toggle-btn ${enabledBadges[badge.id] ? "active" : ""}`}
+                  className={`badge-toggle-btn ${enabledBadges[badge.id] ? 'active' : ''}`}
                 >
                   <input
                     type="checkbox"
@@ -263,7 +261,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                 className="custom-slider"
                 value={chatSpeed}
                 onChange={(e) => setChatSpeed(Number(e.target.value))}
-                style={{ direction: "rtl", marginTop: "5px" }}
+                style={{ direction: 'rtl', marginTop: '5px' }}
               />
             </label>
           </div>
@@ -271,9 +269,9 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
       )}
 
       {/* MANUAL MODE CONTROLS */}
-      {mode === "manual" && (
+      {mode === 'manual' && (
         <div className="controls-grid">
-          <div className="manual-grid-row" style={{ gridColumn: "1 / -1" }}>
+          <div className="manual-grid-row" style={{ gridColumn: '1 / -1' }}>
             <div className="control-group" style={{ flex: 1 }}>
               <label className="control-label">
                 Username
@@ -282,7 +280,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                   className="custom-input"
                   value={manualUsername}
                   onChange={(e) => setManualUsername(e.target.value)}
-                  style={{ marginTop: "5px" }}
+                  style={{ marginTop: '5px' }}
                 />
               </label>
             </div>
@@ -294,13 +292,13 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                   className="manual-color-picker"
                   value={manualColor}
                   onChange={(e) => setManualColor(e.target.value)}
-                  style={{ marginTop: "5px", display: "block" }}
+                  style={{ marginTop: '5px', display: 'block' }}
                 />
               </label>
             </div>
           </div>
 
-          <div className="control-group" style={{ gridColumn: "1 / -1" }}>
+          <div className="control-group" style={{ gridColumn: '1 / -1' }}>
             <label className="control-label">
               Message
               <textarea
@@ -309,66 +307,57 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                 value={manualMessage}
                 onChange={(e) => setManualMessage(e.target.value)}
                 placeholder="Type a message (Kappa supported)..."
-                style={{ resize: "none", height: "60px", marginTop: "5px" }}
+                style={{ resize: 'none', height: '60px', marginTop: '5px' }}
               ></textarea>
             </label>
           </div>
 
-          <div className="control-group" style={{ gridColumn: "1 / -1" }}>
+          <div className="control-group" style={{ gridColumn: '1 / -1' }}>
             <span className="control-label">Stream Events (Fake)</span>
-            <div style={{ display: "flex", gap: "5px", flexWrap: "wrap" }}>
+            <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' }}>
               <button
-                onClick={() => handleTriggerEvent("sub")}
+                onClick={() => handleTriggerEvent('sub')}
                 className="btn-secondary"
-                style={{ fontSize: "0.75rem", padding: "5px", flex: "1" }}
+                style={{ fontSize: '0.75rem', padding: '5px', flex: '1' }}
               >
                 ⭐ New Sub
               </button>
               <button
-                onClick={() => handleTriggerEvent("gift")}
+                onClick={() => handleTriggerEvent('gift')}
                 className="btn-secondary"
-                style={{ fontSize: "0.75rem", padding: "5px", flex: "1" }}
+                style={{ fontSize: '0.75rem', padding: '5px', flex: '1' }}
               >
                 🎁 Gift 5
               </button>
               <button
-                onClick={() => handleTriggerEvent("cheer")}
+                onClick={() => handleTriggerEvent('cheer')}
                 className="btn-secondary"
-                style={{ fontSize: "0.75rem", padding: "5px", flex: "1" }}
+                style={{ fontSize: '0.75rem', padding: '5px', flex: '1' }}
               >
                 💎 100 Bits
               </button>
               <button
-                onClick={() => handleTriggerEvent("donation")}
+                onClick={() => handleTriggerEvent('donation')}
                 className="btn-secondary"
-                style={{ fontSize: "0.75rem", padding: "5px", flex: "1" }}
+                style={{ fontSize: '0.75rem', padding: '5px', flex: '1' }}
               >
                 💸 Donate $10
               </button>
             </div>
           </div>
 
-          <div className="control-group" style={{ gridColumn: "1 / -1" }}>
+          <div className="control-group" style={{ gridColumn: '1 / -1' }}>
             <span className="control-label">Badges</span>
             <div className="badge-selector-group">
-              {[
-                "subscriber",
-                "moderator",
-                "verified",
-                "vip",
-                "broadcaster",
-                "prime",
-              ].map((bid) => (
+              {['subscriber', 'moderator', 'verified', 'vip', 'broadcaster', 'prime'].map((bid) => (
                 <label
                   key={bid}
-                  className={`badge-toggle-btn ${manualBadges[bid] ? "active" : ""}`}
+                  className={`badge-toggle-btn ${manualBadges[bid] ? 'active' : ''}`}
                 >
                   <input
                     type="checkbox"
                     checked={manualBadges[bid]}
-                    onChange={() =>
-                      setManualBadges((p) => ({ ...p, [bid]: !p[bid] }))
-                    }
+                    onChange={() => setManualBadges((p) => ({ ...p, [bid]: !p[bid] }))}
                   />
                   {bid.charAt(0).toUpperCase() + bid.slice(1)}
                 </label>
@@ -379,22 +368,18 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
       )}
 
       <div className="manual-actions">
-        {mode === "ai" ? (
+        {mode === 'ai' ? (
           <>
-            <button
-              onClick={handleGenerate}
-              disabled={isLoading}
-              className="btn-primary"
-            >
-              {isLoading ? "Generating..." : "Generate New Chat"}
+            <button onClick={handleGenerate} disabled={isLoading} className="btn-primary">
+              {isLoading ? 'Generating...' : 'Generate New Chat'}
             </button>
             {messagePool.length > 0 && (
               <button
                 onClick={toggleStream}
                 className="btn-secondary"
-                style={{ background: isStreaming ? "#ff4f4d" : "#2f2f35" }}
+                style={{ background: isStreaming ? '#ff4f4d' : '#2f2f35' }}
               >
-                {isStreaming ? "⏹ Stop Stream" : "▶ Start Stream"}
+                {isStreaming ? '⏹ Stop Stream' : '▶ Start Stream'}
               </button>
             )}
           </>
@@ -403,7 +388,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
             <button
               onClick={handleAddManualMessage}
               className="btn-primary"
-              style={{ background: "#00db84", color: "#000" }}
+              style={{ background: '#00db84', color: '#000' }}
             >
               + Add Message
             </button>
@@ -417,19 +402,15 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
           onClick={handleDownload}
           className="btn-secondary"
           style={{
-            width: "auto",
-            background: "#2f2f35",
-            border: "1px solid #4f4f56",
+            width: 'auto',
+            background: '#2f2f35',
+            border: '1px solid #4f4f56',
           }}
           title="Save Image"
         >
           📸 Save
         </button>
-        <button
-          onClick={toggleObsMode}
-          className="toggle-obs-btn"
-          style={{ width: "auto" }}
-        >
+        <button onClick={toggleObsMode} className="toggle-obs-btn" style={{ width: 'auto' }}>
           Pop-out ↗
         </button>
       </div>

@@ -1,21 +1,14 @@
-import { ChatGenerationParams, OpenAIResponse } from "@/types";
+import { ChatGenerationParams, OpenAIResponse } from '@/types';
 
 export const generateChatStream = async (
   params: ChatGenerationParams
 ): Promise<OpenAIResponse[]> => {
-  const {
-    channelName,
-    complexity,
-    language,
-    messageCount,
-    scenarioType,
-    availableEmotes,
-  } = params;
+  const { channelName, complexity, language, messageCount, scenarioType, availableEmotes } = params;
 
-  const response = await fetch("/api/generate", {
-    method: "POST",
+  const response = await fetch('/api/generate', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       channelName,
@@ -28,38 +21,38 @@ export const generateChatStream = async (
   });
 
   if (!response.ok) {
-    let errorMsg = "Failed to fetch";
+    let errorMsg = 'Failed to fetch';
     try {
       const errorData = await response.json();
       errorMsg = errorData.error || errorMsg;
-  } catch {
-    // Ignore json parse error on error response
+    } catch {
+      // Ignore json parse error on error response
+    }
+    throw new Error(errorMsg);
   }
-  throw new Error(errorMsg);
-}
 
-if (!response.body) throw new Error("No response body");
-const reader = response.body.getReader();
-const decoder = new TextDecoder();
-let content = "";
+  if (!response.body) throw new Error('No response body');
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let content = '';
 
-// eslint-disable-next-line no-constant-condition
-while (true) {
-  const { done, value } = await reader.read();
-  if (done) break;
-  content += decoder.decode(value, { stream: true });
-}
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    content += decoder.decode(value, { stream: true });
+  }
 
-// Clean up markdown code blocks if present
-const jsonStr = content
-  .replace(/```json/g, "")
-  .replace(/```/g, "")
-  .trim();
+  // Clean up markdown code blocks if present
+  const jsonStr = content
+    .replace(/```json/g, '')
+    .replace(/```/g, '')
+    .trim();
 
-try {
-  return JSON.parse(jsonStr);
-} catch {
-  console.error("Failed to parse JSON response:", jsonStr);
-  throw new Error("Invalid response format from AI");
-}
+  try {
+    return JSON.parse(jsonStr);
+  } catch {
+    console.error('Failed to parse JSON response:', jsonStr);
+    throw new Error('Invalid response format from AI');
+  }
 };

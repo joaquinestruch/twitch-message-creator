@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
-import { BadgeMap } from "@/types";
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { BadgeMap } from '@/types';
 
 const DEFAULT_BADGES: BadgeMap = {
   subscriber: true,
@@ -18,18 +18,10 @@ export const useChatSettings = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Core Settings
-  const [channelName, setChannelName] = useState<string>(
-    searchParams.get("channel") || "",
-  );
-  const [chatSpeed, setChatSpeed] = useState<number>(
-    Number(searchParams.get("speed")) || 500,
-  );
-  const [complexity, setComplexity] = useState<string>(
-    searchParams.get("complexity") || "simple",
-  );
-  const [language, setLanguage] = useState<string>(
-    searchParams.get("lang") || "en",
-  );
+  const [channelName, setChannelName] = useState<string>(searchParams.get('channel') || '');
+  const [chatSpeed, setChatSpeed] = useState<number>(Number(searchParams.get('speed')) || 500);
+  const [complexity, setComplexity] = useState<string>(searchParams.get('complexity') || 'simple');
+  const [language, setLanguage] = useState<string>(searchParams.get('lang') || 'en');
   const [messageCount, setMessageCount] = useState<number>(30);
 
   // Badges
@@ -40,8 +32,8 @@ export const useChatSettings = () => {
     const params: Record<string, string> = {};
     if (channelName) params.channel = channelName;
     if (chatSpeed !== 500) params.speed = String(chatSpeed);
-    if (complexity !== "simple") params.complexity = complexity;
-    if (language !== "en") params.lang = language;
+    if (complexity !== 'simple') params.complexity = complexity;
+    if (language !== 'en') params.lang = language;
 
     setSearchParams(params, { replace: true });
   }, [channelName, chatSpeed, complexity, language, setSearchParams]);

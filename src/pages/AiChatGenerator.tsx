@@ -1,20 +1,20 @@
-import { useState, useRef, useEffect } from "react";
-import Header from "@/components/Header";
-import "@/App.css";
-import "./AiChat.css";
-import html2canvas from "html2canvas";
+import { useState, useRef, useEffect } from 'react';
+import Header from '@/components/Header';
+import '@/App.css';
+import './AiChat.css';
+import html2canvas from 'html2canvas';
 
 // Hooks
-import { useChatSettings } from "@/hooks/useChatSettings";
-import { useChatGenerator } from "@/hooks/useChatGenerator";
-import { useStreamEvents } from "@/hooks/useStreamEvents";
-import { useObsMode } from "@/hooks/useObsMode";
-import { useManualMode } from "@/hooks/useManualMode";
+import { useChatSettings } from '@/hooks/useChatSettings';
+import { useChatGenerator } from '@/hooks/useChatGenerator';
+import { useStreamEvents } from '@/hooks/useStreamEvents';
+import { useObsMode } from '@/hooks/useObsMode';
+import { useManualMode } from '@/hooks/useManualMode';
 
 // Components
-import StreamPreview from "@/components/StreamPreview";
-import ControlPanel from "@/components/ControlPanel";
-import ChatDisplay from "@/components/ChatDisplay";
+import StreamPreview from '@/components/StreamPreview';
+import ControlPanel from '@/components/ControlPanel';
+import ChatDisplay from '@/components/ChatDisplay';
 
 function AiChatGenerator() {
   // Hooks Integration
@@ -25,12 +25,12 @@ function AiChatGenerator() {
   const manual = useManualMode(chatGen.addMessage);
   const events = useStreamEvents(chatGen.addMessage, manual.manualUsername);
 
-  const [mode, setMode] = useState<string>("ai");
+  const [mode, setMode] = useState<string>('ai');
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   // SEO & Metadata
   useEffect(() => {
-    document.title = "Twitch Chat Simulator | AI Fake Stream Generator";
+    document.title = 'Twitch Chat Simulator | AI Fake Stream Generator';
     // ... (Existing SEO logic could be moved to a useSEO hook but for now keeping it simple)
   }, []);
 
@@ -39,15 +39,14 @@ function AiChatGenerator() {
     if (chatContainerRef.current) {
       requestAnimationFrame(() => {
         if (chatContainerRef.current) {
-          chatContainerRef.current.scrollTop =
-            chatContainerRef.current.scrollHeight;
+          chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
         }
       });
     }
   }, [chatGen.visibleMessages]);
 
   const handleDownload = () => {
-    const element = document.getElementById("ai-capture-zone");
+    const element = document.getElementById('ai-capture-zone');
     if (!element) return;
 
     html2canvas(element, {
@@ -56,7 +55,7 @@ function AiChatGenerator() {
       useCORS: true,
       allowTaint: true,
     }).then((canvas) => {
-      const link = document.createElement("a");
+      const link = document.createElement('a');
       link.download = `chat_${settings.channelName}_live.png`;
       link.href = canvas.toDataURL();
       link.click();
@@ -66,11 +65,10 @@ function AiChatGenerator() {
   return (
     <>
       {!obs.isObsMode && <Header />}
-      
-      <main className={`ai-chat-main ${obs.isObsMode ? "obs-active" : ""}`}>
+
+      <main className={`ai-chat-main ${obs.isObsMode ? 'obs-active' : ''}`}>
         {/* LEFT SIDE */}
         <section className="stream-layout-left">
-
           <StreamPreview bgImage={obs.bgImage} setBgImage={obs.setBgImage} />
 
           {!obs.isObsMode && (
@@ -109,23 +107,23 @@ function AiChatGenerator() {
           <button
             onClick={obs.toggleObsMode}
             style={{
-              position: "fixed",
-              top: "10px",
-              left: "10px",
+              position: 'fixed',
+              top: '10px',
+              left: '10px',
               opacity: 0.1,
               zIndex: 9999,
-              background: "red",
-              border: "none",
-              color: "white",
-              padding: "10px",
-              borderRadius: "5px",
-              cursor: "pointer",
+              background: 'red',
+              border: 'none',
+              color: 'white',
+              padding: '10px',
+              borderRadius: '5px',
+              cursor: 'pointer',
             }}
             onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) =>
-              (e.currentTarget.style.opacity = "1")
+              (e.currentTarget.style.opacity = '1')
             }
             onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) =>
-              (e.currentTarget.style.opacity = "0.1")
+              (e.currentTarget.style.opacity = '0.1')
             }
           >
             EXIT OBS MODE
@@ -136,25 +134,22 @@ function AiChatGenerator() {
       {/* SEO Content Section */}
       <section
         style={{
-          maxWidth: "1200px",
-          margin: "40px auto",
-          padding: "20px",
-          color: "#adadb8",
-          fontSize: "0.9rem",
-          lineHeight: "1.6",
+          maxWidth: '1200px',
+          margin: '40px auto',
+          padding: '20px',
+          color: '#adadb8',
+          fontSize: '0.9rem',
+          lineHeight: '1.6',
         }}
       >
-        <h2
-          style={{ color: "#a970ff", fontSize: "1.5rem", marginBottom: "10px" }}
-        >
+        <h2 style={{ color: '#a970ff', fontSize: '1.5rem', marginBottom: '10px' }}>
           About Twitch Chat Simulator
         </h2>
         <p>
-          Welcome to the most realistic <strong>Twitch Chat Simulator</strong>{" "}
-          and <strong>Fake Chat Generator</strong>. Whether you are a streamer
-          looking for a fake chat overlay for OBS, a video editor needing
-          authentic chat logs for content, or just want to prank your friends,
-          our AI-powered tool generates high-quality, realistic Twitch messages
+          Welcome to the most realistic <strong>Twitch Chat Simulator</strong> and{' '}
+          <strong>Fake Chat Generator</strong>. Whether you are a streamer looking for a fake chat
+          overlay for OBS, a video editor needing authentic chat logs for content, or just want to
+          prank your friends, our AI-powered tool generates high-quality, realistic Twitch messages
           instantly.
         </p>
       </section>

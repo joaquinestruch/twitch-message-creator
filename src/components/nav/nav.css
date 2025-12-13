@@ -5,18 +5,22 @@
   gap: 40px;
 }
 
-.nav-emblems {
+/* Shared style for all control panels */
+.control-panel-box {
   display: flex;
-  align-items: center;
   flex-direction: column;
-  justify-content: center;
   background-color: #18181b;
   color: white;
   padding: 10px;
   border-radius: 20px;
   font-family: Comentario2;
-  /* Removed height: 100% to allow flex stretch to work */
-  width: 300px; /* Increased width for uniformity */
+  width: 300px;
+  justify-content: center; /* Center content vertically */
+}
+
+.nav-emblems {
+  /* Inherits shared styles via class in HTML, specific overrides here if needed */
+  align-items: center; /* Emblems are centered */
 }
 
 .config-nav > div > ul {
@@ -55,16 +59,8 @@
 }
 
 .inputs-message {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  background-color: #18181b;
-  padding: 10px;
-  border-radius: 20px;
-  font-family: Comentario2;
-  color: white;
-  /* Removed height: 100% */
-  width: 300px; /* Matching width */
+  /* Inherits shared styles via class in HTML */
+  gap: 20px; /* Specific gap for inputs */
 }
 
 .save-comment {
@@ -141,36 +137,37 @@ input {
     height: auto; /* Allow auto height */
     padding: 20px;
   }
-  
+
   /* Make grid touch friendly */
   .config-nav > div > ul {
-    gap: 15px; 
+    gap: 15px;
   }
-  
+
   .nav-emblems li {
     width: 24px; /* Larger touch targets ONLY for emblems */
     height: 24px;
   }
-  
+
   .config-nav > div > ul > li .emblem-btn img {
     height: 24px;
     width: 24px;
   }
-  
+
   .button-select-color {
-     height: 24px;
-     width: 24px;
+    height: 24px;
+    width: 24px;
   }
 
   .inputs-message {
     padding-bottom: 30px; /* Extra padding at bottom of inputs */
   }
-  
-  input, textarea {
+
+  input,
+  textarea {
     font-size: 16px; /* Prevent zoom on iOS */
     padding: 10px;
   }
-  
+
   button.save-comment {
     padding: 12px; /* Fat finger friendly */
     font-size: 1rem;

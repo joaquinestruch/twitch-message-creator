@@ -1,47 +1,38 @@
-import { OpenAI } from "openai";
+import { OpenAI } from 'openai';
 
 export const config = {
-  runtime: "edge", // Using Edge Runtime for speed, optional but recommended
+  runtime: 'edge', // Using Edge Runtime for speed, optional but recommended
 };
 
 export default async function handler(req: Request) {
-  if (req.method !== "POST") {
-    return new Response("Method Not Allowed", { status: 405 });
+  if (req.method !== 'POST') {
+    return new Response('Method Not Allowed', { status: 405 });
   }
 
   try {
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
-      return new Response(
-        JSON.stringify({ error: "Server misconfiguration: API Key missing" }),
-        {
-          status: 500,
-          headers: { "Content-Type": "application/json" },
-        },
-      );
+      return new Response(JSON.stringify({ error: 'Server misconfiguration: API Key missing' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
-    const {
-      channelName,
-      complexity,
-      language,
-      messageCount,
-      scenarioType,
-      availableEmotes,
-    } = (await req.json()) as {
-      channelName: string;
-      complexity: string;
-      language: string;
-      messageCount: number;
-      scenarioType?: string;
-      availableEmotes: string;
-    };
+    const { channelName, complexity, language, messageCount, scenarioType, availableEmotes } =
+      (await req.json()) as {
+        channelName: string;
+        complexity: string;
+        language: string;
+        messageCount: number;
+        scenarioType?: string;
+        availableEmotes: string;
+      };
 
     const openai = new OpenAI({
       apiKey: apiKey,
     });
 
-    let prompt = "";
+    let prompt = '';
 
     if (scenarioType) {
       // SCENARIO MODE PROMPTS
@@ -65,19 +56,19 @@ export default async function handler(req: Request) {
       }
     } else {
       // STANDARD MODE PROMPT
-      let complexityPrompt = "";
-      if (complexity === "simple") {
+      let complexityPrompt = '';
+      if (complexity === 'simple') {
         complexityPrompt = `Keep messages VERY short. mostly 1-3 words. Use emotes like ${availableEmotes}.`;
-      } else if (complexity === "mixed") {
+      } else if (complexity === 'mixed') {
         complexityPrompt = `Mix short slang (50%) with short sentences. Use emotes frequently: ${availableEmotes}.`;
-      } else if (complexity === "complex") {
+      } else if (complexity === 'complex') {
         complexityPrompt = `Generate longer messages but still use emotes: ${availableEmotes}.`;
       }
 
       const langPrompt =
-        language === "es"
-          ? "Spanish (Argentina/Spain/Latin America mix)"
-          : "English (Internet/Twitch Slang)";
+        language === 'es'
+          ? 'Spanish (Argentina/Spain/Latin America mix)'
+          : 'English (Internet/Twitch Slang)';
 
       prompt = `You are a Twitch Chat Simulator. 
         Generate ${messageCount} realistic twitch chat messages for channel: "${channelName}".
@@ -96,8 +87,8 @@ export default async function handler(req: Request) {
     }
 
     const completion = await openai.chat.completions.create({
-      messages: [{ role: "system", content: prompt }],
-      model: "gpt-4o-mini",
+      messages: [{ role: 'system', content: prompt }],
+      model: 'gpt-4o-mini',
       stream: true,
     });
 
@@ -106,13 +97,13 @@ export default async function handler(req: Request) {
         const encoder = new TextEncoder();
         try {
           for await (const chunk of completion) {
-            const content = chunk.choices[0]?.delta?.content || "";
+            const content = chunk.choices[0]?.delta?.content || '';
             if (content) {
               controller.enqueue(encoder.encode(content));
             }
           }
         } catch (err) {
-          console.error("Stream error:", err);
+          console.error('Stream error:', err);
           controller.error(err);
         } finally {
           controller.close();
@@ -122,20 +113,20 @@ export default async function handler(req: Request) {
 
     return new Response(stream, {
       status: 200,
-      headers: { "Content-Type": "text/plain; charset=utf-8" },
+      headers: { 'Content-Type': 'text/plain; charset=utf-8' },
     });
   } catch (err: unknown) {
     console.error(err);
     const errorMessage = err instanceof Error ? err.message : String(err);
     return new Response(
       JSON.stringify({
-        error: "Failed to generate chat",
+        error: 'Failed to generate chat',
         details: errorMessage,
       }),
       {
         status: 500,
-        headers: { "Content-Type": "application/json" },
-      },
+        headers: { 'Content-Type': 'application/json' },
+      }
     );
   }
 }

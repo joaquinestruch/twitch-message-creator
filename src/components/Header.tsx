@@ -1,4 +1,5 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from 'react-router-dom';
+import logoPepe from "@/assets/logo-pepe.png";
 
 function Header(): JSX.Element {
   const location = useLocation();
@@ -6,36 +7,31 @@ function Header(): JSX.Element {
   return (
     <header className="site-header">
       <div className="header-left">
-        <h1 className="header-title">
-          Twitch Message Creator
-        </h1>
+        <h1 className="header-title">Twitch Message Creator</h1>
 
         <nav className="header-nav">
-          <Link
-            to="/"
-            className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
-          >
+          <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>
             Message Creator
           </Link>
 
-          <span className="nav-separator" style={{ color: "#2f2f35" }}>|</span>
+          <span className="nav-separator" style={{ color: '#2f2f35' }}>
+            |
+          </span>
 
           <Link
             to="/ai-chat"
-            className={`nav-link ${
-              location.pathname.includes("ai") ? "active" : ""
-            }`}
+            className={`nav-link ${location.pathname.includes('ai') ? 'active' : ''}`}
           >
             AI Chat Simulator
           </Link>
 
-          <span className="nav-separator" style={{ color: "#2f2f35" }}>|</span>
+          <span className="nav-separator" style={{ color: '#2f2f35' }}>
+            |
+          </span>
 
           <Link
             to="/animations"
-            className={`nav-link ${
-              location.pathname === "/animations" ? "active" : ""
-            }`}
+            className={`nav-link ${location.pathname === '/animations' ? 'active' : ''}`}
           >
             Alert Animator
           </Link>
@@ -48,17 +44,17 @@ function Header(): JSX.Element {
           target="_blank"
           className="kick-button"
           style={{
-            padding: "6px 12px",
-            fontSize: "0.8rem",
-            height: "auto",
+            padding: '6px 12px',
+            fontSize: '0.8rem',
+            height: 'auto',
           }}
         >
           Kick Generator ↗
         </a>
         <img
-          src="https://blog.cdn.own3d.tv/resize=fit:crop,height:400,width:600/LpfvrIJwRweax4SlbXKq"
-          alt=""
-          style={{ height: "30px", borderRadius: "4px" }}
+          src={logoPepe}
+          alt="Twitch Message Creator Logo"
+          style={{ height: '55px', borderRadius: '4px' }}
         />
       </div>
     </header>

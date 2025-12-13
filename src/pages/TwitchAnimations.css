@@ -128,8 +128,13 @@
   font-size: 3rem;
   font-weight: 900;
   color: white;
-  text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-  font-family: "Inter", sans-serif;
+  text-shadow:
+    3px 3px 0 #000,
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+  font-family: 'Inter', sans-serif;
   margin-top: 10px;
 }
 
@@ -138,7 +143,7 @@
   color: white;
   margin-top: 10px;
   font-weight: 600;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 /* SEO Section */
@@ -147,7 +152,7 @@
   margin: 40px auto;
   padding: 0 20px 60px 20px;
   color: #adadb8;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .anim-seo h1 {
@@ -176,10 +181,20 @@
 
 /* Animations */
 @keyframes bounceIn {
-  0% { transform: scale(0.3); opacity: 0; }
-  50% { transform: scale(1.05); opacity: 1; }
-  70% { transform: scale(0.9); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* Mobile Responsiveness */
@@ -189,7 +204,7 @@
     height: auto;
     overflow-y: visible;
   }
-  
+
   /* On mobile, show Preview FIRST, then Controls */
   .anim-preview {
     order: 1;
@@ -197,7 +212,7 @@
     width: 100%;
     flex: none;
   }
-  
+
   .anim-controls {
     order: 2;
     width: 100%;
@@ -210,11 +225,11 @@
   .anim-text-line1 {
     font-size: 2rem; /* Smaller text on mobile */
   }
-  
+
   .anim-text-line2 {
     font-size: 1.2rem;
   }
-  
+
   .anim-gif {
     width: 100px;
     height: 100px;

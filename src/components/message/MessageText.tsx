@@ -16,8 +16,8 @@ function MessageText({ messageText }: MessageTextProps) {
   // const formattedText = messageText.length < 1 ? "message" : formatText(messageText);
 
   return (
-    <p style={{ color: "white" }} className="message-text">
-      {messageText.length < 1 ? "message" : messageText}
+    <p style={{ color: 'white' }} className="message-text">
+      {messageText.length < 1 ? 'message' : messageText}
     </p>
   );
 }

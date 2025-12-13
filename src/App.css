@@ -1,16 +1,16 @@
 @font-face {
-  font-family: "TwitchFont";
-  src: url("./fonts/Twitchy.TV.ttf") format("truetype");
+  font-family: 'TwitchFont';
+  src: url('./fonts/Twitchy.TV.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: "Comentario1";
-  src: url("./fonts/fuenteComentario1.woff2") format("truetype");
+  font-family: 'Comentario1';
+  src: url('./fonts/fuenteComentario1.woff2') format('truetype');
 }
 
 @font-face {
-  font-family: "Comentario2";
-  src: url("./fonts/fuenteComentario2.woff2") format("truetype");
+  font-family: 'Comentario2';
+  src: url('./fonts/fuenteComentario2.woff2') format('truetype');
 }
 
 /* Header Styles */
@@ -65,7 +65,7 @@
   margin: 60px auto;
   padding: 0 20px;
   color: #adadb8;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .seo-title {
@@ -102,25 +102,25 @@
     overflow: hidden;
     margin-bottom: 20px; /* Requested spacing */
   }
-  
+
   .header-left {
     flex-direction: column;
     gap: 20px;
     text-align: center;
     width: 100%;
   }
-  
+
   .header-nav {
     flex-wrap: wrap; /* links wrap on small screens */
     justify-content: center;
     width: 100%;
     gap: 30px; /* Significantly more breathing room between links */
   }
-  
+
   .nav-separator {
     display: none; /* Hide pipes on mobile */
   }
-  
+
   .header-right {
     display: none; /* Hide Kick button on mobile to save space, or stack it */
   }
@@ -128,7 +128,7 @@
   .seo-grid {
     grid-template-columns: 1fr; /* Stack SEO grid */
   }
-  
+
   .seo-title {
     font-size: 1.5rem;
   }
@@ -234,7 +234,7 @@ textarea {
   .message {
     width: 90%; /* Responsive width */
     /* Remove fixed positioning on mobile to prevent overlap with SEO content */
-    position: relative; 
+    position: relative;
     bottom: auto;
     transform: none;
     left: auto;
@@ -243,7 +243,7 @@ textarea {
     flex-wrap: wrap; /* allow wrapping if really small */
     justify-content: center;
   }
-  
+
   .message-text {
     max-width: 100%; /* Allow text to flow */
     font-size: 0.9rem; /* Slightly smaller text if needed */

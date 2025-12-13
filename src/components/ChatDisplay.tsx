@@ -1,6 +1,6 @@
-import React from "react";
-import { ChatMessage } from "@/types";
-import { parseWithEmotes } from "@/utils/chatUtils";
+import React from 'react';
+import { ChatMessage } from '@/types';
+import { parseWithEmotes } from '@/utils/chatUtils';
 
 interface ChatDisplayProps {
   visibleMessages: ChatMessage[];
@@ -16,29 +16,21 @@ const ChatDisplay: React.FC<ChatDisplayProps> = ({
   isStreaming,
 }) => {
   return (
-    <div
-      id="ai-capture-zone"
-      className={`ai-chat-wrapper ${isObsMode ? "obs-active" : ""}`}
-    >
+    <div id="ai-capture-zone" className={`ai-chat-wrapper ${isObsMode ? 'obs-active' : ''}`}>
       <div className="chat-header-gift">
         <img
           src="https://static-cdn.jtvnw.net/badges/v1/a1dd5073-19c3-4911-8cb4-c464a7bc1510/1"
           alt="Gift"
-          style={{ height: "20px" }}
+          style={{ height: '20px' }}
         />
-        <span style={{ color: "#bf94ff", fontWeight: "bold" }}>Anonymous</span>
-        <span style={{ color: "#dedee3", marginLeft: "5px" }}>
-          gifted 5 Subs!
-        </span>
+        <span style={{ color: '#bf94ff', fontWeight: 'bold' }}>Anonymous</span>
+        <span style={{ color: '#dedee3', marginLeft: '5px' }}>gifted 5 Subs!</span>
       </div>
 
       <div className="chat-messages-container" ref={chatContainerRef}>
         <div className="chat-stream-inner">
           {visibleMessages.length === 0 && !isStreaming && (
-            <div
-              className="welcome-message"
-              style={{ textAlign: "center", marginTop: "50%" }}
-            >
+            <div className="welcome-message" style={{ textAlign: 'center', marginTop: '50%' }}>
               Waiting for stream...
             </div>
           )}
@@ -50,20 +42,18 @@ const ChatDisplay: React.FC<ChatDisplayProps> = ({
                   key={msg.uniqueId || idx}
                   className="chat-message-row event-notice"
                   style={{
-                    background: "#1f1f23",
-                    borderLeft: "4px solid #a970ff",
-                    padding: "8px 10px",
-                    margin: "4px 0",
-                    fontSize: "0.85rem",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "5px",
+                    background: '#1f1f23',
+                    borderLeft: '4px solid #a970ff',
+                    padding: '8px 10px',
+                    margin: '4px 0',
+                    fontSize: '0.85rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '5px',
                   }}
                 >
-                  <span style={{ fontWeight: "bold", color: "#fff" }}>
-                    {msg.username}
-                  </span>
-                  <span style={{ color: "#a970ff" }}> {msg.systemText}</span>
+                  <span style={{ fontWeight: 'bold', color: '#fff' }}>{msg.username}</span>
+                  <span style={{ color: '#a970ff' }}> {msg.systemText}</span>
                 </div>
               );
             }
@@ -77,10 +67,7 @@ const ChatDisplay: React.FC<ChatDisplayProps> = ({
                   ))}
                 </span>
 
-                <span
-                  className="chat-username"
-                  style={{ color: msg.colorUsername }}
-                >
+                <span className="chat-username" style={{ color: msg.colorUsername }}>
                   {msg.username}
                 </span>
                 <span className="colon-separator">:</span>
@@ -97,17 +84,17 @@ const ChatDisplay: React.FC<ChatDisplayProps> = ({
         </div>
       </div>
 
-      <div style={{ padding: "20px", borderTop: "1px solid #2f2f35" }}>
+      <div style={{ padding: '20px', borderTop: '1px solid #2f2f35' }}>
         <div
           style={{
-            height: "40px",
-            background: "#2f2f35",
-            borderRadius: "4px",
-            color: "#adadb8",
-            display: "flex",
-            alignItems: "center",
-            paddingLeft: "10px",
-            fontSize: "0.9rem",
+            height: '40px',
+            background: '#2f2f35',
+            borderRadius: '4px',
+            color: '#adadb8',
+            display: 'flex',
+            alignItems: 'center',
+            paddingLeft: '10px',
+            fontSize: '0.9rem',
           }}
         >
           Send a message

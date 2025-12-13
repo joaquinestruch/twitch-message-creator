@@ -3,11 +3,11 @@
   function s(o, u) {
     if (!n[o]) {
       if (!t[o]) {
-        var a = typeof require == "function" && require;
+        var a = typeof require == 'function' && require;
         if (!u && a) return a(o, !0);
         if (i) return i(o, !0);
         var f = new Error("Cannot find module '" + o + "'");
-        throw ((f.code = "MODULE_NOT_FOUND"), f);
+        throw ((f.code = 'MODULE_NOT_FOUND'), f);
       }
       var l = (n[o] = { exports: {} });
       t[o][0].call(
@@ -21,20 +21,20 @@
         e,
         t,
         n,
-        r,
+        r
       );
     }
     return n[o].exports;
   }
-  var i = typeof require == "function" && require;
+  var i = typeof require == 'function' && require;
   for (var o = 0; o < r.length; o++) s(r[o]);
   return s;
 })(
   {
     1: [
       function (require, module, exports) {
-        var NeuQuant = require("./TypedNeuQuant.js");
-        var LZWEncoder = require("./LZWEncoder.js");
+        var NeuQuant = require('./TypedNeuQuant.js');
+        var LZWEncoder = require('./LZWEncoder.js');
         function ByteArray() {
           this.page = -1;
           this.pages = [];
@@ -42,14 +42,13 @@
         }
         ByteArray.pageSize = 4096;
         ByteArray.charMap = {};
-        for (var i = 0; i < 256; i++)
-          ByteArray.charMap[i] = String.fromCharCode(i);
+        for (var i = 0; i < 256; i++) ByteArray.charMap[i] = String.fromCharCode(i);
         ByteArray.prototype.newPage = function () {
           this.pages[++this.page] = new Uint8Array(ByteArray.pageSize);
           this.cursor = 0;
         };
         ByteArray.prototype.getData = function () {
-          var rv = "";
+          var rv = '';
           for (var p = 0; p < this.pages.length; p++) {
             for (var i = 0; i < ByteArray.pageSize; i++) {
               rv += ByteArray.charMap[this.pages[p][i]];
@@ -62,8 +61,7 @@
           this.pages[this.page][this.cursor++] = val;
         };
         ByteArray.prototype.writeUTFBytes = function (string) {
-          for (var l = string.length, i = 0; i < l; i++)
-            this.writeByte(string.charCodeAt(i));
+          for (var l = string.length, i = 0; i < l; i++) this.writeByte(string.charCodeAt(i));
         };
         ByteArray.prototype.writeBytes = function (array, offset, length) {
           for (var l = length || array.length, i = offset || 0; i < l; i++)
@@ -109,9 +107,7 @@
         GIFEncoder.prototype.addFrame = function (imageData) {
           this.image = imageData;
           this.colorTab =
-            this.globalPalette && this.globalPalette.slice
-              ? this.globalPalette
-              : null;
+            this.globalPalette && this.globalPalette.slice ? this.globalPalette : null;
           this.getImagePixels();
           this.analyzePixels();
           if (this.globalPalette === true) this.globalPalette = this.colorTab;
@@ -136,7 +132,7 @@
           this.sample = quality;
         };
         GIFEncoder.prototype.setDither = function (dither) {
-          if (dither === true) dither = "FloydSteinberg";
+          if (dither === true) dither = 'FloydSteinberg';
           this.dither = dither;
         };
         GIFEncoder.prototype.setGlobalPalette = function (palette) {
@@ -144,14 +140,12 @@
         };
         GIFEncoder.prototype.getGlobalPalette = function () {
           return (
-            (this.globalPalette &&
-              this.globalPalette.slice &&
-              this.globalPalette.slice(0)) ||
+            (this.globalPalette && this.globalPalette.slice && this.globalPalette.slice(0)) ||
             this.globalPalette
           );
         };
         GIFEncoder.prototype.writeHeader = function () {
-          this.out.writeUTFBytes("GIF89a");
+          this.out.writeUTFBytes('GIF89a');
         };
         GIFEncoder.prototype.analyzePixels = function () {
           if (!this.colorTab) {
@@ -161,8 +155,8 @@
           }
           if (this.dither) {
             this.ditherPixels(
-              this.dither.replace("-serpentine", ""),
-              this.dither.match(/-serpentine/) !== null,
+              this.dither.replace('-serpentine', ''),
+              this.dither.match(/-serpentine/) !== null
             );
           } else {
             this.indexPixels();
@@ -182,7 +176,7 @@
             var index = this.findClosestRGB(
               this.pixels[k++] & 255,
               this.pixels[k++] & 255,
-              this.pixels[k++] & 255,
+              this.pixels[k++] & 255
             );
             this.usedEntry[index] = true;
             this.indexedPixels[j] = index;
@@ -225,7 +219,7 @@
             ],
           };
           if (!kernel || !kernels[kernel]) {
-            throw "Unknown dithering kernel: " + kernel;
+            throw 'Unknown dithering kernel: ' + kernel;
           }
           var ds = kernels[kernel];
           var index = 0,
@@ -237,8 +231,7 @@
           for (var y = 0; y < height; y++) {
             if (serpentine) direction = direction * -1;
             for (
-              var x = direction == 1 ? 0 : width - 1,
-                xend = direction == 1 ? width : 0;
+              var x = direction == 1 ? 0 : width - 1, xend = direction == 1 ? width : 0;
               x !== xend;
               x += direction
             ) {
@@ -258,43 +251,26 @@
               var eg = g1 - g2;
               var eb = b1 - b2;
               for (
-                var i = direction == 1 ? 0 : ds.length - 1,
-                  end = direction == 1 ? ds.length : 0;
+                var i = direction == 1 ? 0 : ds.length - 1, end = direction == 1 ? ds.length : 0;
                 i !== end;
                 i += direction
               ) {
                 var x1 = ds[i][1];
                 var y1 = ds[i][2];
-                if (
-                  x1 + x >= 0 &&
-                  x1 + x < width &&
-                  y1 + y >= 0 &&
-                  y1 + y < height
-                ) {
+                if (x1 + x >= 0 && x1 + x < width && y1 + y >= 0 && y1 + y < height) {
                   var d = ds[i][0];
                   idx = index + x1 + y1 * width;
                   idx *= 3;
                   data[idx] = Math.max(0, Math.min(255, data[idx] + er * d));
-                  data[idx + 1] = Math.max(
-                    0,
-                    Math.min(255, data[idx + 1] + eg * d),
-                  );
-                  data[idx + 2] = Math.max(
-                    0,
-                    Math.min(255, data[idx + 2] + eb * d),
-                  );
+                  data[idx + 1] = Math.max(0, Math.min(255, data[idx + 1] + eg * d));
+                  data[idx + 2] = Math.max(0, Math.min(255, data[idx + 2] + eb * d));
                 }
               }
             }
           }
         };
         GIFEncoder.prototype.findClosest = function (c, used) {
-          return this.findClosestRGB(
-            (c & 16711680) >> 16,
-            (c & 65280) >> 8,
-            c & 255,
-            used,
-          );
+          return this.findClosestRGB((c & 16711680) >> 16, (c & 65280) >> 8, c & 255, used);
         };
         GIFEncoder.prototype.findClosestRGB = function (r, g, b, used) {
           if (this.colorTab === null) return -1;
@@ -377,7 +353,7 @@
           this.out.writeByte(33);
           this.out.writeByte(255);
           this.out.writeByte(11);
-          this.out.writeUTFBytes("NETSCAPE2.0");
+          this.out.writeUTFBytes('NETSCAPE2.0');
           this.out.writeByte(3);
           this.out.writeByte(1);
           this.writeShort(this.repeat);
@@ -393,12 +369,7 @@
           this.out.writeByte((pValue >> 8) & 255);
         };
         GIFEncoder.prototype.writePixels = function () {
-          var enc = new LZWEncoder(
-            this.width,
-            this.height,
-            this.indexedPixels,
-            this.colorDepth,
-          );
+          var enc = new LZWEncoder(this.width, this.height, this.indexedPixels, this.colorDepth);
           enc.encode(this.out);
         };
         GIFEncoder.prototype.stream = function () {
@@ -406,7 +377,7 @@
         };
         module.exports = GIFEncoder;
       },
-      { "./LZWEncoder.js": 2, "./TypedNeuQuant.js": 3 },
+      { './LZWEncoder.js': 2, './TypedNeuQuant.js': 3 },
     ],
     2: [
       function (require, module, exports) {
@@ -414,8 +385,7 @@
         var BITS = 12;
         var HSIZE = 5003;
         var masks = [
-          0, 1, 3, 7, 15, 31, 63, 127, 255, 511, 1023, 2047, 4095, 8191, 16383,
-          32767, 65535,
+          0, 1, 3, 7, 15, 31, 63, 127, 255, 511, 1023, 2047, 4095, 8191, 16383, 32767, 65535,
         ];
         function LZWEncoder(width, height, pixels, colorDepth) {
           var initCodeSize = Math.max(2, colorDepth);
@@ -640,8 +610,7 @@
             var i, n, dist, biasdist, betafreq;
             for (i = 0; i < netsize; i++) {
               n = network[i];
-              dist =
-                Math.abs(n[0] - b) + Math.abs(n[1] - g) + Math.abs(n[2] - r);
+              dist = Math.abs(n[0] - b) + Math.abs(n[1] - g) + Math.abs(n[2] - r);
               if (dist < bestd) {
                 bestd = dist;
                 bestpos = i;
@@ -767,8 +736,7 @@
             var rad = radius >> radiusbiasshift;
             if (rad <= 1) rad = 0;
             for (i = 0; i < rad; i++)
-              radpower[i] =
-                alpha * (((rad * rad - i * i) * radbias) / (rad * rad));
+              radpower[i] = alpha * (((rad * rad - i * i) * radbias) / (rad * rad));
             var step;
             if (lengthcount < minpicturebytes) {
               samplefac = 1;
@@ -802,8 +770,7 @@
                 rad = radius >> radiusbiasshift;
                 if (rad <= 1) rad = 0;
                 for (j = 0; j < rad; j++)
-                  radpower[j] =
-                    alpha * (((rad * rad - j * j) * radbias) / (rad * rad));
+                  radpower[j] = alpha * (((rad * rad - j * j) * radbias) / (rad * rad));
               }
             }
           }
@@ -837,7 +804,7 @@
     4: [
       function (require, module, exports) {
         var GIFEncoder, renderFrame;
-        GIFEncoder = require("./GIFEncoder.js");
+        GIFEncoder = require('./GIFEncoder.js');
         renderFrame = function (frame) {
           var encoder, page, stream, transfer;
           encoder = new GIFEncoder(frame.width, frame.height);
@@ -883,10 +850,10 @@
           return renderFrame(event.data);
         };
       },
-      { "./GIFEncoder.js": 1 },
+      { './GIFEncoder.js': 1 },
     ],
   },
   {},
-  [4],
+  [4]
 );
 //# sourceMappingURL=gif.worker.js.map
