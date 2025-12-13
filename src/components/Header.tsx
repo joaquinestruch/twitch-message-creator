@@ -4,31 +4,16 @@ function Header(): JSX.Element {
   const location = useLocation();
 
   return (
-    <header
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: "10px 20px",
-        background: "#18181b",
-        borderBottom: "1px solid #000",
-        height: "60px",
-      }}
-    >
-      <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-        <h1 style={{ fontSize: "1.2rem", margin: 0, color: "white" }}>
+    <header className="site-header">
+      <div className="header-left">
+        <h1 className="header-title">
           Twitch Message Creator
         </h1>
 
-        <nav style={{ display: "flex", gap: "10px" }}>
+        <nav className="header-nav">
           <Link
             to="/"
-            style={{
-              color: location.pathname === "/" ? "#a970ff" : "#efeff1",
-              textDecoration: "none",
-              fontWeight: 600,
-              fontSize: "0.9rem",
-            }}
+            className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
           >
             Message Creator
           </Link>
@@ -37,12 +22,9 @@ function Header(): JSX.Element {
 
           <Link
             to="/ai-chat"
-            style={{
-              color: location.pathname.includes("ai") ? "#a970ff" : "#efeff1",
-              textDecoration: "none",
-              fontWeight: 600,
-              fontSize: "0.9rem",
-            }}
+            className={`nav-link ${
+              location.pathname.includes("ai") ? "active" : ""
+            }`}
           >
             AI Chat Simulator
           </Link>
@@ -51,20 +33,16 @@ function Header(): JSX.Element {
 
           <Link
             to="/animations"
-            style={{
-              color:
-                location.pathname === "/animations" ? "#a970ff" : "#efeff1",
-              textDecoration: "none",
-              fontWeight: 600,
-              fontSize: "0.9rem",
-            }}
+            className={`nav-link ${
+              location.pathname === "/animations" ? "active" : ""
+            }`}
           >
             Alert Animator
           </Link>
         </nav>
       </div>
 
-      <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
+      <div className="header-right">
         <a
           href="https://kick-message-creator.vercel.app/"
           target="_blank"

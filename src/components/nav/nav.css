@@ -121,27 +121,57 @@ input {
   font-family: Comentario1;
 }
 
-@media (max-width: 512px) and (max-height: 900px) {
+@media (max-width: 768px) {
   h1 {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 
   nav {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+  }
+
+  .nav-emblems,
+  .inputs-message {
+    width: 90%;
+    max-width: 400px;
+    height: auto; /* Allow auto height */
+    padding: 20px;
+  }
+  
+  /* Make grid touch friendly */
+  nav > div > ul {
+    gap: 15px; 
+  }
+  
+  li {
+    width: 24px; /* Larger touch targets */
+    height: 24px;
+  }
+  
+  nav > div > ul > li .emblem-btn img {
+    height: 24px;
+    width: 24px;
+  }
+  
+  .button-select-color {
+     height: 24px;
+     width: 24px;
   }
 
   .inputs-message {
-    width: 120%;
-    margin: auto;
-    gap: 10px;
+    padding-bottom: 30px; /* Extra padding at bottom of inputs */
   }
-
-  nav > .nav-emblems,
-  .inputs-message {
-    width: 80%;
-    margin: auto;
-    gap: 10px;
+  
+  input, textarea {
+    font-size: 16px; /* Prevent zoom on iOS */
+    padding: 10px;
+  }
+  
+  button.save-comment {
+    padding: 12px; /* Fat finger friendly */
+    font-size: 1rem;
   }
 }

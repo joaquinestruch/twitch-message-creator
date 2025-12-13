@@ -1,57 +1,24 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import "@/App.css";
 import Header from "@/components/Header";
 import Main from "@/components/Main";
 
 function HomeCreator(): JSX.Element {
-  const [username, setUsername] = useState<string>("");
-  const [messageText, setMessageText] = useState<string>("");
-  const [colorUsername, setColorUsername] = useState<string>("");
-  const [embledsArray, setEmbledsArray] = useState<string[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
   useEffect(() => {
     document.title = "Fake Twitch Chat Generator - Free Message Editor";
   }, []);
 
-  // Note: The Privacy Policy check is now handled by the Router,
-  // but keeping this logic here or moving it to a separate component is fine.
-  // Since we are using a specific route for privacy policy, we likely don't need this useEffect
-  // checking window.location.pathname anymore, but I'll leave it clean in the next step.
-  // actually, let's remove the manual path check since we will use Routes.
-
   return (
     <>
       <Header />
-      <Main
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        embledsArray={embledsArray}
-        setEmbledsArray={setEmbledsArray}
-        setUsername={setUsername}
-        username={username}
-        setMessageText={setMessageText}
-        messageText={messageText}
-        setColorUsername={setColorUsername}
-        colorUsername={colorUsername}
-      />
+      <Main />
 
       {/* SEO Content */}
-      <section
-        style={{
-          maxWidth: "1000px",
-          margin: "60px auto",
-          padding: "0 20px",
-          color: "#adadb8",
-          fontFamily: "Inter, sans-serif",
-        }}
-      >
-        <h1
-          style={{ color: "#efeff1", fontSize: "2rem", marginBottom: "20px" }}
-        >
+      <section className="seo-section">
+        <h1 className="seo-title">
           Fake Twitch Chat Generator & Message Editor
         </h1>
-        <p style={{ marginBottom: "15px", lineHeight: "1.6" }}>
+        <p className="seo-text">
           Create <strong>fake Twitch chat messages</strong> instantly with our
           powerful editor. Perfect for making memes, editing videos, or pranking
           your friends. This <strong>Twitch Message Creator</strong> allows you
@@ -59,16 +26,9 @@ function HomeCreator(): JSX.Element {
           emotes.
         </p>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "30px",
-            marginTop: "40px",
-          }}
-        >
+        <div className="seo-grid">
           <div>
-            <h2 style={{ color: "#a970ff", fontSize: "1.4rem" }}>
+            <h2 className="seo-subtitle">
               How to Create Fake Stream Chats
             </h2>
             <ul
@@ -93,7 +53,7 @@ function HomeCreator(): JSX.Element {
             </ul>
           </div>
           <div>
-            <h2 style={{ color: "#a970ff", fontSize: "1.4rem" }}>
+            <h2 className="seo-subtitle">
               Why use this tool?
             </h2>
             <p>

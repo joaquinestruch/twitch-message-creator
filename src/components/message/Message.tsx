@@ -1,18 +1,10 @@
 import MessageText from "./MessageText";
 import UsernameMessage from "./UsernameMessage";
-interface MessageProps {
-  username: string;
-  messageText: string;
-  colorUsername: string;
-  embledsArray: string[];
-}
+import { useChatStore } from "@/store/useChatStore";
 
-function Message({
-  username,
-  messageText,
-  colorUsername,
-  embledsArray,
-}: MessageProps) {
+function Message() {
+  const { username, messageText, colorUsername, embledsArray } = useChatStore();
+  
   return (
     <div className="message">
       <div className="embleds-div">

@@ -1,31 +1,23 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { emblestList } from "@/utils/embleds";
 import "./nav.css";
 import { colorsName } from "@/utils/colorsName";
 import html2canvas from "html2canvas";
 import Modal from "@/components/ModalAddEmote";
+import { useChatStore } from "@/store/useChatStore";
 
-interface NavProps {
-  setUsername: (v: string) => void;
-  setMessageText: (v: string) => void;
-  setColorUsername: (v: string) => void;
-  setEmbledsArray: React.Dispatch<React.SetStateAction<string[]>>;
-  embledsArray: string[];
-  username: string;
-  messageText: string;
-  colorUsername: string;
-  setIsModalOpen: (v: boolean) => void;
-  isModalOpen: boolean;
-}
+function Nav() {
+  const {
+    username,
+    messageText,
+    setUsername,
+    setMessageText,
+    setColorUsername,
+    setEmbledsArray,
+    setIsModalOpen,
+    isModalOpen,
+  } = useChatStore();
 
-function Nav({
-  setUsername,
-  setMessageText,
-  setColorUsername,
-  setEmbledsArray,
-  setIsModalOpen,
-  isModalOpen,
-}: NavProps) {
   const [selectedImages, setSelectedImages] = useState<Record<string, boolean>>(
     {},
   );
@@ -47,9 +39,7 @@ function Nav({
 
       const link = document.createElement("a");
       link.href = dataUrl;
-      link.download = `message_${"username"}_${"message"}`; // Username and messageText are not in scope if unused props removed.
-      // Wait, we need username and messageText for filename!
-      // So they ARE needed.
+      link.download = `message_${username}_${messageText}`;
       link.click();
     });
   };
@@ -131,6 +121,7 @@ function Nav({
             <span>Username</span>
             <input
               type="text"
+              value={username} 
               onChange={(e) => {
                 setUsername(e.target.value);
               }}
@@ -143,6 +134,7 @@ function Nav({
           >
             <span>Message Text</span>
             <textarea
+              value={messageText}
               onChange={(e) => {
                 setMessageText(e.target.value);
               }}

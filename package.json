@@ -23,7 +23,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^7.10.1",
     "recordrtc": "^5.6.2",
-    "whammy": "^0.0.1"
+    "whammy": "^0.0.1",
+    "zustand": "^5.0.9"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",
