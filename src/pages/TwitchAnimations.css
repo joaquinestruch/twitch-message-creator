@@ -197,6 +197,51 @@
   }
 }
 
+/* OBS Mode Styles */
+.obs-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.alert-box-cheer {
+  text-align: center;
+  animation: bounceIn 0.5s;
+}
+
+.obs-image {
+  width: 128px;
+  height: 128px;
+  margin-bottom: -20px;
+  display: block;
+  margin: 0 auto;
+}
+
+.obs-username {
+  font-size: 3rem;
+  font-weight: 900;
+  color: white;
+  text-shadow:
+    3px 3px 0 #000,
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+  font-family: 'Inter', sans-serif;
+  margin-top: 10px;
+}
+
+.obs-message {
+  font-size: 1.8rem;
+  color: white;
+  margin-top: 10px;
+  font-weight: 600;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .anim-container {

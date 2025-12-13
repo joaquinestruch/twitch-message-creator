@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import logoPepe from "@/assets/logo-pepe.png";
+import logoPepe from '@/assets/logo-pepe.png';
 
 function Header(): JSX.Element {
   const location = useLocation();

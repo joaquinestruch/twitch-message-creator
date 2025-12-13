@@ -92,7 +92,11 @@ function AiChatGenerator() {
                   events.triggerEvent(e);
                 },
                 toggleStream: () => {
-                  trackEvent('toggle_stream', 'AI Chat Simulator', chatGen.isStreaming ? 'Stop' : 'Start');
+                  trackEvent(
+                    'toggle_stream',
+                    'AI Chat Simulator',
+                    chatGen.isStreaming ? 'Stop' : 'Start'
+                  );
                   chatGen.toggleStream();
                 },
                 handleDownload: () => {

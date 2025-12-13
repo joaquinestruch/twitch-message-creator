@@ -32,7 +32,7 @@ function Nav() {
 
   const handleClickImageEmbleds = (e: string) => {
     trackEvent('select_emblem', 'Message Creator', e);
-    
+
     setEmbledsArray((oldEmbedArray) => {
       if (oldEmbedArray.includes(e)) {
         return oldEmbedArray.filter((item) => item !== e);

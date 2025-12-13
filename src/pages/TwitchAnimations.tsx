@@ -61,56 +61,13 @@ function TwitchAnimations(): JSX.Element {
   // If OBS Mode, render ONLY the content
   if (isObsMode) {
     return (
-      <div
-        style={{
-          width: '100vw',
-          height: '100vh',
-          background: bgColor,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          overflow: 'hidden',
-        }}
-      >
-        <div
-          className="alert-box-cheer"
-          style={{ textAlign: 'center', animation: 'bounceIn 0.5s' }}
-        >
-          <img
-            src={getBitGif(amount)}
-            alt="bits"
-            style={{
-              width: '128px',
-              height: '128px',
-              marginBottom: '-20px',
-              display: 'block',
-              margin: '0 auto',
-            }}
-          />
-          <div
-            style={{
-              fontSize: '3rem',
-              fontWeight: '900',
-              color: 'white',
-              textShadow:
-                '3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
-              fontFamily: 'Inter, sans-serif',
-              marginTop: '10px',
-            }}
-          >
+      <div className="obs-container" style={{ background: bgColor }}>
+        <div className="alert-box-cheer">
+          <img src={getBitGif(amount)} alt="bits" className="obs-image" />
+          <div className="obs-username">
             {username} <span style={{ color: getBitColor(amount) }}>{`cheered ${amount}!`}</span>
           </div>
-          <div
-            style={{
-              fontSize: '1.8rem',
-              color: 'white',
-              marginTop: '10px',
-              fontWeight: '600',
-              textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
-            }}
-          >
-            "{message}"
-          </div>
+          <div className="obs-message">"{message}"</div>
         </div>
       </div>
     );
