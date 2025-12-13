@@ -128,19 +128,21 @@ input {
     flex-direction: column;
     width: 100%;
     gap: 20px;
+    align-items: center; /* Ensure panels are centered, preventing stretch weirdness */
   }
 
   .nav-emblems,
   .inputs-message {
-    width: 90%;
+    width: 95%; /* Slightly wider to use space, but keep margins */
     max-width: 400px;
     height: auto; /* Allow auto height */
-    padding: 20px;
+    padding: 15px; /* Reduce padding slightly */
+    box-sizing: border-box; /* Explicitly ensure border-box */
   }
 
   /* Make grid touch friendly */
   .config-nav > div > ul {
-    gap: 15px;
+    gap: 10px; /* Reduce gap to preventing pushing width */
   }
 
   .nav-emblems li {
