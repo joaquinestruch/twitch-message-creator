@@ -229,11 +229,29 @@ function AiChatGenerator() {
             });
 
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || 'Failed to fetch');
+                let errorMsg = 'Failed to fetch';
+                try {
+                    const errorData = await response.json();
+                    errorMsg = errorData.error || errorMsg;
+                } catch (e) {
+                    // Ignore json parse error on error response
+                }
+                throw new Error(errorMsg);
             }
 
-            const data = await response.json();
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            let content = '';
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                content += decoder.decode(value, { stream: true });
+            }
+
+            // Clean up markdown code blocks if present (though streaming usually sends raw content)
+            const jsonStr = content.replace(/```json/g, '').replace(/```/g, '').trim();
+            const data = JSON.parse(jsonStr);
 
             const processed = data.map(msg => {
                 const badges = [];

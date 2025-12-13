@@ -76,15 +76,31 @@ export default async function handler(req) {
         const completion = await openai.chat.completions.create({
             messages: [{ role: "system", content: prompt }],
             model: "gpt-4o-mini",
+            stream: true,
         });
 
-        const content = completion.choices[0].message.content;
-        const jsonStr = content.replace(/```json/g, '').replace(/```/g, '').trim();
-        const data = JSON.parse(jsonStr);
+        const stream = new ReadableStream({
+            async start(controller) {
+                const encoder = new TextEncoder();
+                try {
+                    for await (const chunk of completion) {
+                        const content = chunk.choices[0]?.delta?.content || '';
+                        if (content) {
+                            controller.enqueue(encoder.encode(content));
+                        }
+                    }
+                } catch (err) {
+                    console.error("Stream error:", err);
+                    controller.error(err);
+                } finally {
+                    controller.close();
+                }
+            }
+        });
 
-        return new Response(JSON.stringify(data), {
+        return new Response(stream, {
             status: 200,
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'text/plain; charset=utf-8' }
         });
 
     } catch (err) {
