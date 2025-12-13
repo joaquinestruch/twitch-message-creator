@@ -1,16 +1,16 @@
 @font-face {
-  font-family: 'TwitchFont';
-  src: url("./fonts/Twitchy.TV.ttf") format('truetype');
+  font-family: "TwitchFont";
+  src: url("./fonts/Twitchy.TV.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'Comentario1';
-  src: url("./fonts/fuenteComentario1.woff2") format('truetype');
+  font-family: "Comentario1";
+  src: url("./fonts/fuenteComentario1.woff2") format("truetype");
 }
 
 @font-face {
-  font-family: 'Comentario2';
-  src: url("./fonts/fuenteComentario2.woff2") format('truetype');
+  font-family: "Comentario2";
+  src: url("./fonts/fuenteComentario2.woff2") format("truetype");
 }
 
 header {
@@ -24,7 +24,7 @@ header {
   gap: 20px;
 }
 
-header>img {
+header > img {
   height: 60px;
   object-fit: contain;
   width: 60px;
@@ -51,7 +51,6 @@ header>img {
   gap: 10px;
 
   overflow: hidden;
-
 }
 
 .username {
@@ -69,15 +68,13 @@ header>img {
   max-width: 28ch;
 }
 
-
-.message>.embleds-div {
+.message > .embleds-div {
   justify-content: left;
   display: flex;
   gap: 3px;
-
 }
 
-.message>div>img {
+.message > div > img {
   height: 18px;
   width: 18px;
 }
@@ -99,22 +96,17 @@ textarea {
 }
 
 @media (max-width: 512px) and (max-height: 900px) {
-
   header {
     z-index: 1;
     position: relative;
   }
 
   .container-main {
-
     padding-top: 40px;
     height: auto;
     z-index: 0;
     flex-direction: column-reverse;
   }
-
-
-
 }
 
 .modal {
@@ -169,14 +161,16 @@ textarea {
 }
 
 .kick-button {
-  background-color: #53FC18;
+  background-color: #53fc18;
   color: #000000;
   font-weight: bold;
   padding: 10px 20px;
   border-radius: 5px;
   text-decoration: none;
   font-family: Comentario2;
-  transition: transform 0.2s ease-in-out, background-color 0.2s;
+  transition:
+    transform 0.2s ease-in-out,
+    background-color 0.2s;
 }
 
 .kick-button:hover {

@@ -10,19 +10,20 @@ function Message({
 }) {
   return (
     <div className="message">
-      <div className="embleds-div" >
+      <div className="embleds-div">
         {embledsArray?.length > 0
           ? embledsArray.map((e) => {
               return <img src={e} alt={e} key={e} />;
             })
           : ""}
-
       </div>
-      
-      <UsernameMessage messageText={messageText} username={username} colorUsername={colorUsername}/>
-        <MessageText messageText={messageText}/>
-      
 
+      <UsernameMessage
+        messageText={messageText}
+        username={username}
+        colorUsername={colorUsername}
+      />
+      <MessageText messageText={messageText} />
     </div>
   );
 }

@@ -1,5 +1,4 @@
 function MessageText({ messageText }) {
-
   // const formatText = (text, groupLength) => {
   //   let formattedText = '';
   //   for (let i = 0; i < text.length; i += groupLength) {
@@ -19,4 +18,4 @@ function MessageText({ messageText }) {
   );
 }
 
-export default MessageText
+export default MessageText;

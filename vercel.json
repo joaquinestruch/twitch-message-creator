@@ -1,9 +1,9 @@
 {
-    "redirects": [
-        {
-            "source": "/ads.txt",
-            "destination": "https://srv.adstxtmanager.com/19390/twitchmessagecreator.site",
-            "permanent": true
-        }
-    ]
+  "redirects": [
+    {
+      "source": "/ads.txt",
+      "destination": "https://srv.adstxtmanager.com/19390/twitchmessagecreator.site",
+      "permanent": true
+    }
+  ]
 }

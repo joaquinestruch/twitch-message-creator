@@ -1,9 +1,9 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
-import HomeCreator from './pages/HomeCreator';
-import AiChatGenerator from './pages/AiChatGenerator';
-import TwitchAnimations from './pages/TwitchAnimations';
-import PrivacyPolicy from './components/PrivacyPolicy';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
+import HomeCreator from "./pages/HomeCreator";
+import AiChatGenerator from "./pages/AiChatGenerator";
+import TwitchAnimations from "./pages/TwitchAnimations";
+import PrivacyPolicy from "./components/PrivacyPolicy";
 
 function App() {
   return (
