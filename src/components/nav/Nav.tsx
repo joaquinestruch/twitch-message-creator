@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { emblestList } from "../../utils/embleds";
+import { emblestList } from "@/utils/embleds";
 import "./nav.css";
-import { colorsName } from "../../utils/colorsName";
+import { colorsName } from "@/utils/colorsName";
 import html2canvas from "html2canvas";
-import Modal from "../ModalAddEmote";
+import Modal from "@/components/ModalAddEmote";
 
 interface NavProps {
   setUsername: (v: string) => void;
@@ -79,14 +79,17 @@ function Nav({
               const isSelected = selectedImages[e];
               return (
                 <li key={e}>
-                  <img
-                    src={e}
-                    alt=""
-                    onClick={() => {
-                      handleClickImageEmbleds(e);
-                    }}
-                    className={isSelected ? "image-selected" : ""}
-                  />
+                  <button
+                    onClick={() => handleClickImageEmbleds(e)}
+                    className={`emblem-btn ${isSelected ? "selected" : ""}`}
+                    style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
+                  >
+                    <img
+                      src={e}
+                      alt={`Emote ${e}`}
+                      className={isSelected ? "image-selected" : ""}
+                    />
+                  </button>
                 </li>
               );
             })}

@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { generateChatStream } from "../services/api";
-import { BADGE_ASSETS, EMOTES } from "../utils/embleds";
-import { colorsName } from "../utils/colorsName";
-import { ChatSettings, BadgeMap, ChatMessage } from "../types";
+import { generateChatStream } from "@/services/api";
+import { BADGE_ASSETS, EMOTES } from "@/utils/embleds";
+import { colorsName } from "@/utils/colorsName";
+import { ChatSettings, BadgeMap, ChatMessage } from "@/types";
 
 export const useChatGenerator = (
   settings: ChatSettings,

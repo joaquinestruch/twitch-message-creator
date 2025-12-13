@@ -1,6 +1,6 @@
 import React from "react";
-import { ChatMessage } from "../types";
-import { parseWithEmotes } from "../utils/chatUtils";
+import { ChatMessage } from "@/types";
+import { parseWithEmotes } from "@/utils/chatUtils";
 
 interface ChatDisplayProps {
   visibleMessages: ChatMessage[];

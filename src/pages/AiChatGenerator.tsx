@@ -1,20 +1,20 @@
 import { useState, useRef, useEffect } from "react";
-import Header from "../components/Header";
-import "../App.css";
+import Header from "@/components/Header";
+import "@/App.css";
 import "./AiChat.css";
 import html2canvas from "html2canvas";
 
 // Hooks
-import { useChatSettings } from "../hooks/useChatSettings";
-import { useChatGenerator } from "../hooks/useChatGenerator";
-import { useStreamEvents } from "../hooks/useStreamEvents";
-import { useObsMode } from "../hooks/useObsMode";
-import { useManualMode } from "../hooks/useManualMode";
+import { useChatSettings } from "@/hooks/useChatSettings";
+import { useChatGenerator } from "@/hooks/useChatGenerator";
+import { useStreamEvents } from "@/hooks/useStreamEvents";
+import { useObsMode } from "@/hooks/useObsMode";
+import { useManualMode } from "@/hooks/useManualMode";
 
 // Components
-import StreamPreview from "../components/StreamPreview";
-import ControlPanel from "../components/ControlPanel";
-import ChatDisplay from "../components/ChatDisplay";
+import StreamPreview from "@/components/StreamPreview";
+import ControlPanel from "@/components/ControlPanel";
+import ChatDisplay from "@/components/ChatDisplay";
 
 function AiChatGenerator() {
   // Hooks Integration

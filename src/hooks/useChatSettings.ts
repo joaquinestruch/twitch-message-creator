@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { BadgeMap } from "../types";
+import { BadgeMap } from "@/types";
 
 const DEFAULT_BADGES: BadgeMap = {
   subscriber: true,

@@ -124,12 +124,13 @@ export default async function handler(req: Request) {
       status: 200,
       headers: { "Content-Type": "text/plain; charset=utf-8" },
     });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error(err);
+    const errorMessage = err instanceof Error ? err.message : String(err);
     return new Response(
       JSON.stringify({
         error: "Failed to generate chat",
-        details: err.message || String(err),
+        details: errorMessage,
       }),
       {
         status: 500,

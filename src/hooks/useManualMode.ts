@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { BADGE_ASSETS } from "../utils/embleds";
-import { ChatMessage } from "../types";
+import { BADGE_ASSETS } from "@/utils/embleds";
+import { ChatMessage } from "@/types";
 
 export const useManualMode = (addMessage: (msg: ChatMessage) => void) => {
   const [manualUsername, setManualUsername] = useState<string>("Streamer");

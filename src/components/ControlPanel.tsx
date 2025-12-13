@@ -12,7 +12,7 @@ const BADGES = [
   { id: "turbo", label: "Turbo" },
 ];
 
-import { ChatMessage, BadgeMap } from "../types";
+import { ChatMessage, BadgeMap } from "@/types";
 
 // We can define subtypes for Props based on hooks return values structure
 interface ControlPanelProps {
@@ -131,61 +131,71 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
       {mode === "ai" && (
         <div className="controls-grid">
           <div className="control-group">
-            <label className="control-label">Channel Name</label>
-            <input
-              type="text"
-              className="custom-input"
-              placeholder="e.g. xQc"
-              value={channelName}
-              onChange={(e) => setChannelName(e.target.value)}
-            />
+            <label className="control-label">
+              Channel Name
+              <input
+                type="text"
+                className="custom-input"
+                placeholder="e.g. xQc"
+                value={channelName}
+                onChange={(e) => setChannelName(e.target.value)}
+                style={{ marginTop: "5px" }}
+              />
+            </label>
           </div>
 
           <div className="control-group">
             <label className="control-label">
               Message Count: {messageCount}
+              <input
+                type="range"
+                min="10"
+                max="100"
+                step="10"
+                className="custom-slider"
+                value={messageCount}
+                onChange={(e) => setMessageCount(Number(e.target.value))}
+                style={{ marginTop: "5px" }}
+              />
             </label>
-            <input
-              type="range"
-              min="10"
-              max="100"
-              step="10"
-              className="custom-slider"
-              value={messageCount}
-              onChange={(e) => setMessageCount(Number(e.target.value))}
-            />
           </div>
 
           <div className="control-group">
-            <label className="control-label">Language</label>
-            <select
-              className="custom-input"
-              value={language}
-              onChange={(e) => setLanguage(e.target.value)}
-            >
-              <option value="es">Español (ES/LATAM)</option>
-              <option value="en">English (US/Global)</option>
-            </select>
+            <label className="control-label">
+              Language
+              <select
+                className="custom-input"
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
+                style={{ marginTop: "5px" }}
+              >
+                <option value="es">Español (ES/LATAM)</option>
+                <option value="en">English (US/Global)</option>
+              </select>
+            </label>
           </div>
 
           <div className="control-group">
-            <label className="control-label">Complexity</label>
-            <select
-              className="custom-input"
-              value={complexity}
-              onChange={(e) => setComplexity(e.target.value)}
-            >
-              <option value="simple">Short / Spammy</option>
-              <option value="mixed">Mixed</option>
-              <option value="complex">Long / Chatty</option>
-            </select>
+            <label className="control-label">
+              Complexity
+              <select
+                className="custom-input"
+                value={complexity}
+                onChange={(e) => setComplexity(e.target.value)}
+                style={{ marginTop: "5px" }}
+              >
+                <option value="simple">Short / Spammy</option>
+                <option value="mixed">Mixed</option>
+                <option value="complex">Long / Chatty</option>
+              </select>
+            </label>
           </div>
 
           {/* Scenario Presets Row */}
           <div className="control-group" style={{ gridColumn: "1 / -1" }}>
-            <label className="control-label" style={{ color: "#00db84" }}>
+            <span className="control-label" style={{ color: "#00db84" }}>
               ⚡ Quick Scenarios (Viral)
-            </label>
+            </span>
             <div style={{ display: "flex", gap: "10px", marginTop: "5px" }}>
               <button
                 onClick={() => handleApplyPreset("jumpscare")}
@@ -224,7 +234,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
           </div>
 
           <div className="control-group" style={{ gridColumn: "1 / -1" }}>
-            <label className="control-label">Allowed Badges (AI)</label>
+            <span className="control-label">Allowed Badges (AI)</span>
             <div className="badge-selector-group">
               {BADGES.map((badge) => (
                 <label
@@ -243,17 +253,19 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
           </div>
 
           <div className="control-group">
-            <label className="control-label">Speed: {chatSpeed}ms</label>
-            <input
-              type="range"
-              min="100"
-              max="2000"
-              step="100"
-              className="custom-slider"
-              value={chatSpeed}
-              onChange={(e) => setChatSpeed(Number(e.target.value))}
-              style={{ direction: "rtl" }}
-            />
+            <label className="control-label">
+              Speed: {chatSpeed}ms
+              <input
+                type="range"
+                min="100"
+                max="2000"
+                step="100"
+                className="custom-slider"
+                value={chatSpeed}
+                onChange={(e) => setChatSpeed(Number(e.target.value))}
+                style={{ direction: "rtl", marginTop: "5px" }}
+              />
+            </label>
           </div>
         </div>
       )}
@@ -263,39 +275,47 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
         <div className="controls-grid">
           <div className="manual-grid-row" style={{ gridColumn: "1 / -1" }}>
             <div className="control-group" style={{ flex: 1 }}>
-              <label className="control-label">Username</label>
-              <input
-                type="text"
-                className="custom-input"
-                value={manualUsername}
-                onChange={(e) => setManualUsername(e.target.value)}
-              />
+              <label className="control-label">
+                Username
+                <input
+                  type="text"
+                  className="custom-input"
+                  value={manualUsername}
+                  onChange={(e) => setManualUsername(e.target.value)}
+                  style={{ marginTop: "5px" }}
+                />
+              </label>
             </div>
             <div className="control-group">
-              <label className="control-label">Color</label>
-              <input
-                type="color"
-                className="manual-color-picker"
-                value={manualColor}
-                onChange={(e) => setManualColor(e.target.value)}
-              />
+              <label className="control-label">
+                Color
+                <input
+                  type="color"
+                  className="manual-color-picker"
+                  value={manualColor}
+                  onChange={(e) => setManualColor(e.target.value)}
+                  style={{ marginTop: "5px", display: "block" }}
+                />
+              </label>
             </div>
           </div>
 
           <div className="control-group" style={{ gridColumn: "1 / -1" }}>
-            <label className="control-label">Message</label>
-            <textarea
-              className="custom-input"
-              rows={2}
-              value={manualMessage}
-              onChange={(e) => setManualMessage(e.target.value)}
-              placeholder="Type a message (Kappa supported)..."
-              style={{ resize: "none", height: "60px" }}
-            ></textarea>
+            <label className="control-label">
+              Message
+              <textarea
+                className="custom-input"
+                rows={2}
+                value={manualMessage}
+                onChange={(e) => setManualMessage(e.target.value)}
+                placeholder="Type a message (Kappa supported)..."
+                style={{ resize: "none", height: "60px", marginTop: "5px" }}
+              ></textarea>
+            </label>
           </div>
 
           <div className="control-group" style={{ gridColumn: "1 / -1" }}>
-            <label className="control-label">Stream Events (Fake)</label>
+            <span className="control-label">Stream Events (Fake)</span>
             <div style={{ display: "flex", gap: "5px", flexWrap: "wrap" }}>
               <button
                 onClick={() => handleTriggerEvent("sub")}
@@ -329,7 +349,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
           </div>
 
           <div className="control-group" style={{ gridColumn: "1 / -1" }}>
-            <label className="control-label">Badges</label>
+            <span className="control-label">Badges</span>
             <div className="badge-selector-group">
               {[
                 "subscriber",

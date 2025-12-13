@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Header from "../components/Header";
+import Header from "@/components/Header";
 import { useSearchParams } from "react-router-dom";
 
 // Animation/Alert Generator Page
@@ -153,25 +153,26 @@ function TwitchAnimations(): JSX.Element {
               }}
             >
               Bit Amount
+              <select
+                style={{
+                  width: "100%",
+                  padding: "8px",
+                  background: "#2f2f35",
+                  border: "none",
+                  color: "white",
+                  borderRadius: "4px",
+                  marginTop: "5px",
+                }}
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+              >
+                <option value="1">1 Bit (Gray)</option>
+                <option value="100">100 Bits (Purple)</option>
+                <option value="1000">1000 Bits (Green)</option>
+                <option value="5000">5000 Bits (Blue)</option>
+                <option value="10000">10000 Bits (Red)</option>
+              </select>
             </label>
-            <select
-              style={{
-                width: "100%",
-                padding: "8px",
-                background: "#2f2f35",
-                border: "none",
-                color: "white",
-                borderRadius: "4px",
-              }}
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-            >
-              <option value="1">1 Bit (Gray)</option>
-              <option value="100">100 Bits (Purple)</option>
-              <option value="1000">1000 Bits (Green)</option>
-              <option value="5000">5000 Bits (Blue)</option>
-              <option value="10000">10000 Bits (Red)</option>
-            </select>
           </div>
 
           <div className="control-group" style={{ marginBottom: "15px" }}>
@@ -183,20 +184,21 @@ function TwitchAnimations(): JSX.Element {
               }}
             >
               Username
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "8px",
+                  background: "#2f2f35",
+                  border: "none",
+                  color: "white",
+                  borderRadius: "4px",
+                  marginTop: "5px",
+                }}
+              />
             </label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              style={{
-                width: "100%",
-                padding: "8px",
-                background: "#2f2f35",
-                border: "none",
-                color: "white",
-                borderRadius: "4px",
-              }}
-            />
           </div>
 
           <div className="control-group" style={{ marginBottom: "15px" }}>
@@ -208,21 +210,22 @@ function TwitchAnimations(): JSX.Element {
               }}
             >
               Message
+              <textarea
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "8px",
+                  background: "#2f2f35",
+                  border: "none",
+                  color: "white",
+                  borderRadius: "4px",
+                  height: "60px",
+                  resize: "none",
+                  marginTop: "5px",
+                }}
+              />
             </label>
-            <textarea
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              style={{
-                width: "100%",
-                padding: "8px",
-                background: "#2f2f35",
-                border: "none",
-                color: "white",
-                borderRadius: "4px",
-                height: "60px",
-                resize: "none",
-              }}
-            />
           </div>
 
           <div className="control-group" style={{ marginBottom: "15px" }}>
@@ -234,13 +237,13 @@ function TwitchAnimations(): JSX.Element {
               }}
             >
               Background (Green Screen)
+              <input
+                type="color"
+                value={bgColor}
+                onChange={(e) => setBgColor(e.target.value)}
+                style={{ width: "100%", height: "40px", cursor: "pointer", marginTop: "5px" }}
+              />
             </label>
-            <input
-              type="color"
-              value={bgColor}
-              onChange={(e) => setBgColor(e.target.value)}
-              style={{ width: "100%", height: "40px", cursor: "pointer" }}
-            />
           </div>
 
           <button

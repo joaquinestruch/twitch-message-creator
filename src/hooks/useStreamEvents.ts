@@ -1,6 +1,6 @@
-import { BIT_ASSETS } from "../utils/embleds";
+import { BIT_ASSETS } from "@/utils/embleds";
 
-import { ChatMessage } from "../types";
+import { ChatMessage } from "@/types";
 
 export const useStreamEvents = (
   addMessage: (msg: ChatMessage) => void,
@@ -33,7 +33,7 @@ export const useStreamEvents = (
           systemText: "gifted 5 Subs!",
         };
         break;
-      case "cheer":
+      case "cheer": {
         // Animated Bit Logic
         const bitUrl = BIT_ASSETS["10000"];
         const bitHtml = `<img src="${bitUrl}" style="width:28px; vertical-align:middle; margin-right:4px;" alt="cheer10000"/> <span style="color:#ff383b; fontWeight:bold">cheer10000</span>`;
@@ -44,6 +44,7 @@ export const useStreamEvents = (
           systemText: "cheered 10000 bits!",
         };
         break;
+      }
       case "donation":
         msgData = {
           ...base,

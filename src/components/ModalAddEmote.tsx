@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { emblestList } from "../utils/embleds";
+import { emblestList } from "@/utils/embleds";
 import "./modal.css";
 
 interface ModalProps {
