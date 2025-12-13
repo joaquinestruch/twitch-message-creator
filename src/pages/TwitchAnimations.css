@@ -1,0 +1,226 @@
+/* Main Container Layout */
+.anim-container {
+  display: flex;
+  height: calc(100vh - 60px);
+  background: #0e0e10;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Controls Panel (Left) */
+.anim-controls {
+  width: 350px;
+  padding: 20px;
+  border-right: 1px solid #2f2f35;
+  background: #18181b;
+  color: #fff;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.anim-controls h2 {
+  color: #a970ff;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+/* Control Groups */
+.anim-control-group {
+  margin-bottom: 20px;
+}
+
+.anim-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #adadb8;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.anim-select,
+.anim-input,
+.anim-textarea {
+  width: 100%;
+  padding: 10px;
+  background: #2f2f35;
+  border: 1px solid transparent;
+  color: white;
+  border-radius: 4px;
+  margin-top: 5px;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.anim-select:focus,
+.anim-input:focus,
+.anim-textarea:focus {
+  border-color: #a970ff;
+  outline: none;
+}
+
+.anim-textarea {
+  height: 80px;
+  resize: none;
+}
+
+.anim-color-input {
+  width: 100%;
+  height: 40px;
+  cursor: pointer;
+  margin-top: 5px;
+  background: #2f2f35;
+  border: none;
+  border-radius: 4px;
+  padding: 2px;
+}
+
+.anim-btn-primary {
+  width: 100%;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  background: #9146ff;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 4px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.anim-btn-primary:hover {
+  background: #772ce8;
+}
+
+.anim-help-text {
+  font-size: 0.8rem;
+  color: #adadb8;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+/* Preview Area (Right) */
+.anim-preview {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.anim-preview-content {
+  text-align: center;
+  padding: 40px;
+  animation: bounceIn 0.5s;
+}
+
+.anim-gif {
+  width: 128px;
+  height: 128px;
+  margin-bottom: -20px;
+  display: block;
+  margin: 0 auto;
+}
+
+.anim-text-line1 {
+  font-size: 3rem;
+  font-weight: 900;
+  color: white;
+  text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  font-family: "Inter", sans-serif;
+  margin-top: 10px;
+}
+
+.anim-text-line2 {
+  font-size: 1.8rem;
+  color: white;
+  margin-top: 10px;
+  font-weight: 600;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+/* SEO Section */
+.anim-seo {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 20px 60px 20px;
+  color: #adadb8;
+  font-family: "Inter", sans-serif;
+}
+
+.anim-seo h1 {
+  color: #a970ff;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.anim-seo p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.anim-seo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.anim-seo-item h3 {
+  color: #fff;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+/* Animations */
+@keyframes bounceIn {
+  0% { transform: scale(0.3); opacity: 0; }
+  50% { transform: scale(1.05); opacity: 1; }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .anim-container {
+    flex-direction: column; /* Stack vertically */
+    height: auto;
+    overflow-y: visible;
+  }
+  
+  /* On mobile, show Preview FIRST, then Controls */
+  .anim-preview {
+    order: 1;
+    min-height: 300px; /* Ensure visible space */
+    width: 100%;
+    flex: none;
+  }
+  
+  .anim-controls {
+    order: 2;
+    width: 100%;
+    border-right: none;
+    border-top: 1px solid #2f2f35;
+    height: auto;
+    overflow-y: visible;
+  }
+
+  .anim-text-line1 {
+    font-size: 2rem; /* Smaller text on mobile */
+  }
+  
+  .anim-text-line2 {
+    font-size: 1.2rem;
+  }
+  
+  .anim-gif {
+    width: 100px;
+    height: 100px;
+  }
+
+  .anim-seo h1 {
+    font-size: 1.5rem;
+  }
+}

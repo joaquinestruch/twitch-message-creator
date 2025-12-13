@@ -96,19 +96,29 @@
   .site-header {
     height: auto;
     flex-direction: column;
-    gap: 10px;
-    padding: 15px;
+    gap: 30px; /* Even more space between title and links */
+    padding: 30px 20px;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 20px; /* Requested spacing */
   }
   
   .header-left {
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
     text-align: center;
+    width: 100%;
   }
   
   .header-nav {
     flex-wrap: wrap; /* links wrap on small screens */
     justify-content: center;
+    width: 100%;
+    gap: 30px; /* Significantly more breathing room between links */
+  }
+  
+  .nav-separator {
+    display: none; /* Hide pipes on mobile */
   }
   
   .header-right {
@@ -132,6 +142,8 @@
 .container-main {
   background-color: #303031;
   min-height: 100vh;
+  width: 100%; /* Ensure full width */
+  overflow-x: hidden; /* Prevent child overflow */
   display: flex;
   align-items: center;
   justify-content: center; /* Vertically center the inputs */
@@ -152,13 +164,12 @@
   gap: 10px;
   overflow: hidden;
 
-  /* Pinned to bottom */
-  /* Pinned to bottom - using margin auto for centering to fix html2canvas capture issues */
-  position: fixed;
-  bottom: 40px;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
+  /* Pinned to bottom - NOT ANYMORE on desktop per user request */
+  position: relative;
+  bottom: auto;
+  left: auto;
+  right: auto;
+  margin-top: 50px; /* Lift it up a bit from the inputs but keep separation */
   width: fit-content;
   z-index: 100;
   /* box-shadow removed */
@@ -213,7 +224,7 @@ textarea {
   }
 
   .container-main {
-    padding-top: 20px;
+    padding-top: 150px; /* even MORE space from header as requested */
     padding-bottom: 200px; /* More space for fixed message on mobile */
     height: auto;
     z-index: 0;
@@ -222,7 +233,13 @@ textarea {
 
   .message {
     width: 90%; /* Responsive width */
-    bottom: 20px; /* Slightly lower on mobile */
+    /* Remove fixed positioning on mobile to prevent overlap with SEO content */
+    position: relative; 
+    bottom: auto;
+    transform: none;
+    left: auto;
+    right: auto;
+    margin: 20px auto; /* Add margin for spacing */
     flex-wrap: wrap; /* allow wrapping if really small */
     justify-content: center;
   }
@@ -309,6 +326,8 @@ textarea {
   padding: 10px 0;
   font-family: Comentario2;
   font-size: 12px;
+  width: 100%;
+  overflow: hidden;
 }
 
 .site-footer a {

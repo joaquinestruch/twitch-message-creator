@@ -65,10 +65,11 @@ function AiChatGenerator() {
 
   return (
     <>
-      <main className={`container-main ${obs.isObsMode ? "obs-active" : ""}`}>
+      {!obs.isObsMode && <Header />}
+      
+      <main className={`ai-chat-main ${obs.isObsMode ? "obs-active" : ""}`}>
         {/* LEFT SIDE */}
         <section className="stream-layout-left">
-          {!obs.isObsMode && <Header />}
 
           <StreamPreview bgImage={obs.bgImage} setBgImage={obs.setBgImage} />
 

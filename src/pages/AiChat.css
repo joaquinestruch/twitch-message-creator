@@ -3,7 +3,7 @@
 body {
   background-color: #0e0e10;
   margin: 0;
-  overflow: hidden; /* Prevent full page scroll, we scroll internal areas */
+  /* overflow: hidden;  <-- Removed global lock, let ai-chat-main handle layout */
   font-family:
     "Inter",
     system-ui,
@@ -21,15 +21,16 @@ body {
 }
 
 /* Base Layout: Stream (Left) + Chat (Right) */
-.container-main {
+.ai-chat-main {
   display: flex;
   flex-direction: row;
   height: 100vh;
   width: 100vw;
-  padding-top: 0; /* Header is handled outside or absolute? Assuming Header is top block */
+  padding-top: 0;
+  overflow: hidden; /* Desktop default */
 }
 
-.container-main.obs-active {
+.ai-chat-main.obs-active {
   background-color: transparent !important;
 }
 
@@ -231,10 +232,10 @@ body {
 }
 
 /* OBS Mode Overrides */
-.container-main.obs-active .stream-layout-left {
+.ai-chat-main.obs-active .stream-layout-left {
   display: none; /* Hide video/controls */
 }
-.container-main.obs-active .ai-chat-wrapper {
+.ai-chat-main.obs-active .ai-chat-wrapper {
   width: 100% !important; /* Optional: Full width or keep sidebar? Check user pref. User wanted "Sidebar" look usually, but for OBS source often you want just the box. 
     Let's stick to Right Aligned transparent sidebar for OBS so it overlays nicely. */
   background: transparent;
@@ -346,7 +347,7 @@ body {
 }
 
 /* OBS Mode: Only Chat Visible */
-.container-main.obs-active {
+.ai-chat-main.obs-active {
   padding-top: 0 !important;
   gap: 0 !important;
   justify-content: flex-end; /* Chat to the right */
@@ -619,6 +620,16 @@ body {
   vertical-align: text-bottom;
 }
 
+/* Base Layout: Stream (Left) + Chat (Right) */
+.ai-chat-main {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 60px); /* Adjust for header height */
+  width: 100vw;
+  padding-top: 0;
+  overflow: hidden; /* Desktop default */
+}
+
 .chat-badge {
   height: 18px;
   width: 18px;
@@ -643,18 +654,30 @@ body {
   word-break: break-word;
 }
 
+/* OBS Mode: Only Chat Visible */
+.ai-chat-main.obs-active {
+  padding-top: 0 !important;
+  gap: 0 !important;
+  justify-content: flex-end; /* Chat to the right */
+  background-color: transparent !important;
+  height: 100vh; /* Full height in OBS */
+}
+
 /* --- Responsive Media Queries --- */
 @media (max-width: 900px) {
-  .container-main {
+  .ai-chat-main {
     flex-direction: column;
     height: auto; /* Allow growth */
-    overflow-y: auto; /* Scroll whole page */
+    width: 100%;
+    overflow-y: visible; /* Scroll whole page */
+    padding-top: 0; /* Header is sibling now, no extra padding needed (margin handles it) */
+    overflow-x: hidden;
   }
 
   .stream-layout-left {
     flex: none;
     height: auto;
-    min-height: 400px; /* Ensure space for video+controls */
+    width: 100%;
   }
 
   .video-placeholder {
@@ -666,6 +689,11 @@ body {
     height: 400px; /* Fixed height for chat area */
     border-left: none;
     border-top: 1px solid #2f2f35;
+    order: 2; /* Ensure it's below controls if layout changes */
+  }
+  
+  .controls-grid {
+    grid-template-columns: 1fr; /* Stack controls nicely */
   }
 
   body {

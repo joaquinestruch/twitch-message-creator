@@ -1,7 +1,7 @@
-nav {
+.config-nav {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: stretch; /* Make all 3 panels equal height */
   gap: 40px;
 }
 
@@ -15,11 +15,11 @@ nav {
   padding: 10px;
   border-radius: 20px;
   font-family: Comentario2;
-  height: 100%;
-  width: 200px;
+  /* Removed height: 100% to allow flex stretch to work */
+  width: 300px; /* Increased width for uniformity */
 }
 
-nav > div > ul {
+.config-nav > div > ul {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   gap: 10px;
@@ -27,11 +27,11 @@ nav > div > ul {
   height: 150px;
 }
 
-li {
+.config-nav li {
   list-style: none;
 }
 
-nav > div > ul > li .emblem-btn img {
+.config-nav > div > ul > li .emblem-btn img {
   height: 18px;
   width: 18px;
   cursor: pointer;
@@ -63,8 +63,8 @@ nav > div > ul > li .emblem-btn img {
   border-radius: 20px;
   font-family: Comentario2;
   color: white;
-  height: 100%;
-  width: 200px;
+  /* Removed height: 100% */
+  width: 300px; /* Matching width */
 }
 
 .save-comment {
@@ -100,7 +100,8 @@ nav > div > ul > li .emblem-btn img {
   opacity: 0.9;
 }
 
-ul > li {
+/* fix: Scope this to nav-emblems so it doesn't break SEO lists */
+.nav-emblems ul > li {
   position: relative;
   width: 18px;
   height: 18px;
@@ -126,7 +127,7 @@ input {
     font-size: 1.2rem;
   }
 
-  nav {
+  .config-nav {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -142,16 +143,16 @@ input {
   }
   
   /* Make grid touch friendly */
-  nav > div > ul {
+  .config-nav > div > ul {
     gap: 15px; 
   }
   
-  li {
-    width: 24px; /* Larger touch targets */
+  .nav-emblems li {
+    width: 24px; /* Larger touch targets ONLY for emblems */
     height: 24px;
   }
   
-  nav > div > ul > li .emblem-btn img {
+  .config-nav > div > ul > li .emblem-btn img {
     height: 24px;
     width: 24px;
   }

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import { useSearchParams } from "react-router-dom";
+import "./TwitchAnimations.css";
 
 // Animation/Alert Generator Page
 function TwitchAnimations(): JSX.Element {
@@ -125,44 +126,16 @@ function TwitchAnimations(): JSX.Element {
   return (
     <>
       <Header />
-      <div
-        style={{
-          display: "flex",
-          height: "calc(100vh - 60px)",
-          background: "#0e0e10",
-        }}
-      >
+      <div className="anim-container">
         {/* Controls */}
-        <div
-          style={{
-            width: "350px",
-            padding: "20px",
-            borderRight: "1px solid #2f2f35",
-            background: "#18181b",
-            color: "#fff",
-          }}
-        >
-          <h2 style={{ color: "#a970ff" }}>💎 Bit Alert Creator</h2>
+        <div className="anim-controls">
+          <h2>💎 Bit Alert Creator</h2>
 
-          <div className="control-group" style={{ marginBottom: "15px" }}>
-            <label
-              style={{
-                display: "block",
-                marginBottom: "5px",
-                color: "#adadb8",
-              }}
-            >
+          <div className="anim-control-group">
+            <label className="anim-label">
               Bit Amount
               <select
-                style={{
-                  width: "100%",
-                  padding: "8px",
-                  background: "#2f2f35",
-                  border: "none",
-                  color: "white",
-                  borderRadius: "4px",
-                  marginTop: "5px",
-                }}
+                className="anim-select"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
               >
@@ -175,90 +148,45 @@ function TwitchAnimations(): JSX.Element {
             </label>
           </div>
 
-          <div className="control-group" style={{ marginBottom: "15px" }}>
-            <label
-              style={{
-                display: "block",
-                marginBottom: "5px",
-                color: "#adadb8",
-              }}
-            >
+          <div className="anim-control-group">
+            <label className="anim-label">
               Username
               <input
                 type="text"
+                className="anim-input"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                style={{
-                  width: "100%",
-                  padding: "8px",
-                  background: "#2f2f35",
-                  border: "none",
-                  color: "white",
-                  borderRadius: "4px",
-                  marginTop: "5px",
-                }}
               />
             </label>
           </div>
 
-          <div className="control-group" style={{ marginBottom: "15px" }}>
-            <label
-              style={{
-                display: "block",
-                marginBottom: "5px",
-                color: "#adadb8",
-              }}
-            >
+          <div className="anim-control-group">
+            <label className="anim-label">
               Message
               <textarea
+                className="anim-textarea"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                style={{
-                  width: "100%",
-                  padding: "8px",
-                  background: "#2f2f35",
-                  border: "none",
-                  color: "white",
-                  borderRadius: "4px",
-                  height: "60px",
-                  resize: "none",
-                  marginTop: "5px",
-                }}
               />
             </label>
           </div>
 
-          <div className="control-group" style={{ marginBottom: "15px" }}>
-            <label
-              style={{
-                display: "block",
-                marginBottom: "5px",
-                color: "#adadb8",
-              }}
-            >
+          <div className="anim-control-group">
+            <label className="anim-label">
               Background (Green Screen)
               <input
                 type="color"
+                className="anim-color-input"
                 value={bgColor}
                 onChange={(e) => setBgColor(e.target.value)}
-                style={{ width: "100%", height: "40px", cursor: "pointer", marginTop: "5px" }}
               />
             </label>
           </div>
 
-          <button
-            onClick={handleCopyLink}
-            className="btn-primary"
-            style={{
-              width: "100%",
-              fontSize: "1rem",
-              marginBottom: "10px",
-              background: "#9146ff",
-            }}
-          >
+          <button onClick={handleCopyLink} className="anim-btn-primary">
             🔗 Copy OBS Link
           </button>
-          <p style={{ fontSize: "0.8rem", color: "#777", marginTop: "10px" }}>
+          <p className="anim-help-text">
             Paste the copied link into an OBS "Browser Source". The background
             will be transparent if you use the Chroma Key filter in OBS (or just
             Green Screen).
@@ -266,81 +194,30 @@ function TwitchAnimations(): JSX.Element {
         </div>
 
         {/* Preview Area */}
-        <div
-          style={{
-            flex: 1,
-            background: bgColor,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            overflow: "hidden",
-          }}
-        >
-          <div style={{ textAlign: "center", padding: "40px" }}>
-            <div
-              className="alert-box-cheer"
-              style={{ animation: "bounceIn 0.5s" }}
-            >
+        <div className="anim-preview" style={{ background: bgColor }}>
+          <div className="anim-preview-content">
+            <div className="alert-box-cheer">
               <img
                 src={getBitGif(amount)}
                 alt="bits"
-                style={{
-                  width: "128px",
-                  height: "128px",
-                  marginBottom: "-20px",
-                  display: "block",
-                  margin: "0 auto",
-                }}
+                className="anim-gif"
               />
-              <div
-                style={{
-                  fontSize: "3rem",
-                  fontWeight: "900",
-                  color: "white",
-                  textShadow:
-                    "3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000",
-                  fontFamily: "Inter, sans-serif",
-                  marginTop: "10px",
-                }}
-              >
+              <div className="anim-text-line1">
                 {username}{" "}
-                <span
-                  style={{ color: getBitColor(amount) }}
-                >{`cheered ${amount}!`}</span>
+                <span style={{ color: getBitColor(amount) }}>
+                  {`cheered ${amount}!`}
+                </span>
               </div>
-              <div
-                style={{
-                  fontSize: "1.8rem",
-                  color: "white",
-                  marginTop: "10px",
-                  fontWeight: "600",
-                  textShadow: "2px 2px 4px rgba(0,0,0,0.8)",
-                }}
-              >
-                "{message}"
-              </div>
+              <div className="anim-text-line2">"{message}"</div>
             </div>
           </div>
         </div>
       </div>
 
       {/* SEO Content */}
-      <section
-        style={{
-          maxWidth: "1000px",
-          margin: "40px auto",
-          padding: "0 20px",
-          color: "#adadb8",
-          fontFamily: "Inter, sans-serif",
-          paddingBottom: "60px",
-        }}
-      >
-        <h1
-          style={{ color: "#a970ff", fontSize: "2rem", marginBottom: "20px" }}
-        >
-          Twitch Bit Alert Generator & Fake Stream Animations
-        </h1>
-        <p style={{ marginBottom: "15px", lineHeight: "1.6" }}>
+      <section className="anim-seo">
+        <h1>Twitch Bit Alert Generator & Fake Stream Animations</h1>
+        <p>
           Create <strong>fake Twitch alerts</strong> and{" "}
           <strong>animated bit donations</strong> instantly. Whether you need a
           "Cheered 10000 bits" notification for a video edit or a{" "}
@@ -349,56 +226,25 @@ function TwitchAnimations(): JSX.Element {
           Twitch visuals.
         </p>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: "30px",
-            marginTop: "40px",
-          }}
-        >
-          <div>
-            <h3
-              style={{
-                color: "#fff",
-                fontSize: "1.2rem",
-                marginBottom: "10px",
-              }}
-            >
-              💎 Realistic Bit Animations
-            </h3>
+        <div className="anim-seo-grid">
+          <div className="anim-seo-item">
+            <h3>💎 Realistic Bit Animations</h3>
             <p>
               We use the official animated gem assets (Gray, Purple, Green,
               Blue, Red) to ensure your alerts look exactly like the real thing.
               Perfect for simulating hype moments in your videos.
             </p>
           </div>
-          <div>
-            <h3
-              style={{
-                color: "#fff",
-                fontSize: "1.2rem",
-                marginBottom: "10px",
-              }}
-            >
-              🎥 OBS Ready Source
-            </h3>
+          <div className="anim-seo-item">
+            <h3>🎥 OBS Ready Source</h3>
             <p>
               Generate a unique <strong>Browser Source Link</strong> to add
               directly to OBS Studio. The alerts render at 60fps with full
               transparency support, no green screen removal required!
             </p>
           </div>
-          <div>
-            <h3
-              style={{
-                color: "#fff",
-                fontSize: "1.2rem",
-                marginBottom: "10px",
-              }}
-            >
-              📸 High-Res Downloads
-            </h3>
+          <div className="anim-seo-item">
+            <h3>📸 High-Res Downloads</h3>
             <p>
               Need a thumbnail? Download a high-resolution PNG of the alert
               frame to use in your YouTube thumbnails or social media posts.

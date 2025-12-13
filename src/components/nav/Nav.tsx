@@ -61,7 +61,7 @@ function Nav() {
   return (
     <>
       <Modal isOpen={isModalOpen} onClose={setIsModalOpen} />
-      <nav>
+      <nav className="config-nav">
         <div className="nav-emblems">
           <p>Emblems</p>
           <ul>

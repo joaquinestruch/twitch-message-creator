@@ -18,7 +18,7 @@ function Header(): JSX.Element {
             Message Creator
           </Link>
 
-          <span style={{ color: "#2f2f35" }}>|</span>
+          <span className="nav-separator" style={{ color: "#2f2f35" }}>|</span>
 
           <Link
             to="/ai-chat"
@@ -29,7 +29,7 @@ function Header(): JSX.Element {
             AI Chat Simulator
           </Link>
 
-          <span style={{ color: "#2f2f35" }}>|</span>
+          <span className="nav-separator" style={{ color: "#2f2f35" }}>|</span>
 
           <Link
             to="/animations"

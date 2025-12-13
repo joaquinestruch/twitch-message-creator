@@ -1,6 +1,18 @@
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 body,
 html {
   padding: 0;
   margin: 0;
   background-color: #303031;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  width: 100%;
+  overflow-wrap: break-word; /* Prevent long text from overflowing */
 }
