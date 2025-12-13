@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import '@/App.css';
 import './AiChat.css';
 import html2canvas from 'html2canvas';
+import { trackEvent } from '@/utils/analytics';
 
 // Hooks
 import { useChatSettings } from '@/hooks/useChatSettings';
@@ -78,12 +79,30 @@ function AiChatGenerator() {
               settings={settings}
               manual={manual}
               handlers={{
-                handleGenerate: () => chatGen.generateChat(null),
-                handleApplyPreset: (type: string) => chatGen.generateChat(type),
-                handleTriggerEvent: events.triggerEvent,
-                toggleStream: chatGen.toggleStream,
-                handleDownload,
-                toggleObsMode: obs.toggleObsMode,
+                handleGenerate: () => {
+                  trackEvent('generate_chat', 'AI Chat Simulator', mode);
+                  chatGen.generateChat(null);
+                },
+                handleApplyPreset: (type: string) => {
+                  trackEvent('apply_preset', 'AI Chat Simulator', type);
+                  chatGen.generateChat(type);
+                },
+                handleTriggerEvent: (e) => {
+                  trackEvent('trigger_event', 'AI Chat Simulator', 'Stream Event');
+                  events.triggerEvent(e);
+                },
+                toggleStream: () => {
+                  trackEvent('toggle_stream', 'AI Chat Simulator', chatGen.isStreaming ? 'Stop' : 'Start');
+                  chatGen.toggleStream();
+                },
+                handleDownload: () => {
+                  trackEvent('download_chat', 'AI Chat Simulator', 'Image');
+                  handleDownload();
+                },
+                toggleObsMode: () => {
+                  trackEvent('toggle_obs', 'AI Chat Simulator', !obs.isObsMode ? 'Enter' : 'Exit');
+                  obs.toggleObsMode();
+                },
                 clearMessages: chatGen.clearMessages,
               }}
               status={{

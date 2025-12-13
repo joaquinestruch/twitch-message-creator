@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { trackEvent } from '@/utils/analytics';
 import Header from '@/components/Header';
 import { useSearchParams } from 'react-router-dom';
 import './TwitchAnimations.css';
@@ -45,6 +46,7 @@ function TwitchAnimations(): JSX.Element {
   };
 
   const handleCopyLink = () => {
+    trackEvent('copy_obs_link', 'Animation Generator', `Amount: ${amount}`);
     const url = new URL(window.location.href);
     url.searchParams.set('username', username);
     url.searchParams.set('amount', amount);

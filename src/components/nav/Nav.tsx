@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { emblestList } from '@/utils/embleds';
 import './nav.css';
 import { colorsName } from '@/utils/colorsName';
-import { useImageCapture } from '@/hooks/useImageCapture'; // New Hook
+import { trackEvent } from '@/utils/analytics';
+import { useImageCapture } from '@/hooks/useImageCapture';
 import Modal from '@/components/ModalAddEmote';
 import { useChatStore } from '@/store/useChatStore';
 
@@ -18,17 +19,20 @@ function Nav() {
     isModalOpen,
   } = useChatStore();
 
-  const { captureElement } = useImageCapture(); // Use Hook
+  const { captureElement } = useImageCapture();
 
   const [selectedImages, setSelectedImages] = useState<Record<string, boolean>>({});
 
   const handleSaveCommentClick = () => {
+    trackEvent('save_image', 'Message Creator', `User: ${username}`);
     captureElement('.message', {
       fileName: `message_${username}_${messageText}.png`,
     });
   };
 
   const handleClickImageEmbleds = (e: string) => {
+    trackEvent('select_emblem', 'Message Creator', e);
+    
     setEmbledsArray((oldEmbedArray) => {
       if (oldEmbedArray.includes(e)) {
         return oldEmbedArray.filter((item) => item !== e);
@@ -42,11 +46,12 @@ function Nav() {
       [e]: !prevSelectedImages[e],
     }));
   };
+
   return (
     <>
       <Modal isOpen={isModalOpen} onClose={setIsModalOpen} />
       <nav className="config-nav">
-        {/* Added shared class control-panel-box */}
+        {/* Emblems Panel */}
         <div className="nav-emblems control-panel-box">
           <p>Emblems</p>
           <ul>
@@ -72,6 +77,7 @@ function Nav() {
           <button
             className="save-comment"
             onClick={() => {
+              trackEvent('open_modal', 'Message Creator', 'Custom Emblem');
               setIsModalOpen(true);
             }}
           >
@@ -79,7 +85,7 @@ function Nav() {
           </button>
         </div>
 
-        {/* Added shared class control-panel-box */}
+        {/* Colors Panel */}
         <div className="nav-emblems control-panel-box">
           <p>Username colors</p>
           <ul>
@@ -90,6 +96,7 @@ function Nav() {
                     style={{ backgroundColor: e }}
                     onClick={() => {
                       setColorUsername(e);
+                      trackEvent('select_color', 'Message Creator', e);
                     }}
                     className="button-select-color"
                   ></button>
@@ -99,7 +106,7 @@ function Nav() {
           </ul>
         </div>
 
-        {/* Added shared class control-panel-box */}
+        {/* Inputs Panel */}
         <div className="inputs-message control-panel-box">
           <section
             className="select-username"
@@ -137,6 +144,7 @@ function Nav() {
             target="_blank"
             rel="noopener noreferrer"
             className="support-button"
+            onClick={() => trackEvent('click_support', 'Message Creator', 'Ko-fi')}
           >
             <img
               height="36"
