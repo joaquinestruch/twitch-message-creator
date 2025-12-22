@@ -40,16 +40,18 @@ function Header(): JSX.Element {
 
       <div className="header-right">
         <a
-          href="https://kick-message-creator.vercel.app/"
+          href="https://meritme.site/"
           target="_blank"
+          rel="noopener noreferrer"
           className="kick-button"
           style={{
             padding: '6px 12px',
             fontSize: '0.8rem',
             height: 'auto',
+            transition: 'all 0.2s ease',
           }}
         >
-          Kick Generator ↗
+          When the streamer dream ends, the resume begins ↗
         </a>
         <img
           src={logoPepe}
