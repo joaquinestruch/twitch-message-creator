@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { trackEvent } from '@/utils/analytics';
 import Header from '@/components/Header';
 import { useSearchParams } from 'react-router-dom';
+import SEO from '@/components/SEO';
 import './TwitchAnimations.css';
 
 // Animation/Alert Generator Page
@@ -17,10 +18,6 @@ function TwitchAnimations(): JSX.Element {
   const [bgColor, setBgColor] = useState<string>(searchParams.get('bgColor') || '#00ff00');
 
   const isObsMode = searchParams.get('obs') === 'true';
-
-  useEffect(() => {
-    document.title = 'Twitch Bit Alert Generator - Animated OBS Overlay';
-  }, []);
 
   // High Quality GIFs (Scale 4)
   const getBitGif = (amt: string): string => {
@@ -75,6 +72,11 @@ function TwitchAnimations(): JSX.Element {
 
   return (
     <>
+      <SEO 
+        title="Twitch Bit Alert Generator | Animated Fake Stream Alerts"
+        description="Create fake animated Twitch bit alerts and donations for your stream overlay. Download transparent GIFs or copy the OBS browser source link."
+        canonicalUrl="https://www.twitchmessagecreator.site/animations"
+      />
       <Header />
       <div className="anim-container">
         {/* Controls */}

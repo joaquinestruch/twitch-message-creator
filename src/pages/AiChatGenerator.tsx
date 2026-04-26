@@ -16,6 +16,7 @@ import { useManualMode } from '@/hooks/useManualMode';
 import StreamPreview from '@/components/StreamPreview';
 import ControlPanel from '@/components/ControlPanel';
 import ChatDisplay from '@/components/ChatDisplay';
+import SEO from '@/components/SEO';
 
 function AiChatGenerator() {
   // Hooks Integration
@@ -28,12 +29,6 @@ function AiChatGenerator() {
 
   const [mode, setMode] = useState<string>('ai');
   const chatContainerRef = useRef<HTMLDivElement>(null);
-
-  // SEO & Metadata
-  useEffect(() => {
-    document.title = 'Twitch Chat Simulator | AI Fake Stream Generator';
-    // ... (Existing SEO logic could be moved to a useSEO hook but for now keeping it simple)
-  }, []);
 
   // Scroll to bottom effect
   useEffect(() => {
@@ -65,6 +60,11 @@ function AiChatGenerator() {
 
   return (
     <>
+      <SEO 
+        title="Twitch Chat Simulator & Fake Stream Chat AI"
+        description="Simulate a highly realistic live Twitch chat. Generate fake stream chat overlays with AI or trigger custom events like subs and donations for your videos."
+        canonicalUrl="https://www.twitchmessagecreator.site/ai-chat"
+      />
       {!obs.isObsMode && <Header />}
 
       <main className={`ai-chat-main ${obs.isObsMode ? 'obs-active' : ''}`}>

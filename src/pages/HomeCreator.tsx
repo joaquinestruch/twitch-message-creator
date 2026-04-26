@@ -1,15 +1,16 @@
-import { useEffect } from 'react';
 import '@/App.css';
 import Header from '@/components/Header';
 import Main from '@/components/Main';
+import SEO from '@/components/SEO';
 
 function HomeCreator(): JSX.Element {
-  useEffect(() => {
-    document.title = 'Fake Twitch Chat Generator - Free Message Editor';
-  }, []);
-
   return (
     <>
+      <SEO 
+        title="Twitch Chat Generator | Fake Message Creator"
+        description="Create fake Twitch chat messages instantly with our free generator. Customize usernames, colors, badges, and emotes for memes, thumbnails, and videos."
+        canonicalUrl="https://www.twitchmessagecreator.site/"
+      />
       <Header />
       <Main />
 
