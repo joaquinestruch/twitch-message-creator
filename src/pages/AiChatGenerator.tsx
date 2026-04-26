@@ -16,13 +16,11 @@ import { useManualMode } from '@/hooks/useManualMode';
 import StreamPreview from '@/components/StreamPreview';
 import ControlPanel from '@/components/ControlPanel';
 import ChatDisplay from '@/components/ChatDisplay';
-import { useDonationStore } from '@/store/useDonationStore';
 
 function AiChatGenerator() {
   // Hooks Integration
   const settings = useChatSettings();
   const obs = useObsMode();
-  const { incrementDownloads } = useDonationStore();
 
   const chatGen = useChatGenerator(settings, settings.enabledBadges);
   const manual = useManualMode(chatGen.addMessage);
@@ -62,7 +60,6 @@ function AiChatGenerator() {
       link.download = `chat_${settings.channelName}_live.png`;
       link.href = canvas.toDataURL();
       link.click();
-      incrementDownloads();
     });
   };
 
