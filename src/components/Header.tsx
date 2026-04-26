@@ -8,7 +8,7 @@ function Header(): JSX.Element {
   return (
     <header className="site-header">
       <div className="header-left">
-        <h1 className="header-title">Twitch Message Creator</h1>
+        <span className="header-title">Twitch Message Creator</span>
 
         <nav className="header-nav">
           <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>
