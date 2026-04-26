@@ -29,6 +29,16 @@
       content="Create fake Twitch chat messages, customize usernames, colors, and badges. Perfect for memes, videos, and content creation."
     />
     <meta property="twitter:image" content="/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preload" href="/logo.png" as="image" />
+    <!-- Inline critical CSS -->
+    <style>
+      body, html { margin: 0; padding: 0; background-color: #303031; width: 100%; overflow-x: hidden; }
+      #root { width: 100%; overflow-x: hidden; }
+      * { box-sizing: border-box; }
+      .site-header { display: flex; background: #18181b; }
+    </style>
+    <!-- End Inline critical CSS -->
     <title>Twitch Message Creator</title>
 
     <!-- Ahrefs Analytics -->
