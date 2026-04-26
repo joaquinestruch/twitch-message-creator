@@ -6,6 +6,7 @@ import { trackEvent } from '@/utils/analytics';
 import { useImageCapture } from '@/hooks/useImageCapture';
 import Modal from '@/components/ModalAddEmote';
 import { useChatStore } from '@/store/useChatStore';
+import { useDonationStore } from '@/store/useDonationStore';
 
 function Nav() {
   const {
@@ -20,6 +21,7 @@ function Nav() {
   } = useChatStore();
 
   const { captureElement } = useImageCapture();
+  const { incrementDownloads } = useDonationStore();
 
   const [selectedImages, setSelectedImages] = useState<Record<string, boolean>>({});
 
@@ -28,6 +30,7 @@ function Nav() {
     captureElement('.message', {
       fileName: `message_${username}_${messageText}.png`,
     });
+    incrementDownloads();
   };
 
   const handleClickImageEmbleds = (e: string) => {

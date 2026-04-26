@@ -13,6 +13,7 @@ export const useChatGenerator = (settings: ChatSettings, enabledBadges: BadgeMap
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const poolIndexRef = useRef<number>(0);
+  const messagesShownRef = useRef<number>(0); // Nuevo contador para el easter egg
 
   const generateChat = async (scenarioType: string | null = null) => {
     setIsLoading(true);
@@ -20,6 +21,7 @@ export const useChatGenerator = (settings: ChatSettings, enabledBadges: BadgeMap
     setError(null);
     setVisibleMessages([]);
     poolIndexRef.current = 0;
+    messagesShownRef.current = 0; // Reiniciar contador
 
     try {
       const availableEmotes = Object.keys(EMOTES).join(', ');
@@ -65,6 +67,30 @@ export const useChatGenerator = (settings: ChatSettings, enabledBadges: BadgeMap
   useEffect(() => {
     if (isStreaming && messagePool.length > 0) {
       intervalRef.current = setInterval(() => {
+        messagesShownRef.current += 1;
+
+        // Easter Egg: Cada 40 mensajes inyectamos el mensaje de donación
+        if (messagesShownRef.current % 40 === 0) {
+          const now = new Date();
+          const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+          
+          const easterEggMsg: ChatMessage = {
+            uniqueId: crypto.randomUUID(),
+            username: 'System',
+            messageText: 'Enjoying the fake chat? Support the creator on Ko-fi to keep the project alive ☕ https://ko-fi.com/N4N41PTRX2',
+            badges: [BADGE_ASSETS.BROADCASTER],
+            colorUsername: '#FF5E5B',
+            timestamp: timeStr,
+          };
+
+          setVisibleMessages((prev) => {
+            const newList = [...prev, easterEggMsg];
+            if (newList.length > 50) return newList.slice(1);
+            return newList;
+          });
+          return; // Saltamos la iteración normal de pool para este tick
+        }
+
         const nextMsg = messagePool[poolIndexRef.current];
 
         const now = new Date();
