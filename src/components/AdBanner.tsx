@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface AdBannerProps {
   adKey: string;
@@ -9,8 +9,12 @@ interface AdBannerProps {
 }
 
 function AdBanner({ adKey, format, height, width, className }: AdBannerProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    // Inline script sets atOptions immediately before invoke.js loads
+    const container = containerRef.current;
+    if (!container) return;
+
     const inline = document.createElement('script');
     inline.textContent = `
       window.atOptions = {
@@ -21,11 +25,11 @@ function AdBanner({ adKey, format, height, width, className }: AdBannerProps) {
         params: {}
       };
     `;
-    document.body.appendChild(inline);
+    container.appendChild(inline);
 
     const invoke = document.createElement('script');
     invoke.src = `https://www.highperformanceformat.com/${adKey}/invoke.js`;
-    document.body.appendChild(invoke);
+    container.appendChild(invoke);
 
     return () => {
       if (inline.parentNode) inline.parentNode.removeChild(inline);
@@ -35,6 +39,7 @@ function AdBanner({ adKey, format, height, width, className }: AdBannerProps) {
 
   return (
     <div
+      ref={containerRef}
       className={className}
       style={{
         display: 'flex',

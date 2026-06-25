@@ -1,10 +1,18 @@
+/* Wrapper: side banner | content | side banner */
+.anim-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+}
+
 /* Main Container Layout */
 .anim-container {
   display: flex;
-  height: calc(100vh - 60px);
+  min-height: calc(100vh - 60px);
   background: #0e0e10;
-  width: 100%;
-  overflow: hidden;
+  flex: 1;
+  min-width: 0;
 }
 
 /* Controls Panel (Left) */
@@ -244,10 +252,13 @@
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
+  .anim-wrapper {
+    flex-direction: column;
+  }
+
   .anim-container {
-    flex-direction: column; /* Stack vertically */
-    height: auto;
-    overflow-y: visible;
+    flex-direction: column;
+    min-height: auto;
   }
 
   /* On mobile, show Preview FIRST, then Controls */

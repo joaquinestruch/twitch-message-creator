@@ -44,17 +44,28 @@ function TwitchAnimations(): JSX.Element {
     return '#979797'; // Gray
   };
 
-  const handleCopyLink = () => {
+  const handleCopyLink = async () => {
     trackEvent('copy_obs_link', 'Animation Generator', `Amount: ${amount}`);
     const url = new URL(window.location.href);
     url.searchParams.set('username', username);
     url.searchParams.set('amount', amount);
     url.searchParams.set('message', message);
-    url.searchParams.set('bgColor', bgColor); // Persist user BG preference even in OBS
+    url.searchParams.set('bgColor', bgColor);
     url.searchParams.set('obs', 'true');
 
-    navigator.clipboard.writeText(url.toString());
-    alert('Link Copied! Paste this into OBS Browser Source.');
+    try {
+      await navigator.clipboard.writeText(url.toString());
+      alert('✅ Link copied! Paste this into OBS Browser Source.');
+    } catch {
+      // Fallback: select and copy manually
+      const input = document.createElement('input');
+      input.value = url.toString();
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+      alert('✅ Link copied! Paste this into OBS Browser Source.');
+    }
   };
 
   // If OBS Mode, render ONLY the content
@@ -80,87 +91,104 @@ function TwitchAnimations(): JSX.Element {
         canonicalUrl="https://www.twitchmessagecreator.site/animations"
       />
       <Header />
-      <div className="anim-container">
-        {/* Controls */}
-        <div className="anim-controls">
-          <h2>💎 Bit Alert Creator</h2>
 
-          <div className="anim-control-group">
-            <label className="anim-label">
-              Bit Amount
-              <select
-                className="anim-select"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-              >
-                <option value="1">1 Bit (Gray)</option>
-                <option value="100">100 Bits (Purple)</option>
-                <option value="1000">1000 Bits (Green)</option>
-                <option value="5000">5000 Bits (Blue)</option>
-                <option value="10000">10000 Bits (Red)</option>
-              </select>
-            </label>
-          </div>
+      <AdContainerBanner
+        containerId="container-22b9356eb2dd3193d628264ff2ae6d5c"
+        scriptSrc="https://pl29893446.effectivecpmnetwork.com/22b9356eb2dd3193d628264ff2ae6d5c/invoke.js"
+      />
 
-          <div className="anim-control-group">
-            <label className="anim-label">
-              Username
-              <input
-                type="text"
-                className="anim-input"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </label>
-          </div>
-
-          <div className="anim-control-group">
-            <label className="anim-label">
-              Message
-              <textarea
-                className="anim-textarea"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-              />
-            </label>
-          </div>
-
-          <div className="anim-control-group">
-            <label className="anim-label">
-              Background (Green Screen)
-              <input
-                type="color"
-                className="anim-color-input"
-                value={bgColor}
-                onChange={(e) => setBgColor(e.target.value)}
-              />
-            </label>
-          </div>
-
-          <button onClick={handleCopyLink} className="anim-btn-primary">
-            🔗 Copy OBS Link
-          </button>
-          <p className="anim-help-text">
-            Paste the copied link into an OBS "Browser Source". The background will be transparent
-            if you use the Chroma Key filter in OBS (or just Green Screen).
-          </p>
-        </div>
-
-        <AdContainerBanner
-          containerId="container-22b9356eb2dd3193d628264ff2ae6d5c"
-          scriptSrc="https://pl29893446.effectivecpmnetwork.com/22b9356eb2dd3193d628264ff2ae6d5c/invoke.js"
+      <div className="anim-wrapper">
+        <AdBanner
+          adKey="9f4efef015cafc796bf969fdfc8d2cc5"
+          format="iframe"
+          height={600}
+          width={160}
         />
 
-        {/* Preview Area */}
-        <div className="anim-preview" style={{ background: bgColor }}>
-          <div className="anim-preview-content">
-            <div className="alert-box-cheer">
-              <img src={getBitGif(amount)} alt="bits" className="anim-gif" />
-              <div className="anim-text-line1">
-                {username}{' '}
-                <span style={{ color: getBitColor(amount) }}>{`cheered ${amount}!`}</span>
+        <div className="anim-container">
+          {/* Controls */}
+          <div className="anim-controls">
+            <h2>💎 Bit Alert Creator</h2>
+
+            <AdBanner
+              adKey="67814030039a58aa0669864c58376dfc"
+              format="iframe"
+              height={250}
+              width={300}
+            />
+
+            <div className="anim-control-group">
+              <label className="anim-label">
+                Bit Amount
+                <select
+                  className="anim-select"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                >
+                  <option value="1">1 Bit (Gray)</option>
+                  <option value="100">100 Bits (Purple)</option>
+                  <option value="1000">1000 Bits (Green)</option>
+                  <option value="5000">5000 Bits (Blue)</option>
+                  <option value="10000">10000 Bits (Red)</option>
+                </select>
+              </label>
+            </div>
+
+            <div className="anim-control-group">
+              <label className="anim-label">
+                Username
+                <input
+                  type="text"
+                  className="anim-input"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </label>
+            </div>
+
+            <div className="anim-control-group">
+              <label className="anim-label">
+                Message
+                <textarea
+                  className="anim-textarea"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                />
+              </label>
+            </div>
+
+            <div className="anim-control-group">
+              <label className="anim-label">
+                Background (Green Screen)
+                <input
+                  type="color"
+                  className="anim-color-input"
+                  value={bgColor}
+                  onChange={(e) => setBgColor(e.target.value)}
+                />
+              </label>
+            </div>
+
+            <button onClick={handleCopyLink} className="anim-btn-primary">
+              🔗 Copy OBS Link
+            </button>
+            <p className="anim-help-text">
+              Paste the copied link into an OBS "Browser Source". The background will be transparent
+              if you use the Chroma Key filter in OBS (or just Green Screen).
+            </p>
+          </div>
+
+          {/* Preview Area */}
+          <div className="anim-preview" style={{ background: bgColor }}>
+            <div className="anim-preview-content">
+              <div className="alert-box-cheer">
+                <img src={getBitGif(amount)} alt="bits" className="anim-gif" />
+                <div className="anim-text-line1">
+                  {username}{' '}
+                  <span style={{ color: getBitColor(amount) }}>{`cheered ${amount}!`}</span>
+                </div>
+                <div className="anim-text-line2">"{message}"</div>
               </div>
-              <div className="anim-text-line2">"{message}"</div>
             </div>
           </div>
         </div>
@@ -172,6 +200,11 @@ function TwitchAnimations(): JSX.Element {
           width={160}
         />
       </div>
+
+      <AdContainerBanner
+        containerId="container-22b9356eb2dd3193d628264ff2ae6d5c"
+        scriptSrc="https://pl29893446.effectivecpmnetwork.com/22b9356eb2dd3193d628264ff2ae6d5c/invoke.js"
+      />
 
       {/* SEO Content */}
       <section className="anim-seo">
