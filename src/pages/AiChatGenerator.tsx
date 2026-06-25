@@ -16,6 +16,7 @@ import { useManualMode } from '@/hooks/useManualMode';
 import StreamPreview from '@/components/StreamPreview';
 import ControlPanel from '@/components/ControlPanel';
 import ChatDisplay from '@/components/ChatDisplay';
+import AdBanner from '@/components/AdBanner';
 import SEO from '@/components/SEO';
 
 function AiChatGenerator() {
@@ -73,48 +74,56 @@ function AiChatGenerator() {
           <StreamPreview bgImage={obs.bgImage} setBgImage={obs.setBgImage} />
 
           {!obs.isObsMode && (
-            <ControlPanel
-              mode={mode}
-              setMode={setMode}
-              settings={settings}
-              manual={manual}
-              handlers={{
-                handleGenerate: () => {
-                  trackEvent('generate_chat', 'AI Chat Simulator', mode);
-                  chatGen.generateChat(null);
-                },
-                handleApplyPreset: (type: string) => {
-                  trackEvent('apply_preset', 'AI Chat Simulator', type);
-                  chatGen.generateChat(type);
-                },
-                handleTriggerEvent: (e) => {
-                  trackEvent('trigger_event', 'AI Chat Simulator', 'Stream Event');
-                  events.triggerEvent(e);
-                },
-                toggleStream: () => {
-                  trackEvent(
-                    'toggle_stream',
-                    'AI Chat Simulator',
-                    chatGen.isStreaming ? 'Stop' : 'Start'
-                  );
-                  chatGen.toggleStream();
-                },
-                handleDownload: () => {
-                  trackEvent('download_chat', 'AI Chat Simulator', 'Image');
-                  handleDownload();
-                },
-                toggleObsMode: () => {
-                  trackEvent('toggle_obs', 'AI Chat Simulator', !obs.isObsMode ? 'Enter' : 'Exit');
-                  obs.toggleObsMode();
-                },
-                clearMessages: chatGen.clearMessages,
-              }}
-              status={{
-                isLoading: chatGen.isLoading,
-                isStreaming: chatGen.isStreaming,
-                messagePool: chatGen.messagePool,
-              }}
-            />
+            <>
+              <ControlPanel
+                mode={mode}
+                setMode={setMode}
+                settings={settings}
+                manual={manual}
+                handlers={{
+                  handleGenerate: () => {
+                    trackEvent('generate_chat', 'AI Chat Simulator', mode);
+                    chatGen.generateChat(null);
+                  },
+                  handleApplyPreset: (type: string) => {
+                    trackEvent('apply_preset', 'AI Chat Simulator', type);
+                    chatGen.generateChat(type);
+                  },
+                  handleTriggerEvent: (e) => {
+                    trackEvent('trigger_event', 'AI Chat Simulator', 'Stream Event');
+                    events.triggerEvent(e);
+                  },
+                  toggleStream: () => {
+                    trackEvent(
+                      'toggle_stream',
+                      'AI Chat Simulator',
+                      chatGen.isStreaming ? 'Stop' : 'Start'
+                    );
+                    chatGen.toggleStream();
+                  },
+                  handleDownload: () => {
+                    trackEvent('download_chat', 'AI Chat Simulator', 'Image');
+                    handleDownload();
+                  },
+                  toggleObsMode: () => {
+                    trackEvent('toggle_obs', 'AI Chat Simulator', !obs.isObsMode ? 'Enter' : 'Exit');
+                    obs.toggleObsMode();
+                  },
+                  clearMessages: chatGen.clearMessages,
+                }}
+                status={{
+                  isLoading: chatGen.isLoading,
+                  isStreaming: chatGen.isStreaming,
+                  messagePool: chatGen.messagePool,
+                }}
+              />
+              <AdBanner
+                adKey="67814030039a58aa0669864c58376dfc"
+                format="iframe"
+                height={250}
+                width={300}
+              />
+            </>
           )}
         </section>
 
@@ -125,6 +134,15 @@ function AiChatGenerator() {
           isObsMode={obs.isObsMode}
           isStreaming={chatGen.isStreaming}
         />
+
+        {!obs.isObsMode && (
+          <AdBanner
+            adKey="9f4efef015cafc796bf969fdfc8d2cc5"
+            format="iframe"
+            height={300}
+            width={160}
+          />
+        )}
 
         {obs.isObsMode && (
           <button

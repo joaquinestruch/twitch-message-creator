@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { trackEvent } from '@/utils/analytics';
 import Header from '@/components/Header';
+import AdBanner from '@/components/AdBanner';
+import AdContainerBanner from '@/components/AdContainerBanner';
 import { useSearchParams } from 'react-router-dom';
 import SEO from '@/components/SEO';
 import './TwitchAnimations.css';
@@ -144,6 +146,11 @@ function TwitchAnimations(): JSX.Element {
           </p>
         </div>
 
+        <AdContainerBanner
+          containerId="container-22b9356eb2dd3193d628264ff2ae6d5c"
+          scriptSrc="https://pl29893446.effectivecpmnetwork.com/22b9356eb2dd3193d628264ff2ae6d5c/invoke.js"
+        />
+
         {/* Preview Area */}
         <div className="anim-preview" style={{ background: bgColor }}>
           <div className="anim-preview-content">
@@ -157,6 +164,13 @@ function TwitchAnimations(): JSX.Element {
             </div>
           </div>
         </div>
+
+        <AdBanner
+          adKey="db589995e674f18306ba71a948ad2e7c"
+          format="iframe"
+          height={600}
+          width={160}
+        />
       </div>
 
       {/* SEO Content */}
