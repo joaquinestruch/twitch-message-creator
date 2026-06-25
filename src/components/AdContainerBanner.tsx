@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 interface AdContainerBannerProps {
   containerId: string;
@@ -6,15 +6,9 @@ interface AdContainerBannerProps {
 }
 
 function AdContainerBanner({ containerId, scriptSrc }: AdContainerBannerProps) {
-  const loaded = useRef(false);
-
   useEffect(() => {
-    if (loaded.current) return;
-    loaded.current = true;
-
     const script = document.createElement('script');
     script.src = scriptSrc;
-    script.async = true;
     script.setAttribute('data-cfasync', 'false');
     document.body.appendChild(script);
 

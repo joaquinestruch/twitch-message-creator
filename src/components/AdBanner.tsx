@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 interface AdBannerProps {
   adKey: string;
@@ -8,42 +8,28 @@ interface AdBannerProps {
   className?: string;
 }
 
-declare global {
-  interface Window {
-    atOptions?: {
-      key: string;
-      format: string;
-      height: number;
-      width: number;
-      params: Record<string, unknown>;
-    };
-  }
-}
-
 function AdBanner({ adKey, format, height, width, className }: AdBannerProps) {
-  const loaded = useRef(false);
-
   useEffect(() => {
-    if (loaded.current) return;
-    loaded.current = true;
+    // Inline script sets atOptions immediately before invoke.js loads
+    const inline = document.createElement('script');
+    inline.textContent = `
+      window.atOptions = {
+        key: '${adKey}',
+        format: '${format}',
+        height: ${height},
+        width: ${width},
+        params: {}
+      };
+    `;
+    document.body.appendChild(inline);
 
-    window.atOptions = {
-      key: adKey,
-      format,
-      height,
-      width,
-      params: {},
-    };
-
-    const script = document.createElement('script');
-    script.src = `https://www.highperformanceformat.com/${adKey}/invoke.js`;
-    script.async = true;
-    document.body.appendChild(script);
+    const invoke = document.createElement('script');
+    invoke.src = `https://www.highperformanceformat.com/${adKey}/invoke.js`;
+    document.body.appendChild(invoke);
 
     return () => {
-      if (script.parentNode) {
-        script.parentNode.removeChild(script);
-      }
+      if (inline.parentNode) inline.parentNode.removeChild(inline);
+      if (invoke.parentNode) invoke.parentNode.removeChild(invoke);
     };
   }, [adKey, format, height, width]);
 
