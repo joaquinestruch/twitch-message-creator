@@ -175,6 +175,7 @@
 
 .ad-side-left,
 .ad-side-right {
+  display: flex;
   flex-shrink: 0;
   align-self: flex-start;
   position: sticky;
