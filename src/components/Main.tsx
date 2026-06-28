@@ -1,16 +1,10 @@
 import Message from './message/Message';
 import Nav from './nav/Nav';
 import AdBanner from './AdBanner';
-import AdContainerBanner from './AdContainerBanner';
 
 function Main() {
   return (
     <>
-      <AdContainerBanner
-        containerId="container-22b9356eb2dd3193d628264ff2ae6d5c"
-        scriptSrc="https://pl29893446.effectivecpmnetwork.com/22b9356eb2dd3193d628264ff2ae6d5c/invoke.js"
-      />
-
       <main className="container-main">
         <Nav />
         <Message />
@@ -30,11 +24,6 @@ function Main() {
         />
 
       </main>
-
-      <AdContainerBanner
-        containerId="container-22b9356eb2dd3193d628264ff2ae6d5c"
-        scriptSrc="https://pl29893446.effectivecpmnetwork.com/22b9356eb2dd3193d628264ff2ae6d5c/invoke.js"
-      />
 
       <footer className="site-footer">
         <AdBanner

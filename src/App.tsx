@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import HomeCreator from './pages/HomeCreator';
@@ -6,30 +5,7 @@ import AiChatGenerator from './pages/AiChatGenerator';
 import TwitchAnimations from './pages/TwitchAnimations';
 import PrivacyPolicy from './components/PrivacyPolicy';
 
-const AD_LINK =
-  'https://www.effectivecpmnetwork.com/d9qrth1d1?key=64aa3f92eea506cdb2fa20c105512e37';
-
-const MOBILE_MEDIA_QUERY = '(max-width: 768px)';
-
-function isMobileViewport(): boolean {
-  return window.matchMedia(MOBILE_MEDIA_QUERY).matches;
-}
-
 function App(): JSX.Element {
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      if (isMobileViewport()) return;
-
-      const target = e.target as HTMLElement;
-      if (target.tagName === 'BUTTON' || target.closest('button')) {
-        window.open(AD_LINK, '_blank');
-      }
-    };
-    // Capture phase — fires before React's synthetic onClick
-    document.addEventListener('click', handleClick, true);
-    return () => document.removeEventListener('click', handleClick, true);
-  }, []);
-
   return (
     <BrowserRouter>
       <Routes>

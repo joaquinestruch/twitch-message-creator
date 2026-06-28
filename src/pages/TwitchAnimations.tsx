@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { trackEvent } from '@/utils/analytics';
 import Header from '@/components/Header';
 import AdBanner from '@/components/AdBanner';
-import AdContainerBanner from '@/components/AdContainerBanner';
 import { useSearchParams } from 'react-router-dom';
 import SEO from '@/components/SEO';
 import './TwitchAnimations.css';
@@ -91,11 +90,6 @@ function TwitchAnimations(): JSX.Element {
         canonicalUrl="https://www.twitchmessagecreator.site/animations"
       />
       <Header />
-
-      <AdContainerBanner
-        containerId="container-22b9356eb2dd3193d628264ff2ae6d5c"
-        scriptSrc="https://pl29893446.effectivecpmnetwork.com/22b9356eb2dd3193d628264ff2ae6d5c/invoke.js"
-      />
 
       <div className="anim-wrapper">
         <AdBanner
@@ -200,11 +194,6 @@ function TwitchAnimations(): JSX.Element {
           width={160}
         />
       </div>
-
-      <AdContainerBanner
-        containerId="container-22b9356eb2dd3193d628264ff2ae6d5c"
-        scriptSrc="https://pl29893446.effectivecpmnetwork.com/22b9356eb2dd3193d628264ff2ae6d5c/invoke.js"
-      />
 
       {/* SEO Content */}
       <section className="anim-seo">
