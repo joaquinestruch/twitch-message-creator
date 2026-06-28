@@ -13,6 +13,7 @@ function Main() {
 
       <main className="container-main">
         <Nav />
+        <Message />
 
         <AdBanner
           adKey="67814030039a58aa0669864c58376dfc"
@@ -28,7 +29,6 @@ function Main() {
           width={468}
         />
 
-        <Message />
       </main>
 
       <AdContainerBanner

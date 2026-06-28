@@ -12,6 +12,9 @@ function AdContainerBanner({ containerId, scriptSrc }: AdContainerBannerProps) {
     const container = containerRef.current;
     if (!container) return;
 
+    // Evita popunders al tocar botones/enlaces en móvil
+    if (window.matchMedia('(max-width: 768px)').matches) return;
+
     const script = document.createElement('script');
     script.src = scriptSrc;
     script.setAttribute('data-cfasync', 'false');
