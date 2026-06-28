@@ -2,7 +2,7 @@ import '@/App.css';
 import Header from '@/components/Header';
 import Main from '@/components/Main';
 import SEO from '@/components/SEO';
-import AdBanner from '@/components/AdBanner';
+import { AdBanner, NativeAdBanner } from '@/components/AdBanner';
 
 function HomeCreator(): JSX.Element {
   return (
@@ -14,39 +14,24 @@ function HomeCreator(): JSX.Element {
       />
       <Header />
 
-      {/* Leaderboard top */}
-      <div className="ad-top">
-        <AdBanner
-          adKey="7b6b0557815796b9a0463495207a9fa7"
-          network="highperformanceformat"
-          height={90}
-          width={728}
-        />
+      {/* A — 728x90 Leaderboard */}
+      <div className="ad-leaderboard-wrap">
+        <AdBanner size="728x90" />
       </div>
 
-      {/* Side ads + content */}
-      <div className="ad-page-layout">
-        <div className="ad-side-left">
-          <AdBanner adKey="db589995e674f18306ba71a948ad2e7c" network="highperformanceformat" height={600} width={160} />
-        </div>
+      <div className="page-layout">
+        <aside className="ad-sidebar">
+          <AdBanner size="160x600" />
+        </aside>
 
-        <div className="ad-center-content">
+        <div className="page-layout-center">
           <Main />
         </div>
 
-        <div className="ad-side-right">
-          <AdBanner adKey="9f4efef015cafc796bf969fdfc8d2cc5" network="highperformanceformat" height={300} width={160} />
-        </div>
+        <aside className="ad-sidebar">
+          <AdBanner size="160x300" />
+        </aside>
       </div>
-
-      {/* Bottom */}
-      <AdBanner
-        adKey="b8cf93107d603df2727232c920686599"
-        network="highperformanceformat"
-        height={60}
-        width={468}
-        className="ad-bottom"
-      />
 
       {/* SEO Content */}
       <section className="seo-section">
@@ -58,23 +43,20 @@ function HomeCreator(): JSX.Element {
           (Mod, VIP, Prime, Sub), and emotes.
         </p>
 
+        {/* D — Native Banner */}
+        <div className="ad-native-wrap">
+          <NativeAdBanner />
+        </div>
+
         <div className="seo-grid">
           <div>
             <h2 className="seo-subtitle">How to Create Fake Stream Chats</h2>
-            <ul
-              style={{
-                listStyle: 'disc',
-                paddingLeft: '20px',
-                marginTop: '10px',
-              }}
-            >
+            <ul style={{ listStyle: 'disc', paddingLeft: '20px', marginTop: '10px' }}>
               <li>
-                <strong>Enter Details:</strong> Choose a username, write your message, and pick a
-                color.
+                <strong>Enter Details:</strong> Choose a username, write your message, and pick a color.
               </li>
               <li>
-                <strong>Add Badges:</strong> Make it authentic with Moderator, Subscriber, or
-                Verified badges.
+                <strong>Add Badges:</strong> Make it authentic with Moderator, Subscriber, or Verified badges.
               </li>
               <li>
                 <strong>Download Image:</strong> Capture the result as a high-quality PNG.
@@ -92,6 +74,11 @@ function HomeCreator(): JSX.Element {
           </div>
         </div>
       </section>
+
+      {/* E — 468x60 pre-footer */}
+      <div className="ad-prefooter-wrap">
+        <AdBanner size="468x60" />
+      </div>
     </>
   );
 }

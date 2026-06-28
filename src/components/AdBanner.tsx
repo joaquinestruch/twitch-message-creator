@@ -1,68 +1,59 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
-interface AdBannerProps {
-  adKey: string;
-  height?: number;
-  width?: number;
-  network?: 'highperformanceformat' | 'effectivecpm';
-  className?: string;
-}
+const CONFIGS = {
+  '728x90':  { key: '7b6b0557815796b9a0463495207a9fa7', w: 728, h: 90  },
+  '468x60':  { key: 'b8cf93107d603df2727232c920686599', w: 468, h: 60  },
+  '320x50':  { key: '90024b897148298cd3785fe151ea9109', w: 320, h: 50  },
+  '300x250': { key: '67814030039a58aa0669864c58376dfc', w: 300, h: 250 },
+  '160x600': { key: 'db589995e674f18306ba71a948ad2e7c', w: 160, h: 600 },
+  '160x300': { key: '9f4efef015cafc796bf969fdfc8d2cc5', w: 160, h: 300 },
+} as const;
 
-const SANDBOX = 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation';
-const FALLBACK_KEY = '22b9356eb2dd3193d628264ff2ae6d5c';
+type AdSize = keyof typeof CONFIGS;
 
-let idCounter = 0;
-
-function AdBanner({ adKey, height, width, network = 'highperformanceformat', className }: AdBannerProps) {
-  const h = height ?? 250;
-  const w = width ?? 300;
-  const instanceId = useRef(`ad-${++idCounter}`).current;
-  const [failed, setFailed] = useState(false);
+export function AdBanner({ size }: { size: AdSize }) {
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (network !== 'highperformanceformat') return;
+    const el = ref.current;
+    if (!el) return;
 
-    const handleMessage = (e: MessageEvent) => {
-      if (e.data?.adInstanceId === instanceId && e.data?.type === 'ad-failed') {
-        setFailed(true);
-      }
-    };
+    const { key, w, h } = CONFIGS[size];
 
-    window.addEventListener('message', handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
-  }, [instanceId, network]);
+    const opts = document.createElement('script');
+    opts.text = `atOptions={'key':'${key}','format':'iframe','height':${h},'width':${w},'params':{}};`;
+    el.appendChild(opts);
 
-  const currentNetwork = failed ? 'effectivecpm' : network;
-  const currentKey = failed ? FALLBACK_KEY : adKey;
-  const currentH = failed ? 250 : h;
+    const invoke = document.createElement('script');
+    invoke.src = `https://www.highperformanceformat.com/${key}/invoke.js`;
+    el.appendChild(invoke);
 
-  const src =
-    currentNetwork === 'effectivecpm'
-      ? `/effectivecpm-loader.html?k=${currentKey}`
-      : `/ad-loader.html?k=${currentKey}&h=${h}&w=${w}&id=${instanceId}`;
+    return () => { el.innerHTML = ''; };
+  }, [size]);
 
-  const iframeWidth = currentNetwork === 'effectivecpm' ? '100%' : w;
-
-  // Outer div carries only className (no display inline) so CSS display:none
-  // on .ad-side-left/.ad-side-right is not overridden on mobile.
-  // Inner div handles flex centering without affecting the outer class rules.
-  return (
-    <div className={className} style={{ overflow: 'hidden', minHeight: `${currentH}px` }}>
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: `${currentH}px` }}>
-        <iframe
-          key={failed ? 'fallback' : 'primary'}
-          src={src}
-          sandbox={SANDBOX}
-          width={iframeWidth}
-          height={currentH}
-          scrolling="no"
-          frameBorder="0"
-          style={{ border: 'none', display: 'block', flexShrink: 0 }}
-          title="ad"
-        />
-      </div>
-    </div>
-  );
+  return <div ref={ref} />;
 }
 
-export default AdBanner;
+export function NativeAdBanner() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const containerId = '22b9356eb2dd3193d628264ff2ae6d5c';
+    const div = document.createElement('div');
+    div.id = containerId;
+    el.appendChild(div);
+
+    const script = document.createElement('script');
+    script.async = true;
+    script.setAttribute('data-cfasync', 'false');
+    script.src = 'https://pl29893446.effectivecpmnetwork.com/22b9356eb2dd3193d628264ff2ae6d5c/invoke.js';
+    el.appendChild(script);
+
+    return () => { el.innerHTML = ''; };
+  }, []);
+
+  return <div ref={ref} />;
+}

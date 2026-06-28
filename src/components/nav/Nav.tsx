@@ -6,7 +6,6 @@ import { trackEvent } from '@/utils/analytics';
 import { useImageCapture } from '@/hooks/useImageCapture';
 import Modal from '@/components/ModalAddEmote';
 import { useChatStore } from '@/store/useChatStore';
-import { openInterstitialAd } from '@/utils/interstitialAd';
 
 function Nav() {
   const {
@@ -29,7 +28,6 @@ function Nav() {
     await captureElement('.message', {
       fileName: `message_${username}_${messageText}.png`,
     });
-    openInterstitialAd();
   };
 
   const handleClickImageEmbleds = (e: string) => {

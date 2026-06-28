@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { trackEvent } from '@/utils/analytics';
 import Header from '@/components/Header';
-import AdBanner from '@/components/AdBanner';
 import { useSearchParams } from 'react-router-dom';
 import SEO from '@/components/SEO';
 import './TwitchAnimations.css';
-import { openInterstitialAd } from '@/utils/interstitialAd';
+import { AdBanner, NativeAdBanner } from '@/components/AdBanner';
 
 // Animation/Alert Generator Page
 function TwitchAnimations(): JSX.Element {
@@ -65,7 +64,6 @@ function TwitchAnimations(): JSX.Element {
       document.body.removeChild(input);
       alert('✅ Link copied! Paste this into OBS Browser Source.');
     }
-    openInterstitialAd();
   };
 
   // If OBS Mode, render ONLY the content
@@ -92,27 +90,19 @@ function TwitchAnimations(): JSX.Element {
       />
       <Header />
 
-      <div className="ad-top">
-        <AdBanner adKey="7b6b0557815796b9a0463495207a9fa7" network="highperformanceformat" height={90} width={728} />
+      <div className="ad-leaderboard-wrap">
+        <AdBanner size="728x90" />
       </div>
 
-      <div className="ad-page-layout">
-        <div className="ad-side-left">
-          <AdBanner adKey="db589995e674f18306ba71a948ad2e7c" network="highperformanceformat" height={600} width={160} />
-        </div>
+      <div className="anim-wrapper">
+        <aside className="ad-sidebar">
+          <AdBanner size="160x600" />
+        </aside>
 
-        <div className="anim-wrapper">
           <div className="anim-container">
             {/* Controls */}
             <div className="anim-controls">
               <h2>💎 Bit Alert Creator</h2>
-
-              <AdBanner
-                adKey="67814030039a58aa0669864c58376dfc"
-                network="highperformanceformat"
-                height={250}
-                width={300}
-              />
 
               <div className="anim-control-group">
                 <label className="anim-label">
@@ -189,24 +179,15 @@ function TwitchAnimations(): JSX.Element {
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="ad-side-right">
-          <AdBanner adKey="9f4efef015cafc796bf969fdfc8d2cc5" network="highperformanceformat" height={300} width={160} />
-        </div>
+        <aside className="ad-sidebar">
+          <AdBanner size="160x300" />
+        </aside>
       </div>
 
-      <div className="ad-mobile-only">
-        <AdBanner adKey="90024b897148298cd3785fe151ea9109" network="highperformanceformat" height={50} width={320} />
+      <div className="ad-rectangle-wrap" style={{ background: '#0e0e10' }}>
+        <AdBanner size="300x250" />
       </div>
-
-      <AdBanner
-        adKey="b8cf93107d603df2727232c920686599"
-        network="highperformanceformat"
-        height={60}
-        width={468}
-        className="ad-bottom"
-      />
 
       {/* SEO Content */}
       <section className="anim-seo">
@@ -243,7 +224,19 @@ function TwitchAnimations(): JSX.Element {
             </p>
           </div>
         </div>
+
+        <div className="ad-native-wrap">
+          <NativeAdBanner />
+        </div>
       </section>
+
+      <div className="ad-prefooter-wrap">
+        <AdBanner size="468x60" />
+      </div>
+
+      <div className="ad-mobile-sticky">
+        <AdBanner size="320x50" />
+      </div>
     </>
   );
 }
