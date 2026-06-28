@@ -7,9 +7,9 @@ interface AdBannerProps {
   className?: string;
 }
 
-// allow-top-navigation intentionally absent: prevents ad scripts from doing
-// window.top.location = '...' (forced redirect of the parent page).
-const SANDBOX = 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox';
+// allow-top-navigation-by-user-activation: blocks auto-redirects (no user gesture)
+// but allows scripts to read window.top and navigate on actual clicks.
+const SANDBOX = 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation';
 
 function AdBanner({ adKey, height, width, network = 'highperformanceformat', className }: AdBannerProps) {
   const h = height ?? 250;
