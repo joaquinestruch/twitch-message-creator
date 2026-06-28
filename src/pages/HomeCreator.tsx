@@ -15,12 +15,14 @@ function HomeCreator(): JSX.Element {
       <Header />
 
       {/* Leaderboard top */}
-      <AdBanner
-        adKey="22b9356eb2dd3193d628264ff2ae6d5c"
-        network="effectivecpm"
-        height={250}
-        className="ad-top"
-      />
+      <div className="ad-top" style={{ gap: '16px' }}>
+        <div style={{ width: '46%', maxWidth: '340px' }}>
+          <AdBanner adKey="22b9356eb2dd3193d628264ff2ae6d5c" network="effectivecpm" height={250} />
+        </div>
+        <div style={{ width: '46%', maxWidth: '340px' }}>
+          <AdBanner adKey="22b9356eb2dd3193d628264ff2ae6d5c" network="effectivecpm" height={250} />
+        </div>
+      </div>
 
       {/* Side ads + content */}
       <div className="ad-page-layout">
