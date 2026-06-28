@@ -201,6 +201,19 @@
   }
 }
 
+.ad-mobile-only {
+  display: none;
+}
+
+@media (max-width: 1280px) {
+  .ad-mobile-only {
+    display: flex;
+    justify-content: center;
+    margin: 8px auto;
+    overflow: hidden;
+  }
+}
+
 @media (max-width: 768px) {
   .ad-top,
   .ad-bottom,

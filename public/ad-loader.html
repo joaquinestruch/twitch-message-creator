@@ -13,9 +13,23 @@
   var k = p.get('k');
   var h = parseInt(p.get('h') || '250');
   var w = parseInt(p.get('w') || '300');
+  var id = p.get('id') || '';
+
+  function fail() {
+    window.parent.postMessage({ type: 'ad-failed', adInstanceId: id }, '*');
+  }
+
   if (k) {
     window.atOptions = { key: k, format: 'iframe', height: h, width: w, params: {} };
-    document.write('<scr'+'ipt src="https://www.highperformanceformat.com/' + k + '/invoke.js"><\/scr'+'ipt>');
+    var s = document.createElement('script');
+    s.src = 'https://www.highperformanceformat.com/' + k + '/invoke.js';
+    s.onerror = fail;
+    document.body.appendChild(s);
+
+    // If no iframe rendered after 5s, the ad didn't load
+    setTimeout(function() {
+      if (!document.querySelector('iframe')) fail();
+    }, 5000);
   }
 </script>
 </body>

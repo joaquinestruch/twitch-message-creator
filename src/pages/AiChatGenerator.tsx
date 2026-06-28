@@ -73,20 +73,13 @@ function AiChatGenerator() {
       />
       {!obs.isObsMode && <Header />}
 
-      <div className="ad-top" style={{ gap: '16px' }}>
-        <div style={{ width: '46%', maxWidth: '340px' }}>
-          <AdBanner adKey="22b9356eb2dd3193d628264ff2ae6d5c" network="effectivecpm" height={250} />
-        </div>
-        <div style={{ width: '46%', maxWidth: '340px' }}>
-          <AdBanner adKey="22b9356eb2dd3193d628264ff2ae6d5c" network="effectivecpm" height={250} />
-        </div>
+      <div className="ad-top">
+        <AdBanner adKey="7b6b0557815796b9a0463495207a9fa7" network="highperformanceformat" height={90} width={728} />
       </div>
 
       <div className="ad-page-layout">
         <div className="ad-side-left">
-          <AdBanner adKey="22b9356eb2dd3193d628264ff2ae6d5c" network="effectivecpm" height={250} />
-          <AdBanner adKey="22b9356eb2dd3193d628264ff2ae6d5c" network="effectivecpm" height={250} />
-          <AdBanner adKey="22b9356eb2dd3193d628264ff2ae6d5c" network="effectivecpm" height={250} />
+          <AdBanner adKey="db589995e674f18306ba71a948ad2e7c" network="highperformanceformat" height={600} width={160} />
         </div>
 
         <main className={`ai-chat-main ${obs.isObsMode ? 'obs-active' : ''}`}>
@@ -139,8 +132,8 @@ function AiChatGenerator() {
                   }}
                 />
                 <AdBanner
-                  adKey="22b9356eb2dd3193d628264ff2ae6d5c"
-                  network="effectivecpm"
+                  adKey="67814030039a58aa0669864c58376dfc"
+                  network="highperformanceformat"
                   height={250}
                   width={300}
                 />
@@ -185,18 +178,23 @@ function AiChatGenerator() {
         </main>
 
         <div className="ad-side-right">
-          <AdBanner adKey="22b9356eb2dd3193d628264ff2ae6d5c" network="effectivecpm" height={250} />
-          <AdBanner adKey="22b9356eb2dd3193d628264ff2ae6d5c" network="effectivecpm" height={250} />
+          <AdBanner adKey="9f4efef015cafc796bf969fdfc8d2cc5" network="highperformanceformat" height={300} width={160} />
         </div>
       </div>
 
       {!obs.isObsMode && (
-        <AdBanner
-          adKey="22b9356eb2dd3193d628264ff2ae6d5c"
-        network="effectivecpm"
-        height={250}
-          className="ad-bottom"
-        />
+        <>
+          <div className="ad-mobile-only">
+            <AdBanner adKey="90024b897148298cd3785fe151ea9109" network="highperformanceformat" height={50} width={320} />
+          </div>
+          <AdBanner
+            adKey="b8cf93107d603df2727232c920686599"
+            network="highperformanceformat"
+            height={60}
+            width={468}
+            className="ad-bottom"
+          />
+        </>
       )}
 
       {/* SEO Content Section */}

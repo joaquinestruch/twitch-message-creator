@@ -9,21 +9,20 @@ function Main() {
         <Nav />
         <Message />
 
-        <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', width: '100%' }}>
-          <div style={{ width: '46%', maxWidth: '340px' }}>
-            <AdBanner
-              adKey="22b9356eb2dd3193d628264ff2ae6d5c"
-              network="effectivecpm"
-              height={250}
-            />
-          </div>
-          <div style={{ width: '46%', maxWidth: '340px' }}>
-            <AdBanner
-              adKey="22b9356eb2dd3193d628264ff2ae6d5c"
-              network="effectivecpm"
-              height={250}
-            />
-          </div>
+        <AdBanner
+          adKey="67814030039a58aa0669864c58376dfc"
+          network="highperformanceformat"
+          height={250}
+          width={300}
+        />
+
+        <div className="ad-mobile-only">
+          <AdBanner
+            adKey="90024b897148298cd3785fe151ea9109"
+            network="highperformanceformat"
+            height={50}
+            width={320}
+          />
         </div>
 
       </main>

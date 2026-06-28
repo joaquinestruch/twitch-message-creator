@@ -15,21 +15,19 @@ function HomeCreator(): JSX.Element {
       <Header />
 
       {/* Leaderboard top */}
-      <div className="ad-top" style={{ gap: '16px' }}>
-        <div style={{ width: '46%', maxWidth: '340px' }}>
-          <AdBanner adKey="22b9356eb2dd3193d628264ff2ae6d5c" network="effectivecpm" height={250} />
-        </div>
-        <div style={{ width: '46%', maxWidth: '340px' }}>
-          <AdBanner adKey="22b9356eb2dd3193d628264ff2ae6d5c" network="effectivecpm" height={250} />
-        </div>
+      <div className="ad-top">
+        <AdBanner
+          adKey="7b6b0557815796b9a0463495207a9fa7"
+          network="highperformanceformat"
+          height={90}
+          width={728}
+        />
       </div>
 
       {/* Side ads + content */}
       <div className="ad-page-layout">
         <div className="ad-side-left">
-          <AdBanner adKey="22b9356eb2dd3193d628264ff2ae6d5c" network="effectivecpm" height={250} />
-          <AdBanner adKey="22b9356eb2dd3193d628264ff2ae6d5c" network="effectivecpm" height={250} />
-          <AdBanner adKey="22b9356eb2dd3193d628264ff2ae6d5c" network="effectivecpm" height={250} />
+          <AdBanner adKey="db589995e674f18306ba71a948ad2e7c" network="highperformanceformat" height={600} width={160} />
         </div>
 
         <div className="ad-center-content">
@@ -37,16 +35,16 @@ function HomeCreator(): JSX.Element {
         </div>
 
         <div className="ad-side-right">
-          <AdBanner adKey="22b9356eb2dd3193d628264ff2ae6d5c" network="effectivecpm" height={250} />
-          <AdBanner adKey="22b9356eb2dd3193d628264ff2ae6d5c" network="effectivecpm" height={250} />
+          <AdBanner adKey="9f4efef015cafc796bf969fdfc8d2cc5" network="highperformanceformat" height={300} width={160} />
         </div>
       </div>
 
       {/* Bottom */}
       <AdBanner
-        adKey="22b9356eb2dd3193d628264ff2ae6d5c"
-        network="effectivecpm"
-        height={250}
+        adKey="b8cf93107d603df2727232c920686599"
+        network="highperformanceformat"
+        height={60}
+        width={468}
         className="ad-bottom"
       />
 
