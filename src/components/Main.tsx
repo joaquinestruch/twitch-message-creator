@@ -9,17 +9,22 @@ function Main() {
         <Nav />
         <Message />
 
-        <AdBanner
-          adKey="22b9356eb2dd3193d628264ff2ae6d5c"
-          network="effectivecpm"
-          height={250}
-        />
-
-        <AdBanner
-          adKey="22b9356eb2dd3193d628264ff2ae6d5c"
-          network="effectivecpm"
-          height={250}
-        />
+        <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', width: '100%' }}>
+          <div style={{ width: '46%', maxWidth: '340px' }}>
+            <AdBanner
+              adKey="22b9356eb2dd3193d628264ff2ae6d5c"
+              network="effectivecpm"
+              height={250}
+            />
+          </div>
+          <div style={{ width: '46%', maxWidth: '340px' }}>
+            <AdBanner
+              adKey="22b9356eb2dd3193d628264ff2ae6d5c"
+              network="effectivecpm"
+              height={250}
+            />
+          </div>
+        </div>
 
       </main>
 

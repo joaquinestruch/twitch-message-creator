@@ -181,6 +181,8 @@
   position: sticky;
   top: 8px;
   z-index: 5;
+  width: 200px;
+  overflow: hidden;
 }
 
 .ad-center-content {

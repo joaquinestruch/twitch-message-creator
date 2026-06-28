@@ -94,16 +94,15 @@ function TwitchAnimations(): JSX.Element {
 
       <AdBanner
         adKey="22b9356eb2dd3193d628264ff2ae6d5c"
-        format="iframe"
-        height={90}
-        width={728}
+        network="effectivecpm"
+        height={250}
         className="ad-top"
       />
 
       <div className="ad-page-layout">
         <AdBanner
           adKey="22b9356eb2dd3193d628264ff2ae6d5c"
-          format="iframe"
+          network="effectivecpm"
           height={300}
           width={160}
           className="ad-side-left"
@@ -117,7 +116,7 @@ function TwitchAnimations(): JSX.Element {
 
               <AdBanner
                 adKey="22b9356eb2dd3193d628264ff2ae6d5c"
-                format="iframe"
+                network="effectivecpm"
                 height={250}
                 width={300}
               />
@@ -201,7 +200,7 @@ function TwitchAnimations(): JSX.Element {
 
         <AdBanner
           adKey="22b9356eb2dd3193d628264ff2ae6d5c"
-          format="iframe"
+          network="effectivecpm"
           height={600}
           width={160}
           className="ad-side-right"
@@ -211,14 +210,7 @@ function TwitchAnimations(): JSX.Element {
       <AdBanner
         adKey="22b9356eb2dd3193d628264ff2ae6d5c"
         network="effectivecpm"
-        className="ad-bottom"
-      />
-
-      <AdBanner
-        adKey="22b9356eb2dd3193d628264ff2ae6d5c"
-        format="iframe"
-        height={50}
-        width={320}
+        height={250}
         className="ad-bottom"
       />
 

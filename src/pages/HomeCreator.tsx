@@ -49,6 +49,7 @@ function HomeCreator(): JSX.Element {
       <AdBanner
         adKey="22b9356eb2dd3193d628264ff2ae6d5c"
         network="effectivecpm"
+        height={250}
         className="ad-bottom"
       />
 
