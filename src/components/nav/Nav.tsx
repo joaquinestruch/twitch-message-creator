@@ -6,6 +6,7 @@ import { trackEvent } from '@/utils/analytics';
 import { useImageCapture } from '@/hooks/useImageCapture';
 import Modal from '@/components/ModalAddEmote';
 import { useChatStore } from '@/store/useChatStore';
+import { openInterstitialAd } from '@/utils/interstitialAd';
 
 function Nav() {
   const {
@@ -23,11 +24,12 @@ function Nav() {
 
   const [selectedImages, setSelectedImages] = useState<Record<string, boolean>>({});
 
-  const handleSaveCommentClick = () => {
+  const handleSaveCommentClick = async () => {
     trackEvent('save_image', 'Message Creator', `User: ${username}`);
-    captureElement('.message', {
+    await captureElement('.message', {
       fileName: `message_${username}_${messageText}.png`,
     });
+    openInterstitialAd();
   };
 
   const handleClickImageEmbleds = (e: string) => {

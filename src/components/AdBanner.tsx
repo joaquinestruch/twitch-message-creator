@@ -1,53 +1,53 @@
-import { useEffect, useRef } from 'react';
-
 interface AdBannerProps {
   adKey: string;
-  format: string;
-  height: number;
-  width: number;
+  format?: string;
+  height?: number;
+  width?: number;
+  network?: 'highperformanceformat' | 'effectivecpm';
   className?: string;
 }
 
-function AdBanner({ adKey, format, height, width, className }: AdBannerProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
+// sandbox without allow-same-origin + allow-top-navigation → ad scripts cannot
+// redirect window.top, and cannot remove the sandbox attribute themselves.
+// allow-popups lets click-through ads open a new tab normally.
+// allow-same-origin: scripts need their real origin to make ad network requests.
+// allow-top-navigation is intentionally ABSENT: prevents any script inside from
+// doing window.top.location = '...' (forced redirect of the parent page).
+const SANDBOX = 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox';
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+function AdBanner({ adKey, height, width, network = 'highperformanceformat', className }: AdBannerProps) {
+  const h = height ?? 250;
+  const w = width ?? 300;
 
-    const inline = document.createElement('script');
-    inline.textContent = `
-      window.atOptions = {
-        key: '${adKey}',
-        format: '${format}',
-        height: ${height},
-        width: ${width},
-        params: {}
-      };
-    `;
-    container.appendChild(inline);
+  const src =
+    network === 'effectivecpm'
+      ? `/effectivecpm-loader.html?k=${adKey}`
+      : `/ad-loader.html?k=${adKey}&h=${h}&w=${w}`;
 
-    const invoke = document.createElement('script');
-    invoke.src = `https://www.highperformanceformat.com/${adKey}/invoke.js`;
-    container.appendChild(invoke);
-
-    return () => {
-      if (inline.parentNode) inline.parentNode.removeChild(inline);
-      if (invoke.parentNode) invoke.parentNode.removeChild(invoke);
-    };
-  }, [adKey, format, height, width]);
+  const iframeWidth = network === 'effectivecpm' ? '100%' : w;
 
   return (
     <div
-      ref={containerRef}
       className={className}
       style={{
         display: 'flex',
         justifyContent: 'center',
-        margin: '16px 0',
-        minHeight: height,
+        alignItems: 'center',
+        overflow: 'hidden',
+        minHeight: `${h}px`,
       }}
-    />
+    >
+      <iframe
+        src={src}
+        sandbox={SANDBOX}
+        width={iframeWidth}
+        height={h}
+        scrolling="no"
+        frameBorder="0"
+        style={{ border: 'none', display: 'block', flexShrink: 0 }}
+        title="ad"
+      />
+    </div>
   );
 }
 

@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import Header from '@/components/Header';
 import '@/App.css';
 import './AiChat.css';
-import html2canvas from 'html2canvas';
+import { toPng } from 'html-to-image';
 import { trackEvent } from '@/utils/analytics';
 
 // Hooks
@@ -18,6 +18,7 @@ import ControlPanel from '@/components/ControlPanel';
 import ChatDisplay from '@/components/ChatDisplay';
 import AdBanner from '@/components/AdBanner';
 import SEO from '@/components/SEO';
+import { openInterstitialAd } from '@/utils/interstitialAd';
 
 function AiChatGenerator() {
   // Hooks Integration
@@ -46,16 +47,20 @@ function AiChatGenerator() {
     const element = document.getElementById('ai-capture-zone');
     if (!element) return;
 
-    html2canvas(element, {
-      backgroundColor: null,
-      scale: 2,
-      useCORS: true,
-      allowTaint: true,
-    }).then((canvas) => {
+    toPng(element, {
+      backgroundColor: 'transparent',
+      pixelRatio: 2,
+    }).then((dataUrl) => {
       const link = document.createElement('a');
       link.download = `chat_${settings.channelName}_live.png`;
-      link.href = canvas.toDataURL();
+      link.href = dataUrl;
+      document.body.appendChild(link);
       link.click();
+      document.body.removeChild(link);
+      openInterstitialAd();
+    }).catch((err) => {
+      console.error('Error capturing image:', err);
+      alert('Could not capture image. Please try again.');
     });
   };
 
@@ -68,109 +73,143 @@ function AiChatGenerator() {
       />
       {!obs.isObsMode && <Header />}
 
-      <main className={`ai-chat-main ${obs.isObsMode ? 'obs-active' : ''}`}>
-        {/* LEFT SIDE */}
-        <section className="stream-layout-left">
-          <StreamPreview bgImage={obs.bgImage} setBgImage={obs.setBgImage} />
+      <AdBanner
+        adKey="7b6b0557815796b9a0463495207a9fa7"
+        format="iframe"
+        height={90}
+        width={728}
+        className="ad-top"
+      />
 
-          {!obs.isObsMode && (
-            <>
-              <ControlPanel
-                mode={mode}
-                setMode={setMode}
-                settings={settings}
-                manual={manual}
-                handlers={{
-                  handleGenerate: () => {
-                    trackEvent('generate_chat', 'AI Chat Simulator', mode);
-                    chatGen.generateChat(null);
-                  },
-                  handleApplyPreset: (type: string) => {
-                    trackEvent('apply_preset', 'AI Chat Simulator', type);
-                    chatGen.generateChat(type);
-                  },
-                  handleTriggerEvent: (e) => {
-                    trackEvent('trigger_event', 'AI Chat Simulator', 'Stream Event');
-                    events.triggerEvent(e);
-                  },
-                  toggleStream: () => {
-                    trackEvent(
-                      'toggle_stream',
-                      'AI Chat Simulator',
-                      chatGen.isStreaming ? 'Stop' : 'Start'
-                    );
-                    chatGen.toggleStream();
-                  },
-                  handleDownload: () => {
-                    trackEvent('download_chat', 'AI Chat Simulator', 'Image');
-                    handleDownload();
-                  },
-                  toggleObsMode: () => {
-                    trackEvent('toggle_obs', 'AI Chat Simulator', !obs.isObsMode ? 'Enter' : 'Exit');
-                    obs.toggleObsMode();
-                  },
-                  clearMessages: chatGen.clearMessages,
-                }}
-                status={{
-                  isLoading: chatGen.isLoading,
-                  isStreaming: chatGen.isStreaming,
-                  messagePool: chatGen.messagePool,
-                }}
-              />
-              <AdBanner
-                adKey="67814030039a58aa0669864c58376dfc"
-                format="iframe"
-                height={250}
-                width={300}
-              />
-            </>
-          )}
-        </section>
-
-        {/* RIGHT SIDE */}
-        <ChatDisplay
-          visibleMessages={chatGen.visibleMessages}
-          chatContainerRef={chatContainerRef}
-          isObsMode={obs.isObsMode}
-          isStreaming={chatGen.isStreaming}
+      <div className="ad-page-layout">
+        <AdBanner
+          adKey="9f4efef015cafc796bf969fdfc8d2cc5"
+          format="iframe"
+          height={300}
+          width={160}
+          className="ad-side-left"
         />
 
-        {!obs.isObsMode && (
-          <AdBanner
-            adKey="9f4efef015cafc796bf969fdfc8d2cc5"
-            format="iframe"
-            height={300}
-            width={160}
-          />
-        )}
+        <main className={`ai-chat-main ${obs.isObsMode ? 'obs-active' : ''}`}>
+          {/* LEFT SIDE */}
+          <section className="stream-layout-left">
+            <StreamPreview bgImage={obs.bgImage} setBgImage={obs.setBgImage} />
 
-        {obs.isObsMode && (
-          <button
-            onClick={obs.toggleObsMode}
-            style={{
-              position: 'fixed',
-              top: '10px',
-              left: '10px',
-              opacity: 0.1,
-              zIndex: 9999,
-              background: 'red',
-              border: 'none',
-              color: 'white',
-              padding: '10px',
-              borderRadius: '5px',
-              cursor: 'pointer',
-            }}
-            onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) =>
-              (e.currentTarget.style.opacity = '1')
-            }
-            onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) =>
-              (e.currentTarget.style.opacity = '0.1')
-            }
-          >
-            EXIT OBS MODE
-          </button>
-        )}
-      </main>
+            {!obs.isObsMode && (
+              <>
+                <ControlPanel
+                  mode={mode}
+                  setMode={setMode}
+                  settings={settings}
+                  manual={manual}
+                  handlers={{
+                    handleGenerate: () => {
+                      trackEvent('generate_chat', 'AI Chat Simulator', mode);
+                      chatGen.generateChat(null);
+                    },
+                    handleApplyPreset: (type: string) => {
+                      trackEvent('apply_preset', 'AI Chat Simulator', type);
+                      chatGen.generateChat(type);
+                    },
+                    handleTriggerEvent: (e) => {
+                      trackEvent('trigger_event', 'AI Chat Simulator', 'Stream Event');
+                      events.triggerEvent(e);
+                    },
+                    toggleStream: () => {
+                      trackEvent(
+                        'toggle_stream',
+                        'AI Chat Simulator',
+                        chatGen.isStreaming ? 'Stop' : 'Start'
+                      );
+                      chatGen.toggleStream();
+                    },
+                    handleDownload: () => {
+                      trackEvent('download_chat', 'AI Chat Simulator', 'Image');
+                      handleDownload();
+                    },
+                    toggleObsMode: () => {
+                      trackEvent('toggle_obs', 'AI Chat Simulator', !obs.isObsMode ? 'Enter' : 'Exit');
+                      obs.toggleObsMode();
+                    },
+                    clearMessages: chatGen.clearMessages,
+                  }}
+                  status={{
+                    isLoading: chatGen.isLoading,
+                    isStreaming: chatGen.isStreaming,
+                    messagePool: chatGen.messagePool,
+                  }}
+                />
+                <AdBanner
+                  adKey="67814030039a58aa0669864c58376dfc"
+                  format="iframe"
+                  height={250}
+                  width={300}
+                />
+              </>
+            )}
+          </section>
+
+          {/* RIGHT SIDE */}
+          <ChatDisplay
+            visibleMessages={chatGen.visibleMessages}
+            chatContainerRef={chatContainerRef}
+            isObsMode={obs.isObsMode}
+            isStreaming={chatGen.isStreaming}
+          />
+
+          {obs.isObsMode && (
+            <button
+              onClick={obs.toggleObsMode}
+              style={{
+                position: 'fixed',
+                top: '10px',
+                left: '10px',
+                opacity: 0.1,
+                zIndex: 9999,
+                background: 'red',
+                border: 'none',
+                color: 'white',
+                padding: '10px',
+                borderRadius: '5px',
+                cursor: 'pointer',
+              }}
+              onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) =>
+                (e.currentTarget.style.opacity = '1')
+              }
+              onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) =>
+                (e.currentTarget.style.opacity = '0.1')
+              }
+            >
+              EXIT OBS MODE
+            </button>
+          )}
+        </main>
+
+        <AdBanner
+          adKey="db589995e674f18306ba71a948ad2e7c"
+          format="iframe"
+          height={600}
+          width={160}
+          className="ad-side-right"
+        />
+      </div>
+
+      {!obs.isObsMode && (
+        <>
+          <AdBanner
+            adKey="22b9356eb2dd3193d628264ff2ae6d5c"
+            network="effectivecpm"
+            className="ad-bottom"
+          />
+          <AdBanner
+            adKey="90024b897148298cd3785fe151ea9109"
+            format="iframe"
+            height={50}
+            width={320}
+            className="ad-bottom"
+          />
+        </>
+      )}
 
       {/* SEO Content Section */}
       <section

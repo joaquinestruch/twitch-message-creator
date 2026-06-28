@@ -5,6 +5,7 @@ import AdBanner from '@/components/AdBanner';
 import { useSearchParams } from 'react-router-dom';
 import SEO from '@/components/SEO';
 import './TwitchAnimations.css';
+import { openInterstitialAd } from '@/utils/interstitialAd';
 
 // Animation/Alert Generator Page
 function TwitchAnimations(): JSX.Element {
@@ -56,7 +57,6 @@ function TwitchAnimations(): JSX.Element {
       await navigator.clipboard.writeText(url.toString());
       alert('✅ Link copied! Paste this into OBS Browser Source.');
     } catch {
-      // Fallback: select and copy manually
       const input = document.createElement('input');
       input.value = url.toString();
       document.body.appendChild(input);
@@ -65,6 +65,7 @@ function TwitchAnimations(): JSX.Element {
       document.body.removeChild(input);
       alert('✅ Link copied! Paste this into OBS Browser Source.');
     }
+    openInterstitialAd();
   };
 
   // If OBS Mode, render ONLY the content
@@ -91,97 +92,108 @@ function TwitchAnimations(): JSX.Element {
       />
       <Header />
 
-      <div className="anim-wrapper">
+      <AdBanner
+        adKey="7b6b0557815796b9a0463495207a9fa7"
+        format="iframe"
+        height={90}
+        width={728}
+        className="ad-top"
+      />
+
+      <div className="ad-page-layout">
         <AdBanner
           adKey="9f4efef015cafc796bf969fdfc8d2cc5"
           format="iframe"
-          height={600}
+          height={300}
           width={160}
+          className="ad-side-left"
         />
 
-        <div className="anim-container">
-          {/* Controls */}
-          <div className="anim-controls">
-            <h2>💎 Bit Alert Creator</h2>
+        <div className="anim-wrapper">
+          <div className="anim-container">
+            {/* Controls */}
+            <div className="anim-controls">
+              <h2>💎 Bit Alert Creator</h2>
 
-            <AdBanner
-              adKey="67814030039a58aa0669864c58376dfc"
-              format="iframe"
-              height={250}
-              width={300}
-            />
+              <AdBanner
+                adKey="67814030039a58aa0669864c58376dfc"
+                format="iframe"
+                height={250}
+                width={300}
+              />
 
-            <div className="anim-control-group">
-              <label className="anim-label">
-                Bit Amount
-                <select
-                  className="anim-select"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                >
-                  <option value="1">1 Bit (Gray)</option>
-                  <option value="100">100 Bits (Purple)</option>
-                  <option value="1000">1000 Bits (Green)</option>
-                  <option value="5000">5000 Bits (Blue)</option>
-                  <option value="10000">10000 Bits (Red)</option>
-                </select>
-              </label>
+              <div className="anim-control-group">
+                <label className="anim-label">
+                  Bit Amount
+                  <select
+                    className="anim-select"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                  >
+                    <option value="1">1 Bit (Gray)</option>
+                    <option value="100">100 Bits (Purple)</option>
+                    <option value="1000">1000 Bits (Green)</option>
+                    <option value="5000">5000 Bits (Blue)</option>
+                    <option value="10000">10000 Bits (Red)</option>
+                  </select>
+                </label>
+              </div>
+
+              <div className="anim-control-group">
+                <label className="anim-label">
+                  Username
+                  <input
+                    type="text"
+                    className="anim-input"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                </label>
+              </div>
+
+              <div className="anim-control-group">
+                <label className="anim-label">
+                  Message
+                  <textarea
+                    className="anim-textarea"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                  />
+                </label>
+              </div>
+
+              <div className="anim-control-group">
+                <label className="anim-label">
+                  Background (Green Screen)
+                  <input
+                    type="color"
+                    className="anim-color-input"
+                    value={bgColor}
+                    onChange={(e) => setBgColor(e.target.value)}
+                  />
+                </label>
+              </div>
+
+              <button onClick={handleCopyLink} className="anim-btn-primary">
+                🔗 Copy OBS Link
+              </button>
+              <p className="anim-help-text">
+                Paste the copied link into an OBS "Browser Source". The background will be transparent
+                if you use the Chroma Key filter in OBS (or just Green Screen).
+              </p>
             </div>
 
-            <div className="anim-control-group">
-              <label className="anim-label">
-                Username
-                <input
-                  type="text"
-                  className="anim-input"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-              </label>
-            </div>
-
-            <div className="anim-control-group">
-              <label className="anim-label">
-                Message
-                <textarea
-                  className="anim-textarea"
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                />
-              </label>
-            </div>
-
-            <div className="anim-control-group">
-              <label className="anim-label">
-                Background (Green Screen)
-                <input
-                  type="color"
-                  className="anim-color-input"
-                  value={bgColor}
-                  onChange={(e) => setBgColor(e.target.value)}
-                />
-              </label>
-            </div>
-
-            <button onClick={handleCopyLink} className="anim-btn-primary">
-              🔗 Copy OBS Link
-            </button>
-            <p className="anim-help-text">
-              Paste the copied link into an OBS "Browser Source". The background will be transparent
-              if you use the Chroma Key filter in OBS (or just Green Screen).
-            </p>
-          </div>
-
-          {/* Preview Area */}
-          <div className="anim-preview" style={{ background: bgColor }}>
-            <div className="anim-preview-content">
-              <div className="alert-box-cheer">
-                <img src={getBitGif(amount)} alt="bits" className="anim-gif" />
-                <div className="anim-text-line1">
-                  {username}{' '}
-                  <span style={{ color: getBitColor(amount) }}>{`cheered ${amount}!`}</span>
+            {/* Preview Area */}
+            <div className="anim-preview" style={{ background: bgColor }}>
+              <div className="anim-preview-content">
+                <div className="alert-box-cheer">
+                  <img src={getBitGif(amount)} alt="bits" className="anim-gif" />
+                  <div className="anim-text-line1">
+                    {username}{' '}
+                    <span style={{ color: getBitColor(amount) }}>{`cheered ${amount}!`}</span>
+                  </div>
+                  <div className="anim-text-line2">"{message}"</div>
                 </div>
-                <div className="anim-text-line2">"{message}"</div>
               </div>
             </div>
           </div>
@@ -192,8 +204,23 @@ function TwitchAnimations(): JSX.Element {
           format="iframe"
           height={600}
           width={160}
+          className="ad-side-right"
         />
       </div>
+
+      <AdBanner
+        adKey="22b9356eb2dd3193d628264ff2ae6d5c"
+        network="effectivecpm"
+        className="ad-bottom"
+      />
+
+      <AdBanner
+        adKey="90024b897148298cd3785fe151ea9109"
+        format="iframe"
+        height={50}
+        width={320}
+        className="ad-bottom"
+      />
 
       {/* SEO Content */}
       <section className="anim-seo">

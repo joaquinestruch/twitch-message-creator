@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>* { margin: 0; padding: 0; box-sizing: border-box; } body { background: transparent; overflow: hidden; }</style>
+</head>
+<body>
+<script>
+  var k = new URLSearchParams(location.search).get('k');
+  if (k) {
+    var div = document.createElement('div');
+    div.id = 'container-' + k;
+    document.body.appendChild(div);
+    var s = document.createElement('script');
+    s.async = true;
+    s.setAttribute('data-cfasync', 'false');
+    s.src = 'https://pl29893446.effectivecpmnetwork.com/' + k + '/invoke.js';
+    document.body.appendChild(s);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: transparent; overflow: hidden; }
+  </style>
+</head>
+<body>
+<script>
+  var p = new URLSearchParams(location.search);
+  var k = p.get('k');
+  var h = parseInt(p.get('h') || '250');
+  var w = parseInt(p.get('w') || '300');
+  if (k) {
+    window.atOptions = { key: k, format: 'iframe', height: h, width: w, params: {} };
+    document.write('<scr'+'ipt src="https://www.highperformanceformat.com/' + k + '/invoke.js"><\/scr'+'ipt>');
+  }
+</script>
+</body>
+</html>

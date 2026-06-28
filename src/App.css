@@ -139,6 +139,73 @@
   text-decoration: underline;
 }
 
+/* ========== Ad Layout ========== */
+.ad-top {
+  display: flex;
+  justify-content: center;
+  margin: 8px auto;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.ad-bottom {
+  display: flex;
+  justify-content: center;
+  margin: 8px auto;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.ad-mid {
+  display: flex;
+  justify-content: center;
+  margin: 16px auto;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.ad-page-layout {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  overflow: visible;
+}
+
+.ad-side-left,
+.ad-side-right {
+  flex-shrink: 0;
+  align-self: flex-start;
+  position: sticky;
+  top: 8px;
+  z-index: 5;
+}
+
+.ad-center-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 1280px) {
+  .ad-side-left,
+  .ad-side-right {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .ad-top,
+  .ad-bottom,
+  .ad-mid {
+    max-width: 100vw;
+    overflow: hidden;
+  }
+}
+
 .container-main {
   background-color: #303031;
   min-height: 100vh;

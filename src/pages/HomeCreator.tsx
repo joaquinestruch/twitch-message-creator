@@ -2,17 +2,53 @@ import '@/App.css';
 import Header from '@/components/Header';
 import Main from '@/components/Main';
 import SEO from '@/components/SEO';
+import AdBanner from '@/components/AdBanner';
 
 function HomeCreator(): JSX.Element {
   return (
     <>
-      <SEO 
+      <SEO
         title="Twitch Chat Generator | Fake Message Creator"
         description="Create fake Twitch chat messages instantly with our free generator. Customize usernames, colors, badges, and emotes for memes, thumbnails, and videos."
         canonicalUrl="https://www.twitchmessagecreator.site/"
       />
       <Header />
-      <Main />
+
+      {/* Leaderboard top */}
+      <AdBanner
+        adKey="7b6b0557815796b9a0463495207a9fa7"
+        height={90}
+        width={728}
+        className="ad-top"
+      />
+
+      {/* Side ads + content */}
+      <div className="ad-page-layout">
+        <AdBanner
+          adKey="9f4efef015cafc796bf969fdfc8d2cc5"
+          height={300}
+          width={160}
+          className="ad-side-left"
+        />
+
+        <div className="ad-center-content">
+          <Main />
+        </div>
+
+        <AdBanner
+          adKey="db589995e674f18306ba71a948ad2e7c"
+          height={600}
+          width={160}
+          className="ad-side-right"
+        />
+      </div>
+
+      {/* Bottom */}
+      <AdBanner
+        adKey="22b9356eb2dd3193d628264ff2ae6d5c"
+        network="effectivecpm"
+        className="ad-bottom"
+      />
 
       {/* SEO Content */}
       <section className="seo-section">
