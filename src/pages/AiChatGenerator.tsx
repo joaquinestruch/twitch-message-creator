@@ -74,7 +74,7 @@ function AiChatGenerator() {
       {!obs.isObsMode && <Header />}
 
       <AdBanner
-        adKey="7b6b0557815796b9a0463495207a9fa7"
+        adKey="22b9356eb2dd3193d628264ff2ae6d5c"
         format="iframe"
         height={90}
         width={728}
@@ -83,7 +83,7 @@ function AiChatGenerator() {
 
       <div className="ad-page-layout">
         <AdBanner
-          adKey="9f4efef015cafc796bf969fdfc8d2cc5"
+          adKey="22b9356eb2dd3193d628264ff2ae6d5c"
           format="iframe"
           height={300}
           width={160}
@@ -140,7 +140,7 @@ function AiChatGenerator() {
                   }}
                 />
                 <AdBanner
-                  adKey="67814030039a58aa0669864c58376dfc"
+                  adKey="22b9356eb2dd3193d628264ff2ae6d5c"
                   format="iframe"
                   height={250}
                   width={300}
@@ -186,7 +186,7 @@ function AiChatGenerator() {
         </main>
 
         <AdBanner
-          adKey="db589995e674f18306ba71a948ad2e7c"
+          adKey="22b9356eb2dd3193d628264ff2ae6d5c"
           format="iframe"
           height={600}
           width={160}
@@ -202,7 +202,7 @@ function AiChatGenerator() {
             className="ad-bottom"
           />
           <AdBanner
-            adKey="90024b897148298cd3785fe151ea9109"
+            adKey="22b9356eb2dd3193d628264ff2ae6d5c"
             format="iframe"
             height={50}
             width={320}
