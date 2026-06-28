@@ -71,27 +71,33 @@ export const useImageCapture = () => {
 
       if (!element) return;
 
-      // Remove overflow clipping so html-to-image captures the full content
-      const prevOverflow = element.style.overflow;
-      const prevWhiteSpace = element.style.whiteSpace;
-      element.style.overflow = 'visible';
-      element.style.whiteSpace = 'nowrap';
-      const fullWidth = element.scrollWidth;
-      const fullHeight = element.scrollHeight;
+      // Custom fonts (Comentario1/2) load async; if they aren't ready the text
+      // is measured at the wrong size and the capture gets clipped.
+      if (document.fonts?.ready) {
+        try {
+          await document.fonts.ready;
+        } catch {
+          /* ignore */
+        }
+      }
 
       const restore = patchOklch(element);
       let dataUrl: string;
       try {
+        // Do NOT pass backgroundColor: 'transparent' — html-to-image applies it
+        // to the cloned root, overwriting the .message pill's own #18181b
+        // background, which made the dark pill (and its white text) disappear.
+        // Resetting margin neutralizes margin-top/bottom on .message, which
+        // otherwise shift the content down inside the canvas and clip the bottom.
         dataUrl = await toPng(element, {
-          backgroundColor: 'transparent',
           pixelRatio: 2,
-          width: fullWidth,
-          height: fullHeight,
+          style: {
+            margin: '0',
+            transform: 'none',
+          },
         });
       } finally {
         restore();
-        element.style.overflow = prevOverflow;
-        element.style.whiteSpace = prevWhiteSpace;
       }
 
       const link = document.createElement('a');
