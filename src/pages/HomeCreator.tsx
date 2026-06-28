@@ -26,25 +26,20 @@ function HomeCreator(): JSX.Element {
 
       {/* Side ads + content */}
       <div className="ad-page-layout">
-        <AdBanner
-          adKey="22b9356eb2dd3193d628264ff2ae6d5c"
-          network="effectivecpm"
-          height={300}
-          width={160}
-          className="ad-side-left"
-        />
+        <div className="ad-side-left">
+          <AdBanner adKey="22b9356eb2dd3193d628264ff2ae6d5c" network="effectivecpm" height={250} />
+          <AdBanner adKey="22b9356eb2dd3193d628264ff2ae6d5c" network="effectivecpm" height={250} />
+          <AdBanner adKey="22b9356eb2dd3193d628264ff2ae6d5c" network="effectivecpm" height={250} />
+        </div>
 
         <div className="ad-center-content">
           <Main />
         </div>
 
-        <AdBanner
-          adKey="22b9356eb2dd3193d628264ff2ae6d5c"
-          network="effectivecpm"
-          height={600}
-          width={160}
-          className="ad-side-right"
-        />
+        <div className="ad-side-right">
+          <AdBanner adKey="22b9356eb2dd3193d628264ff2ae6d5c" network="effectivecpm" height={250} />
+          <AdBanner adKey="22b9356eb2dd3193d628264ff2ae6d5c" network="effectivecpm" height={250} />
+        </div>
       </div>
 
       {/* Bottom */}

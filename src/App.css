@@ -166,7 +166,7 @@
 
 .ad-page-layout {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   gap: 8px;
   width: 100%;
@@ -176,6 +176,7 @@
 .ad-side-left,
 .ad-side-right {
   display: flex;
+  flex-direction: column;
   flex-shrink: 0;
   align-self: flex-start;
   position: sticky;
