@@ -9,7 +9,6 @@ function PrivacyPolicy(): JSX.Element {
 
       <AdBanner
         adKey="7b6b0557815796b9a0463495207a9fa7"
-        format="iframe"
         height={90}
         width={728}
         className="ad-top"
@@ -18,7 +17,6 @@ function PrivacyPolicy(): JSX.Element {
       <div className="ad-page-layout">
         <AdBanner
           adKey="9f4efef015cafc796bf969fdfc8d2cc5"
-          format="iframe"
           height={300}
           width={160}
           className="ad-side-left"
@@ -109,7 +107,6 @@ function PrivacyPolicy(): JSX.Element {
 
           <AdBanner
             adKey="67814030039a58aa0669864c58376dfc"
-            format="iframe"
             height={250}
             width={300}
             className="ad-mid"
@@ -117,7 +114,6 @@ function PrivacyPolicy(): JSX.Element {
 
           <AdBanner
             adKey="b8cf93107d603df2727232c920686599"
-            format="iframe"
             height={60}
             width={468}
             className="ad-mid"
@@ -126,7 +122,6 @@ function PrivacyPolicy(): JSX.Element {
 
         <AdBanner
           adKey="db589995e674f18306ba71a948ad2e7c"
-          format="iframe"
           height={600}
           width={160}
           className="ad-side-right"
@@ -141,7 +136,6 @@ function PrivacyPolicy(): JSX.Element {
 
       <AdBanner
         adKey="90024b897148298cd3785fe151ea9109"
-        format="iframe"
         height={50}
         width={320}
         className="ad-bottom"
