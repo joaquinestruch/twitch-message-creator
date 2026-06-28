@@ -71,15 +71,27 @@ export const useImageCapture = () => {
 
       if (!element) return;
 
+      // Remove overflow clipping so html-to-image captures the full content
+      const prevOverflow = element.style.overflow;
+      const prevWhiteSpace = element.style.whiteSpace;
+      element.style.overflow = 'visible';
+      element.style.whiteSpace = 'nowrap';
+      const fullWidth = element.scrollWidth;
+      const fullHeight = element.scrollHeight;
+
       const restore = patchOklch(element);
       let dataUrl: string;
       try {
         dataUrl = await toPng(element, {
           backgroundColor: 'transparent',
           pixelRatio: 2,
+          width: fullWidth,
+          height: fullHeight,
         });
       } finally {
         restore();
+        element.style.overflow = prevOverflow;
+        element.style.whiteSpace = prevWhiteSpace;
       }
 
       const link = document.createElement('a');
