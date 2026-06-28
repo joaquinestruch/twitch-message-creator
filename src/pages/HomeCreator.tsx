@@ -2,7 +2,12 @@ import '@/App.css';
 import Header from '@/components/Header';
 import Main from '@/components/Main';
 import SEO from '@/components/SEO';
-import { AdBanner, NativeAdBanner } from '@/components/AdBanner';
+import { AdBanner } from '@/components/AdBanner';
+
+const AD1 = '//relieved-understanding.com/b.XGV-s/dgGFli0mYxW-ce/VeBmk9huNZvUWl/koPxTYcoxjNXzQYM4YONDDEdtJNczdES3QNsjqg_4/NXQF';
+const AD2 = '//relieved-understanding.com/bdX.Vvscd/G/lY0/YrWJcM/KeBmF9fuaZ_U-lcksPKT/cXxVNszFcbxPNbDskLtCNBzeEV3jNGzUEq1/M-wB';
+const AD3 = '//relieved-understanding.com/beXIVBs/d.Gyl/0rYiWzcm/Fe/mE9JuiZkURl/kUPHTKcPx/NSz/c/x/NNjpUAtVNKz_Ee3nNNzGEj2zOwQX';
+const AD4 = '//relieved-understanding.com/b/X.V/sVdZGUlE0UYZWUcQ/ye/m/9CusZzUolakYPYTfcexrNAz/Y/4mOTToMGt_N/zbEy3-NBjbgp5fNZwL';
 
 function HomeCreator(): JSX.Element {
   return (
@@ -14,23 +19,24 @@ function HomeCreator(): JSX.Element {
       />
       <Header />
 
-      {/* A — 728x90 Leaderboard */}
       <div className="ad-leaderboard-wrap">
-        <AdBanner size="728x90" />
+        <AdBanner src={AD1} />
       </div>
 
       <div className="page-layout">
         <aside className="ad-sidebar">
-          <AdBanner size="160x600" />
+          <AdBanner src={AD2} />
         </aside>
-
         <div className="page-layout-center">
           <Main />
         </div>
-
         <aside className="ad-sidebar">
-          <AdBanner size="160x300" />
+          <AdBanner src={AD3} />
         </aside>
+      </div>
+
+      <div className="ad-leaderboard-wrap">
+        <AdBanner src={AD4} />
       </div>
 
       {/* SEO Content */}
@@ -42,11 +48,6 @@ function HomeCreator(): JSX.Element {
           <strong>Twitch Message Creator</strong> allows you to customize username, colors, badges
           (Mod, VIP, Prime, Sub), and emotes.
         </p>
-
-        {/* D — Native Banner */}
-        <div className="ad-native-wrap">
-          <NativeAdBanner />
-        </div>
 
         <div className="seo-grid">
           <div>
@@ -75,10 +76,9 @@ function HomeCreator(): JSX.Element {
         </div>
       </section>
 
-      {/* E — 468x60 pre-footer */}
-      <div className="ad-prefooter-wrap">
-        <AdBanner size="468x60" />
-      </div>
+      <footer className="site-footer">
+        <a href="/privacy-policy">Privacy Policy</a>
+      </footer>
     </>
   );
 }

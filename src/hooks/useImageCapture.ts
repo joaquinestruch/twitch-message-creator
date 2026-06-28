@@ -107,15 +107,6 @@ export const useImageCapture = () => {
       link.click();
       document.body.removeChild(link);
 
-      // Open monetization link after download — wrapped so it never breaks the button
-      try {
-        window.open(
-          'https://www.effectivecpmnetwork.com/d9qrth1d1?key=64aa3f92eea506cdb2fa20c105512e37',
-          '_blank'
-        );
-      } catch {
-        /* popup blocked or unavailable — ignore */
-      }
     } catch (error) {
       console.error('Error capturing image:', error);
       alert('Could not capture image. Please try again.');

@@ -17,7 +17,10 @@ import StreamPreview from '@/components/StreamPreview';
 import ControlPanel from '@/components/ControlPanel';
 import ChatDisplay from '@/components/ChatDisplay';
 import SEO from '@/components/SEO';
-import { AdBanner, NativeAdBanner } from '@/components/AdBanner';
+import { AdBanner } from '@/components/AdBanner';
+
+const AD1 = '//relieved-understanding.com/b.XGV-s/dgGFli0mYxW-ce/VeBmk9huNZvUWl/koPxTYcoxjNXzQYM4YONDDEdtJNczdES3QNsjqg_4/NXQF';
+const AD4 = '//relieved-understanding.com/b/X.V/sVdZGUlE0UYZWUcQ/ye/m/9CusZzUolakYPYTfcexrNAz/Y/4mOTToMGt_N/zbEy3-NBjbgp5fNZwL';
 
 function AiChatGenerator() {
   // Hooks Integration
@@ -73,7 +76,7 @@ function AiChatGenerator() {
 
       {!obs.isObsMode && (
         <div className="ad-leaderboard-wrap">
-          <AdBanner size="728x90" />
+          <AdBanner src={AD1} />
         </div>
       )}
 
@@ -166,12 +169,6 @@ function AiChatGenerator() {
           )}
       </main>
 
-      {!obs.isObsMode && (
-        <div className="ad-rectangle-wrap" style={{ background: '#0e0e10' }}>
-          <AdBanner size="300x250" />
-        </div>
-      )}
-
       {/* SEO Content Section */}
       <section
         style={{
@@ -194,22 +191,11 @@ function AiChatGenerator() {
           instantly.
         </p>
 
-        {!obs.isObsMode && (
-          <div className="ad-native-wrap">
-            <NativeAdBanner />
-          </div>
-        )}
       </section>
 
       {!obs.isObsMode && (
-        <div className="ad-prefooter-wrap">
-          <AdBanner size="468x60" />
-        </div>
-      )}
-
-      {!obs.isObsMode && (
-        <div className="ad-mobile-sticky">
-          <AdBanner size="320x50" />
+        <div className="ad-leaderboard-wrap">
+          <AdBanner src={AD4} />
         </div>
       )}
     </>

